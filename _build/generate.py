@@ -54,12 +54,36 @@ HEADER = """<a class="skip-link" href="#main">Skip to main content</a>
       </span>
     </a>
     <ul class="nav-links">
-      <li><a href="{ROOT}index.html#services">Services</a></li>
-      <li><a href="{ROOT}index.html#why-us">Why Us</a></li>
-      <li><a href="{ROOT}index.html#growing-together">Growing Together</a></li>
+      <li class="has-sub">
+        <a href="{ROOT}services/index.html">Services <span class="caret" aria-hidden="true">▼</span></a>
+        <ul class="submenu submenu-wide">
+          <li class="sub-all"><a href="{ROOT}services/index.html">ALL SERVICES →</a></li>
+          <li><a href="{ROOT}services/erp-consulting.html">ERP Consulting</a></li>
+          <li><a href="{ROOT}services/enterprise-application-implementation.html">Application Implementation</a></li>
+          <li><a href="{ROOT}services/greenfield-brownfield.html">Greenfield &amp; Brownfield</a></li>
+          <li><a href="{ROOT}services/rollouts-upgrades-migrations.html">Rollouts, Upgrades &amp; Migrations</a></li>
+          <li><a href="{ROOT}services/digital-transformation.html">Digital Transformation</a></li>
+          <li><a href="{ROOT}services/pmo.html">PMO</a></li>
+          <li><a href="{ROOT}services/ams.html">Application Management (AMS)</a></li>
+          <li><a href="{ROOT}services/production-support-enhancements.html">Production Support</a></li>
+          <li><a href="{ROOT}services/analytics-reporting.html">Analytics &amp; Custom Dashboards</a></li>
+          <li><a href="{ROOT}services/training-internships-knowledge-transfer.html">Training &amp; Internships</a></li>
+          <li><a href="{ROOT}services/oracle-multi-erp.html">Oracle &amp; Multi-ERP</a></li>
+          <li><a href="{ROOT}services/ai-integration.html">AI Integration</a></li>
+        </ul>
+      </li>
+      <li class="has-sub">
+        <a href="{ROOT}about/index.html">Company <span class="caret" aria-hidden="true">▼</span></a>
+        <ul class="submenu">
+          <li><a href="{ROOT}about/index.html">About Us</a></li>
+          <li><a href="{ROOT}why-us/index.html">Why Choose Us</a></li>
+          <li><a href="{ROOT}about/index.html#global">Global Presence</a></li>
+          <li><a href="{ROOT}faq/index.html">FAQ</a></li>
+        </ul>
+      </li>
+      <li><a href="{ROOT}growing-together/index.html">Growing Together</a></li>
       <li><a href="{ROOT}insights/index.html">Insights</a></li>
       <li><a href="{ROOT}careers/index.html">Careers</a></li>
-      <li><a href="{ROOT}index.html#faq">FAQ</a></li>
       <li><a href="{ROOT}portal/index.html">Client Portal</a></li>
     </ul>
     <div class="nav-cta">
@@ -85,9 +109,10 @@ FOOTER = """<footer class="site-footer">
       <div>
         <h3 class="foot-h">Company</h3>
         <ul>
-          <li><a href="{ROOT}index.html#who-we-are">Who We Are</a></li>
-          <li><a href="{ROOT}index.html#why-us">Why Choose Us</a></li>
-          <li><a href="{ROOT}index.html#growing-together">Growing Together</a></li>
+          <li><a href="{ROOT}about/index.html">About Us</a></li>
+          <li><a href="{ROOT}why-us/index.html">Why Choose Us</a></li>
+          <li><a href="{ROOT}growing-together/index.html">Growing Together</a></li>
+          <li><a href="{ROOT}faq/index.html">FAQ</a></li>
           <li><a href="{ROOT}careers/index.html">Careers</a></li>
           <li><a href="{ROOT}privacy.html">Privacy Notice</a></li>
           <li><a href="{ROOT}terms.html">Terms of Use</a></li>
@@ -798,17 +823,34 @@ def build_japanese():
   </div>
 </section>
 """
-    # JA page needs its own header (labels in Japanese, switcher back to EN)
-    ja_header = HEADER.replace('href="{ROOT}ja/index.html" lang="ja" hreflang="ja">日本語',
-                               'href="{ROOT}index.html" lang="en" hreflang="en">English') \
-                      .replace('<li><a href="{ROOT}index.html#services">Services</a></li>', '<li><a href="#services">サービス</a></li>') \
-                      .replace('<li><a href="{ROOT}index.html#why-us">Why Us</a></li>', '<li><a href="#why">選ばれる理由</a></li>') \
-                      .replace('<li><a href="{ROOT}index.html#growing-together">Growing Together</a></li>', '') \
-                      .replace('<li><a href="{ROOT}insights/index.html">Insights</a></li>', '<li><a href="{ROOT}insights/index.html">インサイト</a></li>') \
-                      .replace('<li><a href="{ROOT}careers/index.html">Careers</a></li>', '<li><a href="{ROOT}careers/index.html">採用情報</a></li>') \
-                      .replace('<li><a href="{ROOT}index.html#faq">FAQ</a></li>', '') \
-                      .replace('<li><a href="{ROOT}portal/index.html">Client Portal</a></li>', '<li><a href="{ROOT}portal/index.html">クライアントポータル</a></li>') \
-                      .replace('>Contact</a>', '>お問い合わせ</a>')
+    # JA page has its own explicit header (Japanese labels, switcher back to EN)
+    ja_header = """<a class="skip-link" href="#main">メインコンテンツへ</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="{ROOT}ja/index.html" aria-label="SS ERP Solutions — ホーム">
+      """ + LOGO_SVG + """
+      <span>
+        <span class="brand-name">SS ERP Solutions</span><br>
+        <span class="brand-tag">Implement | Optimize | Transform</span>
+      </span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services">サービス</a></li>
+      <li><a href="#why">選ばれる理由</a></li>
+      <li><a href="#global">グローバル展開</a></li>
+      <li><a href="{ROOT}insights/index.html">インサイト</a></li>
+      <li><a href="{ROOT}careers/index.html">採用情報</a></li>
+      <li><a href="{ROOT}portal/index.html">クライアントポータル</a></li>
+    </ul>
+    <div class="nav-cta">
+      <button class="theme-toggle" aria-label="テーマ切り替え">☀</button>
+      <a class="lang-switch" href="{ROOT}index.html" lang="en" hreflang="en">English</a>
+      <a class="btn btn-gold" href="{ROOT}contact/index.html">お問い合わせ</a>
+      <button class="nav-toggle" aria-label="メニュー" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+"""
     saved = HEADER
     HEADER = ja_header
     extra = '<link rel="alternate" hreflang="en" href="https://www.sserpsolutions.net/">\n<link rel="alternate" hreflang="ja" href="https://www.sserpsolutions.net/ja/">\n'
@@ -908,6 +950,304 @@ def build_privacy():
          "privacy.html", body, root="", floats=False)
 
 
+# ---------------------------------------------------------------- split-out pages (menu restructure, client 2026-07-26)
+
+def build_services_index():
+    cards = "\n".join("""
+      <a class="service-card reveal" href="%s.html">
+        <span class="service-num">%s</span>
+        <h3>%s</h3>
+        <p>%s</p>
+      </a>""" % (s["slug"], s["num"], s["name"], s["tag"]) for s in SERVICES)
+    body = """
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="{ROOT}index.html">Home</a> / Services</p>
+    <span class="eyebrow">What We Do</span>
+    <h1>Twelve service lines. One standard of delivery.</h1>
+    <p class="lead">From first blueprint to long-term support, every engagement follows the same discipline: understand the process before touching the technology.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="services-grid">""" + cards + """
+    </div>
+  </div>
+</section>
+"""
+    wrap("services/index.html", "Services — SS ERP Solutions",
+         "Twelve service lines: SAP and Oracle ERP consulting, implementation, rollouts, AMS, analytics and custom dashboards, AI integration, and training.",
+         "services/", body)
+
+
+def build_about():
+    body = """
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="{ROOT}index.html">Home</a> / Company / About Us</p>
+    <span class="eyebrow">Who We Are</span>
+    <h1>Built on trust. Grown by referral.</h1>
+  </div>
+</section>
+<section class="section">
+  <div class="container split">
+    <div class="reveal">
+      <p class="lead">SS ERP Solutions was founded in 2018 on a simple conviction: enterprise technology work should be done properly, or not at all.</p>
+      <p style="margin-top:16px;">We have grown entirely through trust: every engagement we hold today traces back to a client who trusted us with something difficult — and then told someone else. It is a patient way to build a company, and the right one.</p>
+      <p>From our roots in India we support organisations across Japan, the UAE and Singapore — and we are expanding globally, with a delivery model built to serve clients anywhere: implementing and optimising enterprise systems, running transformation programmes, and keeping mission-critical applications healthy long after go-live.</p>
+      <p>We hold ourselves to high professional standards, and we commit only to work we are confident we can deliver.</p>
+    </div>
+    <figure class="figure-card reveal">
+      <div class="ph" style="flex-direction:column;gap:18px;"><img src="{ROOT}assets/logo-mark.png" alt="SS ERP Solutions" width="110" height="107" style="opacity:0.9;"><span style="letter-spacing:0.22em;">IMPLEMENT | OPTIMIZE | TRANSFORM</span></div>
+      <figcaption>One team, one delivery standard — from Chennai to Tokyo, Dubai and Singapore.</figcaption>
+    </figure>
+  </div>
+</section>
+<section class="section section-alt" id="global">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Global Presence</span>
+      <h2>Rooted in India. Delivering worldwide.</h2>
+      <p>Active today across India, Japan, the UAE and Singapore — and built to serve clients anywhere, with distributed teams, follow-the-sun support and remote-first delivery.</p>
+    </div>
+    <div class="globe-wrap reveal">
+      <img src="{ROOT}assets/worldmap.svg" alt="Map showing SS ERP Solutions presence in India, Japan, UAE and Singapore" style="width:100%;height:auto;">
+      <div class="country-chips">
+        <span class="country-chip">India — delivery &amp; consulting hub</span>
+        <span class="country-chip">Japan — 日本語 client services</span>
+        <span class="country-chip">UAE — Gulf enterprise clients</span>
+        <span class="country-chip">Singapore — APAC engagements</span>
+        <span class="country-chip">Expanding globally — remote-first delivery worldwide</span>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section" id="vision-mission">
+  <div class="container">
+    <div class="vm-grid">
+      <div class="vm-card vision reveal">
+        <h3><span>◆</span> Our Vision</h3>
+        <p>To be the consulting partner enterprises trust with their most important technology decisions — known for keeping every promise we make.</p>
+      </div>
+      <div class="vm-card mission reveal">
+        <h3><span>◆</span> Our Mission</h3>
+        <p>To deliver practical, high-quality enterprise solutions through the right teams and honest advice — and to grow the people we work with, on our clients' side and our own, with every engagement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+"""
+    wrap("about/index.html", "About Us — SS ERP Solutions",
+         "SS ERP Solutions: founded 2018, grown by client trust and referral, rooted in India and serving clients across Japan, the UAE, Singapore and worldwide.",
+         "about/", body)
+
+
+def build_whyus():
+    body = """
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="{ROOT}index.html">Home</a> / Company / Why Choose Us</p>
+    <span class="eyebrow">Why Choose Us</span>
+    <h1>The best team you can put on an enterprise programme</h1>
+    <p class="lead">That is the standard we hold ourselves to — and these five commitments are how we prove it, on every engagement.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="commit-list reveal">
+      <div class="commit">
+        <div class="commit-num">01</div>
+        <div>
+          <h3>We deliver only what we are confident we can deliver</h3>
+          <p>We check capability and capacity honestly before the contract is signed. Scope we accept is scope we complete.</p>
+        </div>
+      </div>
+      <div class="commit">
+        <div class="commit-num">02</div>
+        <div>
+          <h3>We build the right teams</h3>
+          <p>Every engagement is staffed with consultants matched to the problem — the right modules, the right industry exposure, the right seniority — assembled for your problem from the first workshop.</p>
+        </div>
+      </div>
+      <div class="commit">
+        <div class="commit-num">03</div>
+        <div>
+          <h3>We value long-term relationships</h3>
+          <p>Most of our clients have worked with us across multiple projects. We optimise for the relationship that continues long after go-live.</p>
+        </div>
+      </div>
+      <div class="commit">
+        <div class="commit-num">04</div>
+        <div>
+          <h3>We build practical, high-quality solutions</h3>
+          <p>Fit-for-purpose beats over-engineered. We design for the people who will run the system on a Tuesday afternoon.</p>
+        </div>
+      </div>
+      <div class="commit">
+        <div class="commit-num">05</div>
+        <div>
+          <h3>We never stop learning</h3>
+          <p>The SAP landscape moves; so do we. Continuous certification, internal knowledge sessions and honest post-project reviews keep our standards current.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">What Clients Say</span>
+      <h2>In our clients' words</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars" aria-hidden="true">★★★★★</div>
+        <p class="testi-quote">"They told us in week two that our original scope was wrong — and they were right. That honesty saved the programme."</p>
+        <div class="testi-who">
+          <div class="name">Chief Financial Officer</div>
+          <div class="role">Manufacturing group, India · S/4HANA implementation</div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars" aria-hidden="true">★★★★★</div>
+        <p class="testi-quote">"Three years after go-live, the same team still supports us. That continuity is why we keep coming back."</p>
+        <div class="testi-who">
+          <div class="name">Head of IT</div>
+          <div class="role">Trading company, Japan · AMS partnership</div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars" aria-hidden="true">★★★★★</div>
+        <p class="testi-quote">"Our rollout covered four countries and met every statutory deadline. The PMO discipline was exceptional."</p>
+        <div class="testi-who">
+          <div class="name">Programme Director</div>
+          <div class="role">Enterprise group, UAE · Multi-country rollout</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:40px;" class="reveal">
+      <a class="btn btn-gold" href="{ROOT}contact/index.html">Start a conversation</a>
+    </div>
+  </div>
+</section>
+"""
+    wrap("why-us/index.html", "Why Choose Us — SS ERP Solutions",
+         "Five commitments kept on every engagement: honest scope, the right teams, long-term relationships, practical solutions and continuous learning.",
+         "why-us/", body)
+
+
+def build_growing():
+    body = """
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="{ROOT}index.html">Home</a> / Growing Together</p>
+    <span class="eyebrow">Growing Together</span>
+    <h1>We grow people alongside systems</h1>
+    <p class="lead">The consulting industry runs on talent. We invest in it deliberately — for our clients' teams, for young professionals entering the field, and for our own people.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="grow-grid">
+      <div class="grow-card reveal">
+        <span class="ico" aria-hidden="true">◆</span>
+        <h3>SAP Training Programmes</h3>
+        <p>Structured, practitioner-led training in SAP functional and technical modules — taught by consultants who deliver client projects every week.</p>
+      </div>
+      <div class="grow-card reveal">
+        <span class="ico" aria-hidden="true">◆</span>
+        <h3>Internships</h3>
+        <p>Real project exposure for graduates and early-career professionals, with mentoring that treats interns as future colleagues.</p>
+      </div>
+      <div class="grow-card reveal">
+        <span class="ico" aria-hidden="true">◆</span>
+        <h3>Mentoring</h3>
+        <p>One-to-one guidance from senior consultants on career paths, specialisation choices and the habits that make great consultants.</p>
+      </div>
+      <div class="grow-card reveal">
+        <span class="ico" aria-hidden="true">◆</span>
+        <h3>Certification Guidance</h3>
+        <p>Practical advice on which SAP certifications matter for your goals, and how to prepare for them efficiently.</p>
+      </div>
+      <div class="grow-card reveal">
+        <span class="ico" aria-hidden="true">◆</span>
+        <h3>Practical Project Exposure</h3>
+        <p>Learning by doing — supervised work on live project artefacts, sandboxes and realistic case scenarios.</p>
+      </div>
+      <div class="grow-card reveal">
+        <span class="ico" aria-hidden="true">◆</span>
+        <h3>Knowledge Transfer</h3>
+        <p>Every engagement ends with your team stronger: documented, demonstrated and handed over properly.</p>
+      </div>
+    </div>
+    <div style="margin-top:40px;display:flex;gap:16px;flex-wrap:wrap;" class="reveal">
+      <a class="btn btn-maroon" href="{ROOT}services/training-internships-knowledge-transfer.html">Training &amp; internship programmes</a>
+      <a class="btn btn-outline" href="{ROOT}careers/index.html">Join the team</a>
+    </div>
+  </div>
+</section>
+"""
+    wrap("growing-together/index.html", "Growing Together — SS ERP Solutions",
+         "SAP training, internships, mentoring, certification guidance and knowledge transfer — the people-development side of SS ERP Solutions.",
+         "growing-together/", body)
+
+
+FAQS = [
+ ("What services does SS ERP Solutions provide?",
+  "We provide twelve service lines across the enterprise technology lifecycle: ERP consulting, enterprise application implementation, greenfield and brownfield projects, rollouts, upgrades and migrations, digital transformation, PMO, application management services (AMS), production support and enhancements, analytics, reporting and custom dashboards, SAP training, internships and knowledge transfer, Oracle and multi-ERP solutions, and AI integration and intelligent automation."),
+ ("Which ERP platforms and modules do you work with?",
+  "Our deepest expertise is SAP: S/4HANA, ECC and Business One, with functional depth in FICO, Group Reporting, Central Finance, Treasury, RAR, MM, SD, PP, QM and PM, analytics on SAP Analytics Cloud (SAC), and technical capability in ABAP and BASIS. We also implement and support Oracle Fusion Cloud ERP, Oracle NetSuite and other leading platforms such as Microsoft Dynamics 365 where they are the better fit, and build custom dashboards and AI integrations across all of them."),
+ ("Which countries do you operate in?",
+  "We are headquartered in India with active engagements across Japan, the UAE and Singapore, and we are expanding globally — our remote-first delivery model serves clients worldwide. Our Japan client base is served in Japanese, and this website is available in a Japanese-language version."),
+ ("Do you handle S/4HANA migrations from SAP ECC?",
+  "Yes. We deliver both greenfield S/4HANA implementations and brownfield system conversions from ECC, including assessment, roadmap, data migration, custom-code remediation and post-go-live support. The right path depends on your landscape — we assess before we recommend."),
+ ("Can you support our SAP system after go-live?",
+  "Yes. Our application management services (AMS) and production support offerings provide ongoing incident resolution, monitoring, small enhancements and periodic health checks under defined service levels — for systems we implemented and for systems we didn't."),
+ ("Do you offer SAP training and internships?",
+  "Yes — this is our Growing Together programme. We run practitioner-led SAP training, structured internships with real project exposure, mentoring, and certification guidance for graduates and working professionals."),
+ ("How do your engagements usually start?",
+  "With a conversation. We start by understanding your processes, landscape and goals — typically a short discovery discussion followed by a written proposal with honest scope, team and timeline. We commit only to work we are confident we can deliver."),
+ ("How can we contact SS ERP Solutions?",
+  "Use the contact form on this site, email us at " + EMAIL + ", or reach us instantly through the WhatsApp chat button. We respond to every serious enquiry."),
+]
+
+
+def build_faq():
+    import json as _json
+    items = "\n".join("""
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">%s<span class="chev">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">%s</div></div>
+      </div>""" % (q, a) for q, a in FAQS)
+    ld = _json.dumps({
+        "@context": "https://schema.org", "@type": "FAQPage",
+        "mainEntity": [{"@type": "Question", "name": q,
+                        "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in FAQS]
+    }, ensure_ascii=False)
+    body = """
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="{ROOT}index.html">Home</a> / Company / FAQ</p>
+    <span class="eyebrow">FAQ</span>
+    <h1>Questions we're asked most</h1>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="faq-list reveal">""" + items + """
+    </div>
+    <div style="margin-top:36px;" class="reveal">
+      <a class="btn btn-gold" href="{ROOT}contact/index.html">Ask us something else</a>
+    </div>
+  </div>
+</section>
+<script type="application/ld+json">""" + ld + """</script>
+"""
+    wrap("faq/index.html", "FAQ — SS ERP Solutions",
+         "Frequently asked questions about SS ERP Solutions: services, SAP and Oracle platform coverage, countries, S/4HANA migrations, support and training.",
+         "faq/", body)
+
+
 # ---------------------------------------------------------------- 404 & terms
 
 def build_404():
@@ -968,7 +1308,8 @@ def build_assets():
     print("wrote assets/favicon.svg")
 
     base = "https://www.sserpsolutions.net/"
-    urls = ["", "ja/", "insights/", "careers/", "contact/", "privacy.html", "terms.html"]
+    urls = ["", "ja/", "services/", "about/", "why-us/", "growing-together/", "faq/",
+            "insights/", "careers/", "contact/", "privacy.html", "terms.html"]
     urls += ["services/%s.html" % s["slug"] for s in SERVICES]
     urls += ["insights/%s.html" % a["slug"] for a in ARTICLES]
     sm = ['<?xml version="1.0" encoding="UTF-8"?>',
@@ -1026,6 +1367,11 @@ def build_assets():
 
 
 if __name__ == "__main__":
+    build_services_index()
+    build_about()
+    build_whyus()
+    build_growing()
+    build_faq()
     build_services()
     build_insights()
     build_careers()
