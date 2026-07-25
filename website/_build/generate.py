@@ -475,7 +475,7 @@ def build_careers():
   <div class="container">
     <p class="breadcrumb"><a href="{ROOT}index.html">Home</a> / Careers</p>
     <span class="eyebrow">Careers</span>
-    <h1>Do career-defining work — properly</h1>
+    <h1>Do the best work of your career — properly</h1>
     <p class="lead">We hire consultants who care how the work is done: honest scoping, real expertise, long client relationships. If that sounds like you, we'd like to meet you.</p>
   </div>
 </section>
@@ -759,7 +759,7 @@ def build_japanese():
   <div class="container">
     <div class="section-head reveal">
       <span class="eyebrow">選ばれる理由</span>
-      <h2>私たちが守り続ける5つの約束</h2>
+      <h2>エンタープライズ・プログラムを任せられる、最高のチームであるために</h2>
     </div>
     <div class="commit-list reveal">
       <div class="commit"><div class="commit-num">01</div><div><h3>確実に提供できる仕事だけをお引き受けします</h3><p>契約の前に、能力と体制を正直に見極めたうえでお引き受けします。</p></div></div>
@@ -863,7 +863,7 @@ def build_campaign():
   <div class="container" style="max-width:820px;">
     <div class="section-head">
       <h2>[Section: why this matters / what you get]</h2>
-      <p>[Two or three short paragraphs of campaign-specific substance. Keep the honest, no-superlatives tone of the brand: state what we do and for whom, not that we are 'the best'.]</p>
+      <p>[Two or three short paragraphs of campaign-specific substance. Confident, specific copy: lead with the strongest true claim this campaign can make — every figure and reference must be real and defensible.]</p>
     </div>
     <div style="display:flex;gap:16px;flex-wrap:wrap;">
       <a class="btn btn-gold" href="#top">[Repeat campaign CTA]</a>
