@@ -18,8 +18,9 @@ python -m http.server 8080
 
 | Area | Path | Notes |
 |---|---|---|
-| Homepage (12 PRD sections + testimonials) | `index.html` | Hero particle wave, word wheel, animated counters, dual tech marquee, FAQ accordion + FAQPage JSON-LD |
-| Service pages (12) | `services/*.html` | Ten PRD service lines **+ Oracle & Multi-ERP + AI Integration** (client instruction, 25 Jul) |
+| Homepage (marketing landing) | `index.html` | Hero, counters, 6 featured services, marquees, teasers + testimonials; full content lives on dedicated pages (client restructure 26 Jul: dropdown menus, no single-page site) |
+| Services overview + 12 detail pages | `services/` | Ten PRD service lines **+ Oracle & Multi-ERP + AI Integration** |
+| Company pages | `about/`, `why-us/`, `faq/`, `growing-together/` | About (story, global map, vision/mission), commitments + testimonials, FAQ w/ JSON-LD, people development |
 | Insights | `insights/` | 3 starter articles (drafts for client review) + pending case-study card |
 | Careers | `careers/` | 3 sample roles (placeholders) + application form |
 | Contact | `contact/` | Spam-protected form (honeypot), direct contacts, WhatsApp |
