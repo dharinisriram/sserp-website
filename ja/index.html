@@ -13,7 +13,9 @@
 <meta property="og:site_name" content="SS ERP Solutions">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 <script>document.documentElement.classList.add("js");(function(){try{var t=localStorage.getItem("sserp-theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t);}}catch(e){}})();</script>
 <link rel="stylesheet" href="../css/styles.css">
 <link rel="icon" type="image/png" href="../assets/logo-mark.png">
@@ -58,8 +60,8 @@
   <div class="hero-fade" aria-hidden="true"></div>
   <div class="container hero-inner">
     <span class="eyebrow">エンタープライズ・テクノロジー・コンサルティング</span>
-    <h1>導入<span class="dot">。</span>最適化<span class="dot">。</span>変革<span class="dot">。</span></h1>
-    <p class="hero-sub">ERPは事業を支えるためのもの——負担にするものではありません。SS ERP Solutionsは、深いSAPの専門知識と、信頼と紹介によって築かれた確かなデリバリー基準で、現場が本当に使えるエンタープライズ・ソリューションを計画・構築・運用します。</p>
+    <h1 style="font-size:clamp(2rem,4.6vw,3.4rem);">ERPは、事業を<span class="gold">前へ進める</span>力になる。</h1>
+    <p class="hero-sub">SS ERP Solutionsは、深いSAPの専門知識、OracleをはじめとするマルチERP対応力、カスタムダッシュボードと実用的なAIを、信頼と紹介によって築かれた確かなデリバリー基準でお届けします。現場が本当に使えるエンタープライズ・ソリューションを計画・構築・運用します。</p>
     <div class="hero-actions">
       <a class="btn btn-gold" href="#contact">お問い合わせ</a>
       <a class="btn btn-outline" href="#services">サービスを見る</a>
@@ -108,10 +110,10 @@
       <h2>私たちが守り続ける5つの約束</h2>
     </div>
     <div class="commit-list reveal">
-      <div class="commit"><div class="commit-num">01</div><div><h3>確実に提供できる仕事だけをお引き受けします</h3><p>能力や体制が伴わない場合は、契約の前に正直に申し上げます。</p></div></div>
+      <div class="commit"><div class="commit-num">01</div><div><h3>確実に提供できる仕事だけをお引き受けします</h3><p>契約の前に、能力と体制を正直に見極めたうえでお引き受けします。</p></div></div>
       <div class="commit"><div class="commit-num">02</div><div><h3>最適なチームを編成します</h3><p>案件ごとに、適切なモジュール経験・業界知識・経験年数を持つコンサルタントを配置します。</p></div></div>
       <div class="commit"><div class="commit-num">03</div><div><h3>長期的な関係を大切にします</h3><p>ゴーライブ後の関係を最優先に考えます。多くのお客様と複数プロジェクトを重ねています。</p></div></div>
-      <div class="commit"><div class="commit-num">04</div><div><h3>実用的で高品質なソリューションを構築します</h3><p>過剰設計ではなく、目的に適った設計。実際に運用する方々のために作ります。</p></div></div>
+      <div class="commit"><div class="commit-num">04</div><div><h3>実用的で高品質なソリューションを構築します</h3><p>目的に適った設計を第一に、実際に運用する方々のために作ります。</p></div></div>
       <div class="commit"><div class="commit-num">05</div><div><h3>学び続けます</h3><p>継続的な資格取得、社内勉強会、率直なプロジェクト振り返りで基準を保ちます。</p></div></div>
     </div>
   </div>
@@ -149,14 +151,14 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a class="brand" href="../index.html">
+        <a class="brand" href="../index.html" aria-label="SS ERP Solutions — home">
           <img src="../assets/logo-mark.png" alt="" width="41" height="40" style="display:block;">
           <span><span class="brand-name">SS ERP Solutions</span><br><span class="brand-tag">Implement | Optimize | Transform</span></span>
         </a>
         <p>Enterprise technology consulting across India, Japan, the UAE and Singapore.</p>
       </div>
       <div>
-        <h4>Company</h4>
+        <h3 class="foot-h">Company</h3>
         <ul>
           <li><a href="../index.html#who-we-are">Who We Are</a></li>
           <li><a href="../index.html#why-us">Why Choose Us</a></li>
@@ -167,7 +169,7 @@
         </ul>
       </div>
       <div>
-        <h4>Services</h4>
+        <h3 class="foot-h">Services</h3>
         <ul>
           <li><a href="../services/erp-consulting.html">ERP Consulting</a></li>
           <li><a href="../services/enterprise-application-implementation.html">Implementation</a></li>
@@ -179,7 +181,7 @@
         </ul>
       </div>
       <div>
-        <h4>Connect</h4>
+        <h3 class="foot-h">Connect</h3>
         <ul>
           <li><a href="../insights/index.html">Insights</a></li>
           <li><a href="../contact/index.html">Contact</a></li>
