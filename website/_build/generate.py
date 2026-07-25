@@ -1,0 +1,1038 @@
+# -*- coding: utf-8 -*-
+"""SS ERP Solutions website — page generator.
+Generates every page except index.html from shared layout templates,
+so header/footer/nav stay consistent. Re-run after editing:
+    python _build/generate.py
+"""
+import os
+
+SITE = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))
+EMAIL = "support@sserpsolutions.net"
+WHATSAPP = "https://wa.me/910000000000"  # WhatsApp business number pending (PRD §10)
+
+# ---------------------------------------------------------------- layout
+
+HEAD = """<!DOCTYPE html>
+<html lang="{LANG}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{TITLE}</title>
+<meta name="description" content="{DESC}">
+<link rel="canonical" href="https://www.sserpsolutions.net/{CANON}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{TITLE}">
+<meta property="og:description" content="{DESC}">
+<meta property="og:url" content="https://www.sserpsolutions.net/{CANON}">
+<meta property="og:site_name" content="SS ERP Solutions">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add("js");(function(){try{var t=localStorage.getItem("sserp-theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t);}}catch(e){}})();</script>
+<link rel="stylesheet" href="{ROOT}css/styles.css">
+<link rel="icon" type="image/png" href="{ROOT}assets/logo-mark.png">
+<link rel="manifest" href="{ROOT}site.webmanifest">
+<meta name="theme-color" content="#0B1220">
+<meta property="og:image" content="https://www.sserpsolutions.net/assets/og-image.png">
+{EXTRA_HEAD}</head>
+<body>
+"""
+
+# Official interlocking-S mark, extracted from the brand lockup on the PRD cover
+LOGO_SVG = """<img src="{ROOT}assets/logo-mark.png" alt="" width="41" height="40" style="display:block;">"""
+
+HEADER = """<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="{ROOT}index.html" aria-label="SS ERP Solutions — home">
+      """ + LOGO_SVG + """
+      <span>
+        <span class="brand-name">SS ERP Solutions</span><br>
+        <span class="brand-tag">Implement | Optimize | Transform</span>
+      </span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="{ROOT}index.html#services">Services</a></li>
+      <li><a href="{ROOT}index.html#why-us">Why Us</a></li>
+      <li><a href="{ROOT}index.html#growing-together">Growing Together</a></li>
+      <li><a href="{ROOT}insights/index.html">Insights</a></li>
+      <li><a href="{ROOT}careers/index.html">Careers</a></li>
+      <li><a href="{ROOT}index.html#faq">FAQ</a></li>
+      <li><a href="{ROOT}portal/index.html">Client Portal</a></li>
+    </ul>
+    <div class="nav-cta">
+      <button class="theme-toggle" aria-label="Toggle dark or light theme">☀</button>
+      <a class="lang-switch" href="{ROOT}ja/index.html" lang="ja" hreflang="ja">日本語</a>
+      <a class="btn btn-gold" href="{ROOT}contact/index.html">Contact</a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+"""
+
+FOOTER = """<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="{ROOT}index.html">
+          """ + LOGO_SVG + """
+          <span><span class="brand-name">SS ERP Solutions</span><br><span class="brand-tag">Implement | Optimize | Transform</span></span>
+        </a>
+        <p>Enterprise technology consulting across India, Japan, the UAE and Singapore.</p>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="{ROOT}index.html#who-we-are">Who We Are</a></li>
+          <li><a href="{ROOT}index.html#why-us">Why Choose Us</a></li>
+          <li><a href="{ROOT}index.html#growing-together">Growing Together</a></li>
+          <li><a href="{ROOT}careers/index.html">Careers</a></li>
+          <li><a href="{ROOT}privacy.html">Privacy Notice</a></li>
+          <li><a href="{ROOT}terms.html">Terms of Use</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="{ROOT}services/erp-consulting.html">ERP Consulting</a></li>
+          <li><a href="{ROOT}services/enterprise-application-implementation.html">Implementation</a></li>
+          <li><a href="{ROOT}services/rollouts-upgrades-migrations.html">Rollouts &amp; Upgrades</a></li>
+          <li><a href="{ROOT}services/ams.html">AMS &amp; Support</a></li>
+          <li><a href="{ROOT}services/oracle-multi-erp.html">Oracle &amp; Multi-ERP</a></li>
+          <li><a href="{ROOT}services/analytics-reporting.html">Analytics &amp; Dashboards</a></li>
+          <li><a href="{ROOT}services/ai-integration.html">AI Integration</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="{ROOT}insights/index.html">Insights</a></li>
+          <li><a href="{ROOT}contact/index.html">Contact</a></li>
+          <li><a href="{ROOT}portal/index.html">Client Portal</a></li>
+          <li><a href="https://www.linkedin.com/" rel="noopener" target="_blank">LinkedIn</a></li>
+          <li><a href="{ROOT}ja/index.html" lang="ja">日本語</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 SS ERP Solutions. All rights reserved.</span>
+      <span>Implement | Optimize | Transform</span>
+    </div>
+  </div>
+</footer>
+"""
+
+FLOAT = """<button class="back-top" aria-label="Back to top">↑</button>
+<div class="cookie-bar" role="region" aria-label="Privacy notice">
+  <div class="container">
+    <p>This site stores your theme preference in your browser and, at go-live, will use privacy-respecting analytics to measure visits. Form data goes only to our official mailbox. See the <a href="{ROOT}privacy.html">privacy notice</a>.</p>
+    <button class="btn btn-gold" data-cookie-ok type="button">Got it</button>
+  </div>
+</div>
+<div class="chat-panel" role="dialog" aria-label="Live chat">
+  <h3>Live chat</h3>
+  <p>The live-chat widget (third-party, free tier) is embedded here at go-live. For now, reach us on WhatsApp or by email — we reply quickly.</p>
+  <a class="btn btn-gold" style="width:100%; justify-content:center;" href="mailto:""" + EMAIL + """\">Email us instead</a>
+</div>
+<div class="float-actions">
+  <button class="float-btn chat" aria-label="Open live chat">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#0B1220" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+  </button>
+  <a class="float-btn whatsapp" aria-label="Chat on WhatsApp" href=\"""" + WHATSAPP + """\" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="#fff"><path d="M17.5 14.4c-.3-.15-1.75-.86-2-.96-.27-.1-.47-.15-.66.15-.2.3-.77.96-.94 1.15-.17.2-.35.22-.64.08-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.04-.17-.3-.02-.46.13-.6.13-.14.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.66-1.6-.9-2.18-.24-.58-.5-.5-.66-.5h-.56c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.9 1.22 3.1.15.2 2.1 3.2 5.08 4.5.7.3 1.26.5 1.7.63.7.23 1.35.2 1.86.12.57-.08 1.75-.72 2-1.4.24-.7.24-1.3.17-1.42-.08-.13-.28-.2-.57-.35zM12.05 21.8h-.02a9.87 9.87 0 0 1-5.03-1.38l-.36-.2-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.9-9.88a9.82 9.82 0 0 1 7 2.9 9.82 9.82 0 0 1 2.9 7c0 5.45-4.45 9.88-9.9 9.88zm8.42-18.3A11.8 11.8 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.9c0 2.1.55 4.15 1.6 5.95L.06 24l6.3-1.65a11.9 11.9 0 0 0 5.68 1.45h.01c6.55 0 11.9-5.34 11.9-11.9 0-3.18-1.24-6.17-3.48-8.4z"/></svg>
+  </a>
+</div>
+"""
+
+SCRIPTS = """<script src="{ROOT}js/main.js"></script>
+</body>
+</html>
+"""
+
+
+def wrap(path, title, desc, canon, body, root="../", lang="en", floats=True, chrome=True, extra_head=""):
+    html = HEAD.replace("{TITLE}", title).replace("{DESC}", desc).replace("{CANON}", canon) \
+               .replace("{LANG}", lang).replace("{EXTRA_HEAD}", extra_head)
+    if chrome:
+        html += HEADER
+    html += '<main id="main">\n' + body + "\n</main>\n"
+    if chrome:
+        html += FOOTER
+    if floats:
+        html += FLOAT
+    html += SCRIPTS
+    html = html.replace("{ROOT}", root)
+    full = os.path.join(SITE, path)
+    os.makedirs(os.path.dirname(full), exist_ok=True)
+    with open(full, "w", encoding="utf-8") as f:
+        f.write(html)
+    print("wrote", path)
+
+
+def li(items):
+    return "\n".join("<li>%s</li>" % i for i in items)
+
+
+# ---------------------------------------------------------------- services
+
+SERVICES = [
+ dict(slug="erp-consulting", num="01", name="ERP Consulting",
+  tag="Independent advice on ERP strategy, selection and roadmaps — grounded in how your business actually runs.",
+  intro=["An ERP decision outlives the people who make it. The platform you choose — and the processes you design around it — will shape how your organisation works for a decade. We help you make that decision with clear eyes: what you need, what it will really cost, and what it will take to land.",
+         "We are practitioners, not analysts. The consultants who write your roadmap are the same people who have implemented, migrated and supported these systems — so the advice is grounded in delivery reality, not slideware."],
+  approach=["<strong>Process audit first.</strong> We map how your business actually operates today — order-to-cash, procure-to-pay, record-to-report — before any technology talk.",
+            "<strong>Requirements before vendors.</strong> Selection criteria come from your processes and growth plans, not from a feature checklist.",
+            "<strong>Honest fit assessment.</strong> We tell you which gaps are configuration, which are customisation, and which should change your process instead.",
+            "<strong>A roadmap you can execute.</strong> Phasing, team shape, budget ranges and risks — written so your board can act on it."],
+  engagements=["ERP strategy and platform selection for a first ERP or a replacement", "S/4HANA readiness assessments and migration roadmaps", "Health checks of existing implementations that underperform", "Business-case development for transformation programmes"],
+  outcomes=["A decision your leadership can defend, with the trade-offs on paper", "Realistic budget and timeline ranges before you commit", "Reduced implementation risk because the groundwork happened first"]),
+
+ dict(slug="enterprise-application-implementation", num="02", name="Enterprise Application Implementation",
+  tag="End-to-end implementation of SAP and enterprise applications — scoped honestly, staffed properly, delivered to plan.",
+  intro=["A good implementation is mostly decided before the first configuration screen: honest scope, the right team, and a plan that respects how your people work. We run implementations with those three things in place from day one.",
+         "Our teams cover the full SAP core — FICO, MM, SD, PP, QM, PM — with ABAP and BASIS capability in-house, so functional and technical decisions are made together, not thrown over a wall."],
+  approach=["<strong>Blueprint against reality.</strong> Design workshops run with the people who will use the system, not just the steering committee.",
+            "<strong>Build in visible increments.</strong> Regular playbacks of working configuration — no six-month silence followed by a surprise.",
+            "<strong>Data taken seriously.</strong> Migration is planned from week one: mapping, cleansing, mock loads, reconciliation.",
+            "<strong>Cutover as a rehearsed event.</strong> Documented runbooks, rehearsals and rollback plans before go-live weekend.",
+            "<strong>Hypercare that stays.</strong> Structured post-go-live support until the system is genuinely stable — not until the invoice clears."],
+  engagements=["Full-cycle SAP S/4HANA and SAP Business One implementations", "Module additions to a running landscape (e.g. Treasury, RAR, Group Reporting)", "Rescue of stalled or troubled implementations", "Integration of SAP with surrounding enterprise applications"],
+  outcomes=["A system your teams actually use, adopted with training and change support", "Opening balances that reconcile on day one", "Documentation and knowledge transfer your team keeps"]),
+
+ dict(slug="greenfield-brownfield", num="03", name="Greenfield & Brownfield Projects",
+  tag="New builds and system conversions — including S/4HANA journeys that protect what works and fix what doesn't.",
+  intro=["The greenfield-versus-brownfield question has no universal answer. A clean reimplementation buys you simplicity at the price of disruption; a system conversion preserves your history at the price of carrying old decisions forward. We help you choose on evidence, then deliver either path.",
+         "For S/4HANA journeys specifically, we assess your custom code, data volumes, process debt and business appetite before recommending a route — and we will tell you if the honest answer is a hybrid, selective approach."],
+  approach=["<strong>Assessment before allegiance.</strong> Custom-code analysis, data profiling and process-debt review decide the route — not a preference.",
+            "<strong>Greenfield: design freedom used deliberately.</strong> Standard-first design, clean master data, only justified customisation.",
+            "<strong>Brownfield: conversion without carry-over.</strong> We use the conversion to retire dead code and clean data, not just to change the database.",
+            "<strong>Business continuity throughout.</strong> Month-end still closes, orders still ship, payroll still runs — through every phase."],
+  engagements=["Greenfield S/4HANA implementations for growing enterprises", "Brownfield ECC-to-S/4HANA system conversions", "Selective data transition projects combining both approaches", "New-entity builds inside an existing corporate template"],
+  outcomes=["A defensible route decision with the trade-offs documented", "A landscape ready for the 2030 ECC maintenance horizon", "Less custom code and cleaner data than you started with"]),
+
+ dict(slug="rollouts-upgrades-migrations", num="04", name="Rollouts, Upgrades & Migrations",
+  tag="Multi-country template rollouts, version upgrades and platform migrations — without disrupting the running business.",
+  intro=["Rollouts and upgrades fail quietly: a template that ignores local statutory reality, an upgrade that breaks a bolt-on nobody documented, a migration weekend that runs long. We plan for exactly those failure modes.",
+         "With delivery experience across India, Japan, the UAE and Singapore, we understand localisation as a first-class requirement — tax regimes, statutory reporting and language are part of the template design, not an afterthought."],
+  approach=["<strong>Template with local intelligence.</strong> A global core plus a defined localisation layer per country — statutory, language, fiscal calendars.",
+            "<strong>Impact analysis before upgrades.</strong> Custom code, interfaces and authorisations tested against the target version before anyone commits a date.",
+            "<strong>Rehearsed migrations.</strong> Mock runs with timed cutover plans; the go-live weekend follows a script that has already worked twice.",
+            "<strong>One team across countries.</strong> The same core team carries the template between rollouts, so lessons compound instead of repeating."],
+  engagements=["Country rollouts of an existing corporate SAP template", "SAP version upgrades and enhancement-pack projects", "Database and platform migrations (including to HANA)", "Landscape consolidations after mergers and acquisitions"],
+  outcomes=["Go-lives that hit their weekend and their budget", "Local statutory compliance built in from day one", "An upgrade path your team understands and can repeat"]),
+
+ dict(slug="digital-transformation", num="05", name="Digital Transformation",
+  tag="Process redesign, automation and integration that make transformation real — not just rebranded.",
+  intro=["Automating a broken process gives you broken results, faster. Real transformation starts with the process: what should this workflow look like if we designed it today — and only then, what technology gets us there?",
+         "We keep transformation honest by tying every initiative to an operational measure: days to close, order cycle time, first-time-right rate. If a workstream can't name its measure, it doesn't start."],
+  approach=["<strong>Redesign before automation.</strong> Core workflows are challenged and simplified before any tool is configured.",
+            "<strong>Integrate, don't duplicate.</strong> One source of truth per data domain, with interfaces designed as products, not point fixes.",
+            "<strong>Automate the repeatable.</strong> Workflow, RPA and smart forms where the volume justifies it — measured before and after.",
+            "<strong>Adoption as a workstream.</strong> Training, champions and feedback loops planned with the same rigour as the build."],
+  engagements=["Finance transformation: faster close, better controls, cleaner reporting", "Supply-chain digitisation across procurement and logistics", "Workflow and approval automation on the SAP core", "Legacy application rationalisation and integration"],
+  outcomes=["Processes measurably faster and more reliable than before", "A smaller, cleaner application landscape", "Changes that stick, because the people who run them helped design them"]),
+
+ dict(slug="pmo", num="06", name="PMO",
+  tag="Programme and project management that keeps large initiatives honest: plans, risks, governance and decisions on the record.",
+  intro=["Large programmes rarely fail from a single bad decision — they fail from a hundred small ones nobody wrote down. A disciplined PMO makes the state of the programme visible: what was decided, what it costs, what is at risk, and who owns the next move.",
+         "We run PMO as a service — from full programme management of an implementation to an independent PMO layer over your own delivery teams or another vendor's."],
+  approach=["<strong>A single plan that is real.</strong> One integrated plan with dependencies and capacity — not five decks that disagree.",
+            "<strong>Risks with owners and dates.</strong> A living risk register reviewed weekly, with escalation that actually escalates.",
+            "<strong>Decisions on the record.</strong> Every material decision logged with its context and alternatives — so the programme never re-litigates.",
+            "<strong>Reporting people read.</strong> One page per week for the sponsor: status, spend, risks, asks. No theatre."],
+  engagements=["Full programme management of ERP implementations and rollouts", "Independent PMO oversight of a system-integrator-led programme", "Recovery management of programmes in trouble", "Portfolio governance across parallel initiatives"],
+  outcomes=["A sponsor who always knows the true state of the programme", "Fewer surprises, earlier — risks surfaced while they are cheap", "An audit trail of decisions from kickoff to closure"]),
+
+ dict(slug="ams", num="07", name="Application Management Services",
+  tag="Ongoing management of your enterprise application landscape under defined service levels — so your team can focus on the business.",
+  intro=["After go-live, an ERP system needs steady, competent care: incidents resolved, changes controlled, month-ends supported, patches applied. Our AMS provides that care under defined service levels — with the continuity that makes support genuinely good.",
+         "We deliberately keep the same consultants on your account. The person who fixes your issue in month twelve knows the decisions made in month one — for systems we implemented, and for systems we inherited."],
+  approach=["<strong>Structured takeover.</strong> A documented transition: landscape inventory, open-issue triage, knowledge capture — whether from your team or another vendor.",
+            "<strong>Defined service levels.</strong> Priority-based response and resolution targets, reported monthly, with an honest conversation when we miss one.",
+            "<strong>Prevention over firefighting.</strong> Recurring-incident analysis and quarterly health checks reduce ticket volume over time.",
+            "<strong>Month-end presence.</strong> Support cover aligned to your close calendar, not just business hours."],
+  engagements=["Full AMS for SAP landscapes (functional + ABAP + BASIS)", "Second- and third-level support behind your internal service desk", "AMS takeover from an incumbent vendor", "Support for multi-country landscapes across time zones"],
+  outcomes=["Falling incident volume, not just met SLAs", "A support partner who knows your system's history", "Predictable support cost your CFO can plan around"]),
+
+ dict(slug="production-support-enhancements", num="08", name="Production Support & Enhancements",
+  tag="Steady-state support, issue resolution and continuous small enhancements that keep the system in step with the business.",
+  intro=["Businesses change every quarter; systems that don't follow become the reason for workarounds, shadow spreadsheets and eventually a costly reimplementation. Continuous small enhancements are the cheapest insurance against that drift.",
+         "We combine production support with a managed enhancement pipeline: small, well-scoped improvements delivered in regular cycles, prioritised jointly with your process owners."],
+  approach=["<strong>Stabilise first.</strong> Recurring incidents are fixed at root cause before enhancement work begins.",
+            "<strong>A visible pipeline.</strong> Enhancement requests estimated, prioritised and scheduled in a backlog your team can see.",
+            "<strong>Small batches, tested properly.</strong> Regular release cycles with regression testing — no risky big-bang change weekends.",
+            "<strong>Documentation as part of done.</strong> Every change lands with its documentation and, where needed, user communication."],
+  engagements=["Production support for SAP functional modules and custom developments", "Continuous-improvement retainers with a monthly enhancement budget", "Statutory and year-end change support (tax rates, legal reporting)", "Performance tuning and batch-schedule optimisation"],
+  outcomes=["A system that keeps pace with the business, quarter by quarter", "Fewer workarounds and shadow tools in the business", "Change delivered safely, on a rhythm your users can trust"]),
+
+ dict(slug="analytics-reporting", num="09", name="Analytics, Reporting & Custom Dashboards",
+  tag="SAP Analytics Cloud, Power BI, Tableau and custom-built dashboards — numbers leadership can rely on, wherever they live.",
+  intro=["Most enterprises don't lack data; they lack numbers everyone agrees on. We build reporting across the modern analytics stack — SAP Analytics Cloud, Power BI, Tableau and, where the need is specific enough, fully custom web dashboards — with the discipline that makes a number trustworthy: defined once, calculated in one place, reconciled to the books.",
+         "From board packs to operational control towers, we design for the reader: what decision does this report serve, and what is the least it needs to show? When an off-the-shelf tool can't express that, we build the dashboard ourselves — tailored views over your ERP data with exactly the drill-downs your teams ask for."],
+  approach=["<strong>One definition per measure.</strong> A governed set of KPIs with owners and calculation logic — before any dashboard is drawn.",
+            "<strong>Reconciled to the core.</strong> Every management number traceable to the underlying ERP documents — SAP, Oracle or otherwise.",
+            "<strong>Self-service with guardrails.</strong> Curated models your analysts can explore without breaking the definitions.",
+            "<strong>Right tool per audience.</strong> SAC or Power BI for leadership, embedded analytics for operations, custom-built dashboards where the requirement outgrows the tools."],
+  engagements=["SAP Analytics Cloud implementations for planning and reporting", "Power BI and Tableau dashboard suites over ERP and operational data", "Custom web dashboards for requirements packaged tools can't express", "Group Reporting, consolidation and migration of legacy BO/BW reporting"],
+  outcomes=["Month-end packs produced in hours, not days", "One version of the truth leadership actually trusts", "Dashboards shaped around your decisions, not around a tool's defaults"]),
+
+ dict(slug="training-internships-knowledge-transfer", num="10", name="Training, Internships & Knowledge Transfer",
+  tag="Structured SAP training, internship programmes and project-embedded knowledge transfer — Growing Together.",
+  intro=["The consulting industry runs on talent, and talent is built deliberately. Growing Together is our people-development practice: SAP training for professionals and graduates, structured internships with real project exposure, and formal knowledge transfer inside every client engagement.",
+         "Our trainers are delivering consultants, not full-time presenters. What we teach on Saturday is what we configured on Thursday."],
+  approach=["<strong>Practitioner-led curriculum.</strong> Functional and technical SAP tracks built from real project artefacts and scenarios.",
+            "<strong>Learning by doing.</strong> Sandbox systems, case-based exercises and supervised work on realistic deliverables.",
+            "<strong>Mentoring built in.</strong> Every trainee gets a senior consultant mentor for career and specialisation guidance.",
+            "<strong>Certification with a plan.</strong> Honest advice on which SAP certifications matter for your goals — and efficient preparation for them."],
+  engagements=["Corporate SAP training for client teams around go-lives", "Open training programmes for professionals moving into SAP", "Graduate internship cohorts with project placement", "End-of-project knowledge-transfer programmes for client IT teams"],
+  outcomes=["Teams that can run and improve their own systems", "Graduates with genuine project experience, not just slides", "A talent pipeline for clients — and for our own bench"]),
+
+ dict(slug="oracle-multi-erp", num="11", name="Oracle & Multi-ERP Solutions",
+  tag="Oracle Fusion Cloud, NetSuite and other leading ERP platforms — the same delivery discipline, applied beyond SAP.",
+  intro=["The right ERP depends on your size, complexity and growth plans — not on what a consultancy happens to sell. Our roots are in SAP, and our delivery discipline travels: we implement and support Oracle Fusion Cloud ERP, Oracle NetSuite and other leading platforms where they are the honest fit.",
+         "This matters most in mixed estates: a group running SAP at the centre with NetSuite subsidiaries, or an acquisition arriving with Oracle already in place. We work across those boundaries — integration, consolidated reporting and one support arrangement — instead of pretending the estate is uniform."],
+  approach=["<strong>Vendor-agnostic selection.</strong> Platform recommendations follow your requirements and budget, documented with the trade-offs — we hold no resale incentive to steer you.",
+            "<strong>The same implementation discipline.</strong> Honest scope, blueprint against reality, rehearsed cutover and real hypercare — regardless of the logo on the login screen.",
+            "<strong>Mixed-estate integration.</strong> Interfaces, master-data alignment and consolidated reporting across SAP, Oracle and other systems living side by side.",
+            "<strong>One support arrangement.</strong> AMS that covers the estate you actually run, not just one vendor's slice of it."],
+  engagements=["Oracle Fusion Cloud ERP implementations and rollouts", "Oracle NetSuite for subsidiaries, ventures and mid-market groups", "ERP selection between SAP, Oracle, Microsoft Dynamics 365 and Odoo", "Post-acquisition integration of mixed SAP/Oracle landscapes"],
+  outcomes=["A platform chosen on evidence, with the reasoning on paper", "Subsidiaries live on fit-for-size systems without breaking group reporting", "One partner accountable across a multi-ERP estate"]),
+
+ dict(slug="ai-integration", num="12", name="AI Integration & Intelligent Automation",
+  tag="Practical AI inside your enterprise systems — assistants, document automation and forecasting that respect your data and your controls.",
+  intro=["AI in the enterprise fails in two predictable ways: pilots that never touch real workflows, and deployments that ignore the controls finance and audit depend on. We do neither. We integrate AI where it demonstrably saves hours or improves decisions — grounded in your ERP data, inside your security boundary, with a human accountable for anything that posts, pays or promises.",
+         "Our position is deliberately conservative: AI drafts, summarises, extracts and predicts; your systems and your people decide. That is what makes AI adoption survivable in an audited enterprise — and it is why our AI work starts from the ERP outward, not from a chatbot inward."],
+  approach=["<strong>Use-cases triaged by value and risk.</strong> We rank candidates by hours saved and control impact — the first deployment should be boring, useful and safe.",
+            "<strong>Grounded on your data.</strong> Assistants answer from your documents and ERP records with access control intact — not from a model's imagination.",
+            "<strong>Human-in-the-loop where it counts.</strong> Anything touching postings, payments or external commitments keeps an approval step by design.",
+            "<strong>Measured, not marketed.</strong> Baseline before, measure after — cycle time, hours returned, error rates. If it doesn't move, we say so."],
+  engagements=["AI assistants over ERP, reporting and policy documents for finance and operations teams", "Intelligent document processing: invoices, purchase orders, delivery notes and contracts", "Machine-learning forecasting for cash, demand and inventory", "Workflow automation combining RPA, APIs and LLMs across the back office"],
+  outcomes=["Hours returned to teams every week, measured against a baseline", "Faster document cycle times with fewer keying errors", "AI your auditors can live with — controls intact, decisions traceable"]),
+]
+
+
+def service_related(current):
+    others = [s for s in SERVICES if s["slug"] != current][:4]
+    return "\n".join('<li><a href="%s.html">%s</a></li>' % (s["slug"], s["name"]) for s in others)
+
+
+def build_services():
+    for s in SERVICES:
+        body = """
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="{ROOT}index.html">Home</a> / <a href="{ROOT}index.html#services">Services</a> / """ + s["name"] + """</p>
+    <span class="eyebrow">Service """ + s["num"] + """ of 12</span>
+    <h1>""" + s["name"] + """</h1>
+    <p class="lead">""" + s["tag"] + """</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container detail-grid">
+    <article class="prose">
+      """ + "\n      ".join("<p>%s</p>" % p for p in s["intro"]) + """
+      <h2>Our approach</h2>
+      <ul>""" + li(s["approach"]) + """</ul>
+      <h2>Typical engagements</h2>
+      <ul>""" + li(s["engagements"]) + """</ul>
+      <h2>What you can expect</h2>
+      <ul>""" + li(s["outcomes"]) + """</ul>
+    </article>
+    <aside class="side-card">
+      <h3>Discuss this with us</h3>
+      <p>Tell us what you're planning. We'll give you an honest view of what it takes — and whether we're the right team for it.</p>
+      <a class="btn btn-gold" href="{ROOT}contact/index.html">Start a conversation</a>
+      <ul class="side-links">
+        <li><strong style="font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.14em;color:var(--muted);">RELATED SERVICES</strong></li>
+        """ + service_related(s["slug"]) + """
+      </ul>
+    </aside>
+  </div>
+</section>
+"""
+        wrap("services/%s.html" % s["slug"],
+             s["name"] + " — SS ERP Solutions",
+             s["tag"],
+             "services/%s.html" % s["slug"],
+             body)
+
+
+# ---------------------------------------------------------------- insights
+
+ARTICLES = [
+ dict(slug="ecc-to-s4hana-roadmap", kind="Article", thumb="t1",
+  title="ECC to S/4HANA: plan the move before the deadline plans it for you",
+  teaser="SAP ECC mainstream maintenance ends in 2027, with extended options to 2030. The enterprises that move well are the ones that start with an assessment, not a contract.",
+  date="July 2026", read="6 min read",
+  body=["Every SAP ECC customer knows the dates by now: mainstream maintenance ends in 2027, and even the extended-maintenance option runs out in 2030. What fewer organisations have internalised is what the calendar does to programme quality. Migrations planned in 2026 are assessments, choices and phased programmes. Migrations planned in 2029 are whatever can be contracted in time.",
+   "The first decision is not greenfield versus brownfield — it is understanding what you actually run today. A serious readiness assessment covers four things: how much of your custom code is still executed at all; how far your processes have drifted from SAP standard; the state of your master data; and which interfaces and bolt-ons your business quietly depends on.",
+   "In our assessments it is common to find that 40–60% of custom code has not been executed in the last year. That single finding changes the migration conversation: you are not carrying your whole history forward, only the part that is alive.",
+   "From there, the route decision becomes evidence-based. Heavy process drift and poor master data push towards greenfield — a clean reimplementation. A disciplined landscape with valued customisations favours brownfield conversion. Many real answers are selective: a new core, with surgical carry-over of what has proven value.",
+   "Whichever route, the calendar argument is the same: assessment now costs weeks and buys you options. Assessment later costs the options. If your organisation runs ECC and has no written S/4HANA position yet, the assessment — not the migration — is the urgent step."]),
+ dict(slug="greenfield-vs-brownfield", kind="Article", thumb="t2",
+  title="Greenfield or brownfield? An honest decision framework",
+  teaser="Vendors tend to recommend whichever route they sell best. The right answer comes from your custom code, your data quality and your appetite for change — not from a preference.",
+  date="July 2026", read="5 min read",
+  body=["Ask three system integrators about greenfield versus brownfield and you may get three confident, incompatible answers. The uncomfortable truth is that both routes work, both routes fail, and the deciding factors sit in your landscape — not in anyone's methodology deck.",
+   "Greenfield — a fresh implementation — buys you a clean process design, clean master data and freedom from a decade of accumulated decisions. Its price is disruption: the business re-learns its system, historic data lives in an archive rather than in transactions, and the change-management effort is real.",
+   "Brownfield — a system conversion — preserves your history, your customisations and much of your users' muscle memory. Its price is that you carry your past forward: process debt, dormant code and old configuration decisions arrive in the new system unless you deliberately clean as you convert.",
+   "Our framework asks four questions. One: how much of your customisation still earns its keep? Two: would your process owners redesign their workflows today if given the chance — and do they have the energy to? Three: can your business absorb a re-implementation's disruption, or is continuity the binding constraint? Four: what does your data deserve — a fresh start or a faithful carry?",
+   "Score those honestly and the route usually names itself. And when the answers conflict, selective transition — new core, chosen history — is a legitimate middle path, not a compromise. What matters is that the decision is made on your evidence, once, with the trade-offs written down."]),
+ dict(slug="ams-handover-checklist", kind="Article", thumb="t3",
+  title="Taking over SAP support without drama: the AMS handover checklist",
+  teaser="Switching AMS vendors — or moving support in-house — fails at handover more often than at steady state. Here is the checklist we run before we accept a single ticket.",
+  date="July 2026", read="5 min read",
+  body=["Most AMS relationships are judged on response times, but most AMS failures are decided earlier — in a rushed handover where knowledge walked out with the incumbent. Before we accept responsibility for a landscape, we insist on a structured transition, and we recommend the same checklist even when we are not the vendor.",
+   "First, the landscape inventory: every system, client, interface, batch job and third-party bolt-on, with owners named. Undocumented interfaces are where month-one incidents live.",
+   "Second, open-item triage: every open incident, problem and change request reviewed jointly, with the incumbent, before cutover. Anything unclear gets a written status. The alternative is inheriting a backlog you cannot interpret.",
+   "Third, knowledge capture with the calendar in mind: month-end, quarter-end and year-end procedures are rehearsed on paper with the outgoing team while they are still reachable. The first close under new support should follow a script someone has already walked through.",
+   "Fourth, access and authorisation hygiene: support users, emergency access procedures and audit requirements agreed before day one — not discovered during the first priority-one incident.",
+   "A disciplined handover takes four to eight weeks. It is the cheapest insurance an IT leader can buy: the cost of doing it properly is a rounding error against the cost of a failed month-end in month two."]),
+]
+
+
+def build_insights():
+    cards = []
+    for a in ARTICLES:
+        cards.append("""
+      <a class="post-card reveal" href="%s.html">
+        <div class="post-thumb %s">%s</div>
+        <div class="post-body">
+          <span class="post-kind">%s</span>
+          <h3>%s</h3>
+          <p>%s</p>
+          <span class="post-meta">%s · %s</span>
+        </div>
+      </a>""" % (a["slug"], a["thumb"], a["kind"].upper(), a["kind"], a["title"], a["teaser"], a["date"], a["read"]))
+    cards.append("""
+      <div class="post-card reveal" aria-disabled="true" style="opacity:0.75;">
+        <div class="post-thumb t2">CASE STUDY</div>
+        <div class="post-body">
+          <span class="post-kind">Case study</span>
+          <h3>Client project story — coming soon</h3>
+          <p>One or two approved project case studies (challenge, approach, outcome) will be published here once client material is approved. Client names may be anonymised. (PRD §10)</p>
+          <span class="post-meta">Pending client approval</span>
+        </div>
+      </div>""")
+
+    body = """
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="{ROOT}index.html">Home</a> / Insights</p>
+    <span class="eyebrow">Insights</span>
+    <h1>Articles, news &amp; case studies</h1>
+    <p class="lead">Practical writing on ERP decisions, SAP delivery and enterprise technology — from consultants who do the work. Published by the SS ERP Solutions team through the site's CMS.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="card-grid">""" + "".join(cards) + """
+    </div>
+  </div>
+</section>
+"""
+    wrap("insights/index.html", "Insights — SS ERP Solutions",
+         "Articles, company news and case studies on ERP, SAP delivery and enterprise technology from SS ERP Solutions.",
+         "insights/", body)
+
+    for a in ARTICLES:
+        abody = """
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="{ROOT}index.html">Home</a> / <a href="index.html">Insights</a> / """ + a["kind"] + """</p>
+    <span class="eyebrow">""" + a["kind"] + " · " + a["date"] + " · " + a["read"] + """</span>
+    <h1>""" + a["title"] + """</h1>
+  </div>
+</section>
+<section class="section">
+  <div class="container detail-grid">
+    <article class="prose">
+      """ + "\n      ".join("<p>%s</p>" % p for p in a["body"]) + """
+    </article>
+    <aside class="side-card">
+      <h3>Talk to the authors</h3>
+      <p>These articles are written by our delivery consultants. If the topic is live for your organisation, we're happy to discuss it.</p>
+      <a class="btn btn-gold" href="{ROOT}contact/index.html">Start a conversation</a>
+      <ul class="side-links">
+        <li><strong style="font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.14em;color:var(--muted);">MORE INSIGHTS</strong></li>
+        """ + "\n".join('<li><a href="%s.html">%s</a></li>' % (o["slug"], o["title"]) for o in ARTICLES if o["slug"] != a["slug"]) + """
+      </ul>
+    </aside>
+  </div>
+</section>
+"""
+        wrap("insights/%s.html" % a["slug"], a["title"] + " — SS ERP Solutions Insights",
+             a["teaser"], "insights/%s.html" % a["slug"], abody)
+
+
+# ---------------------------------------------------------------- careers
+
+def build_careers():
+    body = """
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="{ROOT}index.html">Home</a> / Careers</p>
+    <span class="eyebrow">Careers</span>
+    <h1>Do the best work of your career — properly</h1>
+    <p class="lead">We hire consultants who care how the work is done: honest scoping, real expertise, long client relationships. If that sounds like you, we'd like to meet you.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2>Open roles</h2>
+      <p><span class="pending-chip">Sample roles — final openings to be confirmed by SS ERP Solutions</span></p>
+    </div>
+    <div class="role-card reveal">
+      <div>
+        <h3>Senior SAP FICO Consultant</h3>
+        <p style="color:var(--muted);font-size:0.95rem;">Lead finance workstreams on S/4HANA implementations and support engagements. Strong FI/CO configuration depth; Group Reporting or Central Finance exposure a plus.</p>
+        <div class="role-tags"><span class="role-tag">Chennai · Hybrid</span><span class="role-tag">6–10 years</span><span class="role-tag">Full time</span></div>
+      </div>
+      <a class="btn btn-outline" href="#apply">Apply</a>
+    </div>
+    <div class="role-card reveal">
+      <div>
+        <h3>SAP ABAP Developer</h3>
+        <p style="color:var(--muted);font-size:0.95rem;">Build and maintain custom developments across our client landscapes — reports, interfaces, enhancements, Fiori. Clean-code habits and S/4HANA experience valued.</p>
+        <div class="role-tags"><span class="role-tag">Chennai</span><span class="role-tag">3–6 years</span><span class="role-tag">Full time</span></div>
+      </div>
+      <a class="btn btn-outline" href="#apply">Apply</a>
+    </div>
+    <div class="role-card reveal">
+      <div>
+        <h3>SAP SD/MM Consultant</h3>
+        <p style="color:var(--muted);font-size:0.95rem;">Deliver logistics workstreams on implementations and rollouts across the Gulf region. Client-facing, hands-on configuration; Arabic or Japanese language skills a plus.</p>
+        <div class="role-tags"><span class="role-tag">Dubai, UAE</span><span class="role-tag">4–8 years</span><span class="role-tag">Full time</span></div>
+      </div>
+      <a class="btn btn-outline" href="#apply">Apply</a>
+    </div>
+  </div>
+</section>
+<section class="section section-alt" id="apply">
+  <div class="container" style="max-width:820px;">
+    <div class="section-head reveal">
+      <h2>Apply — or register your interest</h2>
+      <p>No matching role? Send us your profile anyway. Applications are delivered to our official mailbox and every serious one gets a reply.</p>
+    </div>
+    <form class="form-card reveal" data-demo-form novalidate>
+      <div class="form-grid">
+        <div class="form-field"><label for="ap-name">Full name <span class="req">*</span></label><input id="ap-name" name="name" type="text" required autocomplete="name"></div>
+        <div class="form-field"><label for="ap-email">Email <span class="req">*</span></label><input id="ap-email" name="email" type="email" required autocomplete="email"></div>
+        <div class="form-field"><label for="ap-phone">Phone</label><input id="ap-phone" name="phone" type="tel" autocomplete="tel"></div>
+        <div class="form-field"><label for="ap-role">Role</label>
+          <select id="ap-role" name="role">
+            <option>Senior SAP FICO Consultant</option>
+            <option>SAP ABAP Developer</option>
+            <option>SAP SD/MM Consultant</option>
+            <option>General application / internship</option>
+          </select>
+        </div>
+        <div class="form-field full"><label for="ap-cv">CV / resume (PDF)</label><input id="ap-cv" name="cv" type="file" accept=".pdf,.doc,.docx"><span class="form-note">On the live site, CV upload is handled by the platform's native forms with file upload.</span></div>
+        <div class="form-field full"><label for="ap-msg">Tell us about yourself <span class="req">*</span></label><textarea id="ap-msg" name="message" required></textarea></div>
+      </div>
+      <div class="honeypot" aria-hidden="true"><input type="text" name="company_website" tabindex="-1" autocomplete="off"></div>
+      <div style="margin-top:26px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
+        <button class="btn btn-gold" type="submit">Submit application</button>
+        <span class="form-note">Your application is delivered to """ + EMAIL + """ and treated confidentially.</span>
+      </div>
+      <div class="form-success" role="status">Thank you — your application has been recorded. On the live site it is delivered straight to our recruitment mailbox.</div>
+    </form>
+  </div>
+</section>
+"""
+    wrap("careers/index.html", "Careers — SS ERP Solutions",
+         "Open SAP consulting roles at SS ERP Solutions across India and the UAE, plus a general application form for consultants and interns.",
+         "careers/", body)
+
+
+# ---------------------------------------------------------------- contact
+
+def build_contact():
+    body = """
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="{ROOT}index.html">Home</a> / Contact</p>
+    <span class="eyebrow">Contact</span>
+    <h1>Tell us what you're planning</h1>
+    <p class="lead">An implementation, a migration, a support handover, a training programme — or just a question. We'll come back with an honest view, usually within one business day.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container detail-grid">
+    <form class="form-card" data-demo-form novalidate>
+      <div class="form-grid">
+        <div class="form-field"><label for="ct-name">Full name <span class="req">*</span></label><input id="ct-name" name="name" type="text" required autocomplete="name"></div>
+        <div class="form-field"><label for="ct-company">Company <span class="req">*</span></label><input id="ct-company" name="company" type="text" required autocomplete="organization"></div>
+        <div class="form-field"><label for="ct-email">Work email <span class="req">*</span></label><input id="ct-email" name="email" type="email" required autocomplete="email"></div>
+        <div class="form-field"><label for="ct-phone">Phone</label><input id="ct-phone" name="phone" type="tel" autocomplete="tel"></div>
+        <div class="form-field"><label for="ct-country">Country</label>
+          <select id="ct-country" name="country"><option>India</option><option>Japan</option><option>UAE</option><option>Singapore</option><option>Other</option></select>
+        </div>
+        <div class="form-field"><label for="ct-topic">What is this about?</label>
+          <select id="ct-topic" name="topic">
+            <option>ERP consulting / selection</option><option>New implementation</option><option>S/4HANA migration</option>
+            <option>Rollout / upgrade</option><option>AMS / production support</option><option>Analytics &amp; reporting</option>
+            <option>Training / internships</option><option>Something else</option>
+          </select>
+        </div>
+        <div class="form-field full"><label for="ct-msg">Your message <span class="req">*</span></label><textarea id="ct-msg" name="message" required placeholder="A few lines about your landscape, timeline and what you need."></textarea></div>
+      </div>
+      <div class="honeypot" aria-hidden="true"><input type="text" name="company_website" tabindex="-1" autocomplete="off"></div>
+      <div style="margin-top:26px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
+        <button class="btn btn-gold" type="submit">Send message</button>
+        <span class="form-note">Spam-protected. Delivered to our official mailbox; never sold or shared.</span>
+      </div>
+      <div class="form-success" role="status">Thank you — your message has been recorded. On the live site it is delivered straight to """ + EMAIL + """.</div>
+    </form>
+    <aside class="side-card">
+      <h3>Reach us directly</h3>
+      <p style="margin-bottom:8px;"><strong>Email</strong><br><a href="mailto:""" + EMAIL + """\">""" + EMAIL + """</a></p>
+      <p style="margin-bottom:8px;"><strong>Phone</strong><br><span class="mono">+91 XXXXX XXXXX</span> <span class="form-note">(to be confirmed)</span></p>
+      <p style="margin-bottom:8px;"><strong>WhatsApp</strong><br><a href=\"""" + WHATSAPP + """\" rel="noopener" target="_blank">Chat with us on WhatsApp</a></p>
+      <p><strong>Offices</strong><br>India · Japan · UAE · Singapore<br><span class="form-note">Registered address to be confirmed (PRD §10).</span></p>
+    </aside>
+  </div>
+</section>
+"""
+    wrap("contact/index.html", "Contact — SS ERP Solutions",
+         "Contact SS ERP Solutions about SAP implementations, migrations, support, analytics and training. Form, email and WhatsApp.",
+         "contact/", body)
+
+
+# ---------------------------------------------------------------- portal
+
+def build_portal():
+    login = """
+<div class="portal-wrap">
+  <div>
+    <div class="portal-card">
+      <a class="brand" href="{ROOT}index.html">""" + LOGO_SVG + """</a>
+      <h1>Client Portal</h1>
+      <p>Secure workspace for engaged clients: shared documents, project status and your SS ERP Solutions contacts.</p>
+      <form data-demo-form novalidate>
+        <div class="form-grid" style="grid-template-columns:1fr;">
+          <div class="form-field"><label for="po-email">Work email</label><input id="po-email" type="email" required autocomplete="username"></div>
+          <div class="form-field"><label for="po-pass">Password</label><input id="po-pass" type="password" required autocomplete="current-password"></div>
+        </div>
+        <div style="margin-top:22px;">
+          <button class="btn btn-gold" type="submit" style="width:100%;justify-content:center;">Sign in</button>
+        </div>
+        <div class="form-success" role="status">Authentication goes live with the portal build (PRD milestone M4). Explore the demo below.</div>
+      </form>
+      <p style="margin-top:22px;font-size:0.82rem;">Access is provisioned by SS ERP Solutions for engaged clients.<br>Need access? <a href="{ROOT}contact/index.html">Contact us</a>.</p>
+      <p style="margin-top:14px;text-align:center;"><a class="btn btn-outline" href="dashboard.html" style="width:100%;justify-content:center;">View demo dashboard →</a></p>
+    </div>
+  </div>
+</div>
+"""
+    wrap("portal/index.html", "Client Portal — SS ERP Solutions",
+         "Secure client portal for SS ERP Solutions engagement documents and project status.",
+         "portal/", login, floats=False, chrome=False)
+
+    dash = """
+<section style="padding-top:var(--header-h);">
+  <div class="container">
+    <div style="margin-top:28px;border:1px dashed var(--maroon-light);border-radius:10px;padding:12px 18px;font-family:var(--font-mono);font-size:0.78rem;color:var(--maroon-light);letter-spacing:0.08em;">
+      DEMO DASHBOARD — illustrative only. Final portal scope (documents, status, contacts, access, administration) is agreed in the Section 10 workshop before the M4 build.
+    </div>
+    <div class="dash-layout" style="padding-top:28px;">
+      <aside class="dash-side">
+        <nav>
+          <a class="active" href="#">Overview</a>
+          <a href="#documents">Documents</a>
+          <a href="#status">Project status</a>
+          <a href="#contacts">Your contacts</a>
+        </nav>
+      </aside>
+      <div class="dash-main">
+        <div>
+          <span class="eyebrow">Acme Manufacturing Ltd — S/4HANA Implementation</span>
+          <h1 style="font-size:1.7rem;">Programme overview</h1>
+        </div>
+        <div class="dash-cards">
+          <div class="dash-card"><div class="k">Current phase</div><div class="v">Realisation</div><span class="badge ok">On track</span></div>
+          <div class="dash-card"><div class="k">Next milestone</div><div class="v">Integration test start</div><span class="badge info">12 Aug 2026</span></div>
+          <div class="dash-card"><div class="k">Open actions on client</div><div class="v">3</div><span class="badge warn">2 due this week</span></div>
+        </div>
+        <div class="panel" id="status">
+          <div class="panel-head"><h3>Workstream status</h3><span class="badge ok">Updated weekly</span></div>
+          <table class="data-table">
+            <thead><tr><th>Workstream</th><th>Lead</th><th>Status</th><th>Note</th></tr></thead>
+            <tbody>
+              <tr><td>Finance (FICO)</td><td>SSES</td><td><span class="badge ok">On track</span></td><td>CO-PA design signed off</td></tr>
+              <tr><td>Logistics (MM/SD)</td><td>SSES</td><td><span class="badge warn">Watch</span></td><td>Pricing decision pending client input</td></tr>
+              <tr><td>Data migration</td><td>Joint</td><td><span class="badge ok">On track</span></td><td>Mock load 2 reconciled</td></tr>
+              <tr><td>Integrations</td><td>Client IT</td><td><span class="badge info">Starting</span></td><td>Bank interface spec in review</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel" id="documents">
+          <div class="panel-head"><h3>Shared documents</h3></div>
+          <table class="data-table">
+            <thead><tr><th>Document</th><th>Type</th><th>Updated</th></tr></thead>
+            <tbody>
+              <tr><td>Weekly status report — W30</td><td>PDF</td><td>24 Jul 2026</td></tr>
+              <tr><td>Integration test plan v0.9</td><td>DOCX</td><td>22 Jul 2026</td></tr>
+              <tr><td>Data migration reconciliation — Mock 2</td><td>XLSX</td><td>18 Jul 2026</td></tr>
+              <tr><td>Steering committee pack — July</td><td>PDF</td><td>15 Jul 2026</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel" id="contacts">
+          <div class="panel-head"><h3>Your SS ERP Solutions contacts</h3></div>
+          <table class="data-table">
+            <thead><tr><th>Name</th><th>Role</th><th>Email</th></tr></thead>
+            <tbody>
+              <tr><td>Programme Manager</td><td>Delivery lead &amp; escalation</td><td class="mono">pm@sserpsolutions.net</td></tr>
+              <tr><td>Finance Lead</td><td>FICO workstream</td><td class="mono">fico@sserpsolutions.net</td></tr>
+              <tr><td>Support Desk</td><td>Issues &amp; requests</td><td class="mono">""" + EMAIL + """</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+"""
+    wrap("portal/dashboard.html", "Client Portal — Demo Dashboard — SS ERP Solutions",
+         "Demonstration of the SS ERP Solutions client portal: shared documents, project status and contacts.",
+         "portal/dashboard.html", dash, floats=False)
+
+
+# ---------------------------------------------------------------- japanese
+
+def build_japanese():
+    global HEADER
+    body = """
+<section class="hero" id="top" style="min-height:82vh;">
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
+  <div class="hero-fade" aria-hidden="true"></div>
+  <div class="container hero-inner">
+    <span class="eyebrow">エンタープライズ・テクノロジー・コンサルティング</span>
+    <h1>導入<span class="dot">。</span>最適化<span class="dot">。</span>変革<span class="dot">。</span></h1>
+    <p class="hero-sub">ERPは事業を支えるためのもの——負担にするものではありません。SS ERP Solutionsは、深いSAPの専門知識と、信頼と紹介によって築かれた確かなデリバリー基準で、現場が本当に使えるエンタープライズ・ソリューションを計画・構築・運用します。</p>
+    <div class="hero-actions">
+      <a class="btn btn-gold" href="#contact">お問い合わせ</a>
+      <a class="btn btn-outline" href="#services">サービスを見る</a>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="who">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">私たちについて</span>
+      <h2>信頼の上に築かれ、紹介によって成長してきました</h2>
+      <p>SS ERP Solutionsは2018年の創業以来、広告ではなく、お客様の信頼と紹介によって成長してきました。現在はインド、日本、UAE、シンガポールのお客様を支援しています。日本のお客様には日本語でサービスを提供しています。</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">サービス</span>
+      <h2>12のサービスライン、ひとつのデリバリー基準</h2>
+    </div>
+    <div class="services-grid">
+      <a class="service-card reveal" href="../services/erp-consulting.html"><span class="service-num">01</span><h3>ERPコンサルティング</h3><p>ERP戦略・製品選定・ロードマップに関する独立した助言。</p></a>
+      <a class="service-card reveal" href="../services/enterprise-application-implementation.html"><span class="service-num">02</span><h3>エンタープライズ・アプリケーション導入</h3><p>SAPおよび企業アプリケーションのエンドツーエンド導入。</p></a>
+      <a class="service-card reveal" href="../services/greenfield-brownfield.html"><span class="service-num">03</span><h3>グリーンフィールド／ブラウンフィールド</h3><p>新規構築とシステムコンバージョン、S/4HANAへの移行。</p></a>
+      <a class="service-card reveal" href="../services/rollouts-upgrades-migrations.html"><span class="service-num">04</span><h3>ロールアウト・アップグレード・移行</h3><p>多国籍テンプレート展開、バージョンアップ、プラットフォーム移行。</p></a>
+      <a class="service-card reveal" href="../services/digital-transformation.html"><span class="service-num">05</span><h3>デジタルトランスフォーメーション</h3><p>業務プロセスの再設計、自動化、システム統合。</p></a>
+      <a class="service-card reveal" href="../services/pmo.html"><span class="service-num">06</span><h3>PMO</h3><p>大規模プログラムを支えるプロジェクトマネジメント。</p></a>
+      <a class="service-card reveal" href="../services/ams.html"><span class="service-num">07</span><h3>アプリケーション・マネジメント・サービス</h3><p>SLAに基づくアプリケーション環境の継続的な管理・運用。</p></a>
+      <a class="service-card reveal" href="../services/production-support-enhancements.html"><span class="service-num">08</span><h3>本番サポート＆機能拡張</h3><p>安定運用サポートと継続的な小規模改善。</p></a>
+      <a class="service-card reveal" href="../services/analytics-reporting.html"><span class="service-num">09</span><h3>アナリティクス＆カスタムダッシュボード</h3><p>SAP Analytics Cloud、Power BI、Tableau、カスタム開発ダッシュボード。</p></a>
+      <a class="service-card reveal" href="../services/training-internships-knowledge-transfer.html"><span class="service-num">10</span><h3>トレーニング・インターンシップ・ナレッジ移転</h3><p>実務者によるSAP教育と人材育成（Growing Together）。</p></a>
+      <a class="service-card reveal" href="../services/oracle-multi-erp.html"><span class="service-num">11</span><h3>Oracle＆マルチERPソリューション</h3><p>Oracle Fusion Cloud、NetSuiteをはじめとする主要ERPプラットフォーム。</p></a>
+      <a class="service-card reveal" href="../services/ai-integration.html"><span class="service-num">12</span><h3>AI統合＆インテリジェント自動化</h3><p>業務システムに組み込む実用的なAI——アシスタント、文書自動処理、予測分析。</p></a>
+    </div>
+    <p class="form-note" style="margin-top:18px;">サービス詳細ページは現在英語版のみです。日本語版は順次公開予定です。</p>
+  </div>
+</section>
+
+<section class="section section-alt" id="why">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">選ばれる理由</span>
+      <h2>私たちが守り続ける5つの約束</h2>
+    </div>
+    <div class="commit-list reveal">
+      <div class="commit"><div class="commit-num">01</div><div><h3>確実に提供できる仕事だけをお引き受けします</h3><p>能力や体制が伴わない場合は、契約の前に正直に申し上げます。</p></div></div>
+      <div class="commit"><div class="commit-num">02</div><div><h3>最適なチームを編成します</h3><p>案件ごとに、適切なモジュール経験・業界知識・経験年数を持つコンサルタントを配置します。</p></div></div>
+      <div class="commit"><div class="commit-num">03</div><div><h3>長期的な関係を大切にします</h3><p>ゴーライブ後の関係を最優先に考えます。多くのお客様と複数プロジェクトを重ねています。</p></div></div>
+      <div class="commit"><div class="commit-num">04</div><div><h3>実用的で高品質なソリューションを構築します</h3><p>過剰設計ではなく、目的に適った設計。実際に運用する方々のために作ります。</p></div></div>
+      <div class="commit"><div class="commit-num">05</div><div><h3>学び続けます</h3><p>継続的な資格取得、社内勉強会、率直なプロジェクト振り返りで基準を保ちます。</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="global">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">グローバル展開</span>
+      <h2>4カ国、ひとつの品質基準</h2>
+    </div>
+    <div class="country-chips reveal">
+      <span class="country-chip">インド — デリバリー＆コンサルティング拠点</span>
+      <span class="country-chip">日本 — 日本語によるお客様対応</span>
+      <span class="country-chip">UAE — 湾岸地域のお客様</span>
+      <span class="country-chip">シンガポール — APAC案件</span>
+    </div>
+  </div>
+</section>
+
+<section class="contact-cta" id="contact">
+  <div class="container reveal">
+    <span class="eyebrow" style="justify-content:center;display:inline-flex;">お問い合わせ</span>
+    <h2>次のERPの意思決定を、確かなものに。</h2>
+    <p>導入、移行、運用サポート、トレーニング——ご計画をお聞かせください。日本語で対応いたします。</p>
+    <div class="hero-actions" style="justify-content:center;">
+      <a class="btn btn-gold" href="../contact/index.html">お問い合わせフォームへ</a>
+      <a class="btn btn-outline" href="mailto:""" + EMAIL + """\">""" + EMAIL + """</a>
+    </div>
+  </div>
+</section>
+"""
+    # JA page needs its own header (labels in Japanese, switcher back to EN)
+    ja_header = HEADER.replace('href="{ROOT}ja/index.html" lang="ja" hreflang="ja">日本語',
+                               'href="{ROOT}index.html" lang="en" hreflang="en">English') \
+                      .replace('<li><a href="{ROOT}index.html#services">Services</a></li>', '<li><a href="#services">サービス</a></li>') \
+                      .replace('<li><a href="{ROOT}index.html#why-us">Why Us</a></li>', '<li><a href="#why">選ばれる理由</a></li>') \
+                      .replace('<li><a href="{ROOT}index.html#growing-together">Growing Together</a></li>', '') \
+                      .replace('<li><a href="{ROOT}insights/index.html">Insights</a></li>', '<li><a href="{ROOT}insights/index.html">インサイト</a></li>') \
+                      .replace('<li><a href="{ROOT}careers/index.html">Careers</a></li>', '<li><a href="{ROOT}careers/index.html">採用情報</a></li>') \
+                      .replace('<li><a href="{ROOT}index.html#faq">FAQ</a></li>', '') \
+                      .replace('<li><a href="{ROOT}portal/index.html">Client Portal</a></li>', '<li><a href="{ROOT}portal/index.html">クライアントポータル</a></li>') \
+                      .replace('>Contact</a>', '>お問い合わせ</a>')
+    saved = HEADER
+    HEADER = ja_header
+    extra = '<link rel="alternate" hreflang="en" href="https://www.sserpsolutions.net/">\n<link rel="alternate" hreflang="ja" href="https://www.sserpsolutions.net/ja/">\n'
+    wrap("ja/index.html", "SS ERP Solutions — エンタープライズ・テクノロジー・コンサルティング | 導入。最適化。変革。",
+         "SS ERP Solutionsは、SAP導入・移行・運用サポート・デジタルトランスフォーメーションをインド、日本、UAE、シンガポールで提供するコンサルティング会社です。",
+         "ja/", body, lang="ja", extra_head=extra)
+    HEADER = saved
+
+
+# ---------------------------------------------------------------- campaign template
+
+def build_campaign():
+    body = """
+<section class="landing-hero">
+  <canvas id="particle-canvas" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
+  <div class="container landing-grid" style="position:relative;">
+    <div>
+      <span class="eyebrow">Campaign landing template</span>
+      <h1 style="font-size:clamp(2rem,4.5vw,3.4rem);">[Campaign headline: the one promise this campaign makes]</h1>
+      <p class="hero-sub" style="margin:20px 0 28px;">[One short paragraph expanding the promise — who it is for and why now. Swap this copy per campaign; the layout, brand system and form stay.]</p>
+      <ul style="list-style:none;display:grid;gap:12px;margin-bottom:8px;color:var(--ink-soft);">
+        <li>◆ [Proof point one — concrete and defensible]</li>
+        <li>◆ [Proof point two]</li>
+        <li>◆ [Proof point three]</li>
+      </ul>
+    </div>
+    <form class="form-card" data-demo-form novalidate>
+      <h3 style="margin-bottom:6px;">[Offer: e.g. Book a 30-minute assessment call]</h3>
+      <p class="form-note" style="margin-bottom:20px;">[One line of reassurance — no obligation, honest advice.]</p>
+      <div class="form-grid" style="grid-template-columns:1fr;">
+        <div class="form-field"><label for="lp-name">Full name <span class="req">*</span></label><input id="lp-name" type="text" required></div>
+        <div class="form-field"><label for="lp-email">Work email <span class="req">*</span></label><input id="lp-email" type="email" required></div>
+        <div class="form-field"><label for="lp-company">Company</label><input id="lp-company" type="text"></div>
+      </div>
+      <div class="honeypot" aria-hidden="true"><input type="text" name="company_website" tabindex="-1" autocomplete="off"></div>
+      <div style="margin-top:22px;"><button class="btn btn-gold" type="submit" style="width:100%;justify-content:center;">[Campaign CTA]</button></div>
+      <div class="form-success" role="status">Thank you — we will be in touch shortly.</div>
+    </form>
+  </div>
+</section>
+<section class="marquee-band" aria-label="SAP technology expertise">
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-item">SAP S/4HANA</span><span class="marquee-item">SAP ECC</span><span class="marquee-item">SAP Business One</span><span class="marquee-item">FICO</span><span class="marquee-item">SAC</span><span class="marquee-item">MM</span><span class="marquee-item">SD</span><span class="marquee-item">ABAP</span><span class="marquee-item">BASIS</span>
+    </div>
+    <div class="marquee-track">
+      <span class="marquee-item">SAP S/4HANA</span><span class="marquee-item">SAP ECC</span><span class="marquee-item">SAP Business One</span><span class="marquee-item">FICO</span><span class="marquee-item">SAC</span><span class="marquee-item">MM</span><span class="marquee-item">SD</span><span class="marquee-item">ABAP</span><span class="marquee-item">BASIS</span>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="container" style="max-width:820px;">
+    <div class="section-head">
+      <h2>[Section: why this matters / what you get]</h2>
+      <p>[Two or three short paragraphs of campaign-specific substance. Keep the honest, no-superlatives tone of the brand: state what we do and for whom, not that we are 'the best'.]</p>
+    </div>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;">
+      <a class="btn btn-gold" href="#top">[Repeat campaign CTA]</a>
+      <a class="btn btn-outline" href="index.html">Visit the main site</a>
+    </div>
+  </div>
+</section>
+"""
+    wrap("campaign-template.html", "[Campaign title] — SS ERP Solutions",
+         "Reusable campaign landing-page template for SS ERP Solutions paid and email campaigns.",
+         "campaign-template.html", body, root="", chrome=False, floats=True,
+         extra_head='<meta name="robots" content="noindex">\n')
+
+
+# ---------------------------------------------------------------- privacy
+
+def build_privacy():
+    body = """
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="{ROOT}index.html">Home</a> / Privacy Notice</p>
+    <h1>Privacy notice</h1>
+    <p class="lead">A plain-language summary of what this website collects and how it is used.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container prose">
+    <h2>What we collect</h2>
+    <p>When you submit the contact form, a careers application or the client-portal login, we receive the information you type — typically your name, email address, phone number, company and message, and for applications your CV. The site also uses a web-analytics tool to measure visits and enquiry sources in aggregate.</p>
+    <h2>How we use it</h2>
+    <p>Form submissions are delivered to the official SS ERP Solutions mailbox and used solely to respond to your enquiry or application. We do not sell or share your personal information with third parties for their own purposes.</p>
+    <h2>Retention and contact</h2>
+    <p>We keep correspondence for as long as needed to handle your enquiry and reasonable business records thereafter. To ask what we hold about you or to request deletion, write to <a href="mailto:""" + EMAIL + """\">""" + EMAIL + """</a>.</p>
+    <h2>Cookies and chat</h2>
+    <p>The site stores your dark/light theme preference in your browser. The embedded live-chat widget and WhatsApp click-to-chat are provided by third parties and apply their own privacy terms when you choose to use them.</p>
+    <p class="form-note">This notice will be finalised with SS ERP Solutions before go-live.</p>
+  </div>
+</section>
+"""
+    wrap("privacy.html", "Privacy Notice — SS ERP Solutions",
+         "Privacy notice for the SS ERP Solutions website: what we collect through forms and analytics, and how it is used.",
+         "privacy.html", body, root="", floats=False)
+
+
+# ---------------------------------------------------------------- 404 & terms
+
+def build_404():
+    body = """
+<section class="page-hero" style="min-height:60vh;display:flex;align-items:center;">
+  <div class="container" style="text-align:center;">
+    <p class="mono" style="font-size:4rem;color:var(--gold);">404</p>
+    <h1>This page doesn't exist</h1>
+    <p class="lead" style="margin:18px auto 30px;max-width:520px;">The address may have changed or been mistyped. Everything we offer is one click from the homepage.</p>
+    <div class="hero-actions" style="justify-content:center;">
+      <a class="btn btn-gold" href="{ROOT}index.html">Go to homepage</a>
+      <a class="btn btn-outline" href="{ROOT}contact/index.html">Contact us</a>
+    </div>
+  </div>
+</section>
+"""
+    wrap("404.html", "Page not found — SS ERP Solutions",
+         "The page you were looking for does not exist on sserpsolutions.net.",
+         "404.html", body, root="", floats=False,
+         extra_head='<meta name="robots" content="noindex">\n')
+
+
+def build_terms():
+    body = """
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="{ROOT}index.html">Home</a> / Terms of Use</p>
+    <h1>Terms of use</h1>
+    <p class="lead">The short version of using this website fairly.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container prose">
+    <h2>Use of this site</h2>
+    <p>This website presents SS ERP Solutions' services and publications. You may browse, link to and quote it with attribution. You may not scrape it wholesale, misrepresent its content, or attempt to disrupt or gain unauthorised access to any part of it, including the client portal.</p>
+    <h2>Content and no advice</h2>
+    <p>Articles and case studies are general commentary based on our project experience. They are not advice for your specific situation — engagements begin with a conversation, not a blog post. Figures, testimonials and case material are published only once approved by the clients involved.</p>
+    <h2>Intellectual property</h2>
+    <p>The SS ERP Solutions name, interlocking-S mark and site content belong to SS ERP Solutions. SAP, Oracle, NetSuite, Microsoft and other product names are trademarks of their respective owners and are used here only to describe our capability with those products.</p>
+    <h2>Liability</h2>
+    <p>The site is provided as-is. We keep it accurate and available with reasonable care, but we accept no liability for decisions made on the basis of website content alone, or for interruptions outside our control.</p>
+    <p class="form-note">These terms will be finalised with SS ERP Solutions before go-live. Questions: <a href="mailto:""" + EMAIL + """\">""" + EMAIL + """</a>.</p>
+  </div>
+</section>
+"""
+    wrap("terms.html", "Terms of Use — SS ERP Solutions",
+         "Terms of use for the SS ERP Solutions website.",
+         "terms.html", body, root="", floats=False)
+
+
+# ---------------------------------------------------------------- assets & seo
+
+def build_assets():
+    fav = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="18" fill="#0B1220"/><polygon points="50,10 84,30 84,70 50,90 16,70 16,30" fill="none" stroke="#C9A24B" stroke-width="5"/><text x="53" y="68" text-anchor="middle" font-family="Arial, sans-serif" font-size="44" font-weight="800" fill="#8C1D24">S</text><text x="47" y="64" text-anchor="middle" font-family="Arial, sans-serif" font-size="44" font-weight="800" fill="#C9A24B">S</text></svg>"""
+    os.makedirs(os.path.join(SITE, "assets"), exist_ok=True)
+    with open(os.path.join(SITE, "assets", "favicon.svg"), "w", encoding="utf-8") as f:
+        f.write(fav)
+    print("wrote assets/favicon.svg")
+
+    base = "https://www.sserpsolutions.net/"
+    urls = ["", "ja/", "insights/", "careers/", "contact/", "privacy.html", "terms.html"]
+    urls += ["services/%s.html" % s["slug"] for s in SERVICES]
+    urls += ["insights/%s.html" % a["slug"] for a in ARTICLES]
+    sm = ['<?xml version="1.0" encoding="UTF-8"?>',
+          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for u in urls:
+        sm.append("  <url><loc>%s%s</loc></url>" % (base, u))
+    sm.append("</urlset>")
+    with open(os.path.join(SITE, "sitemap.xml"), "w", encoding="utf-8") as f:
+        f.write("\n".join(sm) + "\n")
+    print("wrote sitemap.xml")
+
+    with open(os.path.join(SITE, "robots.txt"), "w", encoding="utf-8") as f:
+        f.write("User-agent: *\nAllow: /\nDisallow: /portal/\nSitemap: %ssitemap.xml\n" % base)
+    print("wrote robots.txt")
+
+    manifest = """{
+  "name": "SS ERP Solutions",
+  "short_name": "SS ERP",
+  "description": "Enterprise technology consulting - SAP, Oracle and multi-ERP delivery, dashboards and AI integration.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#0B1220",
+  "theme_color": "#0B1220",
+  "icons": [{"src": "assets/logo-mark.png", "sizes": "112x109", "type": "image/png"}]
+}
+"""
+    with open(os.path.join(SITE, "site.webmanifest"), "w", encoding="utf-8") as f:
+        f.write(manifest)
+    print("wrote site.webmanifest")
+
+    well_known = os.path.join(SITE, ".well-known")
+    os.makedirs(well_known, exist_ok=True)
+    with open(os.path.join(well_known, "security.txt"), "w", encoding="utf-8") as f:
+        f.write("Contact: mailto:%s\nExpires: 2027-07-25T00:00:00.000Z\nPreferred-Languages: en, ja\nCanonical: https://www.sserpsolutions.net/.well-known/security.txt\n" % EMAIL)
+    print("wrote .well-known/security.txt")
+
+    # Open Graph share image: full brand lockup on the light brand background
+    try:
+        from PIL import Image
+        og = Image.new("RGBA", (1200, 630), (246, 247, 250, 255))
+        logo = Image.open(os.path.join(SITE, "assets", "logo-full.png"))
+        scale = min(900 / logo.width, 300 / logo.height)
+        logo = logo.resize((int(logo.width * scale), int(logo.height * scale)), Image.LANCZOS)
+        og.paste(logo, ((1200 - logo.width) // 2, (630 - logo.height) // 2), logo)
+        # gold + maroon brand bars top and bottom
+        for x in range(1200):
+            for y in range(0, 14):
+                og.putpixel((x, y), (201, 162, 75, 255))
+            for y in range(616, 630):
+                og.putpixel((x, y), (140, 29, 36, 255))
+        og.convert("RGB").save(os.path.join(SITE, "assets", "og-image.png"))
+        print("wrote assets/og-image.png")
+    except Exception as e:
+        print("og-image skipped:", e)
+
+
+if __name__ == "__main__":
+    build_services()
+    build_insights()
+    build_careers()
+    build_contact()
+    build_portal()
+    build_japanese()
+    build_campaign()
+    build_privacy()
+    build_404()
+    build_terms()
+    build_assets()
+    print("done.")
