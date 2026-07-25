@@ -27,7 +27,9 @@ HEAD = """<!DOCTYPE html>
 <meta property="og:site_name" content="SS ERP Solutions">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 <script>document.documentElement.classList.add("js");(function(){try{var t=localStorage.getItem("sserp-theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t);}}catch(e){}})();</script>
 <link rel="stylesheet" href="{ROOT}css/styles.css">
 <link rel="icon" type="image/png" href="{ROOT}assets/logo-mark.png">
@@ -74,14 +76,14 @@ FOOTER = """<footer class="site-footer">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a class="brand" href="{ROOT}index.html">
+        <a class="brand" href="{ROOT}index.html" aria-label="SS ERP Solutions — home">
           """ + LOGO_SVG + """
           <span><span class="brand-name">SS ERP Solutions</span><br><span class="brand-tag">Implement | Optimize | Transform</span></span>
         </a>
         <p>Enterprise technology consulting across India, Japan, the UAE and Singapore.</p>
       </div>
       <div>
-        <h4>Company</h4>
+        <h3 class="foot-h">Company</h3>
         <ul>
           <li><a href="{ROOT}index.html#who-we-are">Who We Are</a></li>
           <li><a href="{ROOT}index.html#why-us">Why Choose Us</a></li>
@@ -92,7 +94,7 @@ FOOTER = """<footer class="site-footer">
         </ul>
       </div>
       <div>
-        <h4>Services</h4>
+        <h3 class="foot-h">Services</h3>
         <ul>
           <li><a href="{ROOT}services/erp-consulting.html">ERP Consulting</a></li>
           <li><a href="{ROOT}services/enterprise-application-implementation.html">Implementation</a></li>
@@ -104,7 +106,7 @@ FOOTER = """<footer class="site-footer">
         </ul>
       </div>
       <div>
-        <h4>Connect</h4>
+        <h3 class="foot-h">Connect</h3>
         <ul>
           <li><a href="{ROOT}insights/index.html">Insights</a></li>
           <li><a href="{ROOT}contact/index.html">Contact</a></li>
@@ -179,9 +181,9 @@ SERVICES = [
  dict(slug="erp-consulting", num="01", name="ERP Consulting",
   tag="Independent advice on ERP strategy, selection and roadmaps — grounded in how your business actually runs.",
   intro=["An ERP decision outlives the people who make it. The platform you choose — and the processes you design around it — will shape how your organisation works for a decade. We help you make that decision with clear eyes: what you need, what it will really cost, and what it will take to land.",
-         "We are practitioners, not analysts. The consultants who write your roadmap are the same people who have implemented, migrated and supported these systems — so the advice is grounded in delivery reality, not slideware."],
+         "We are practitioners first. The consultants who write your roadmap are the same people who have implemented, migrated and supported these systems — so the advice is grounded in delivery reality."],
   approach=["<strong>Process audit first.</strong> We map how your business actually operates today — order-to-cash, procure-to-pay, record-to-report — before any technology talk.",
-            "<strong>Requirements before vendors.</strong> Selection criteria come from your processes and growth plans, not from a feature checklist.",
+            "<strong>Requirements before vendors.</strong> Selection criteria come from your processes and growth plans.",
             "<strong>Honest fit assessment.</strong> We tell you which gaps are configuration, which are customisation, and which should change your process instead.",
             "<strong>A roadmap you can execute.</strong> Phasing, team shape, budget ranges and risks — written so your board can act on it."],
   engagements=["ERP strategy and platform selection for a first ERP or a replacement", "S/4HANA readiness assessments and migration roadmaps", "Health checks of existing implementations that underperform", "Business-case development for transformation programmes"],
@@ -190,12 +192,12 @@ SERVICES = [
  dict(slug="enterprise-application-implementation", num="02", name="Enterprise Application Implementation",
   tag="End-to-end implementation of SAP and enterprise applications — scoped honestly, staffed properly, delivered to plan.",
   intro=["A good implementation is mostly decided before the first configuration screen: honest scope, the right team, and a plan that respects how your people work. We run implementations with those three things in place from day one.",
-         "Our teams cover the full SAP core — FICO, MM, SD, PP, QM, PM — with ABAP and BASIS capability in-house, so functional and technical decisions are made together, not thrown over a wall."],
+         "Our teams cover the full SAP core — FICO, MM, SD, PP, QM, PM — with ABAP and BASIS capability in-house, so functional and technical decisions are made together, by one team."],
   approach=["<strong>Blueprint against reality.</strong> Design workshops run with the people who will use the system, not just the steering committee.",
-            "<strong>Build in visible increments.</strong> Regular playbacks of working configuration — no six-month silence followed by a surprise.",
+            "<strong>Build in visible increments.</strong> Regular playbacks of working configuration, with progress visible every few weeks.",
             "<strong>Data taken seriously.</strong> Migration is planned from week one: mapping, cleansing, mock loads, reconciliation.",
             "<strong>Cutover as a rehearsed event.</strong> Documented runbooks, rehearsals and rollback plans before go-live weekend.",
-            "<strong>Hypercare that stays.</strong> Structured post-go-live support until the system is genuinely stable — not until the invoice clears."],
+            "<strong>Hypercare that stays.</strong> Structured post-go-live support that stays until the system is genuinely stable."],
   engagements=["Full-cycle SAP S/4HANA and SAP Business One implementations", "Module additions to a running landscape (e.g. Treasury, RAR, Group Reporting)", "Rescue of stalled or troubled implementations", "Integration of SAP with surrounding enterprise applications"],
   outcomes=["A system your teams actually use, adopted with training and change support", "Opening balances that reconcile on day one", "Documentation and knowledge transfer your team keeps"]),
 
@@ -203,9 +205,9 @@ SERVICES = [
   tag="New builds and system conversions — including S/4HANA journeys that protect what works and fix what doesn't.",
   intro=["The greenfield-versus-brownfield question has no universal answer. A clean reimplementation buys you simplicity at the price of disruption; a system conversion preserves your history at the price of carrying old decisions forward. We help you choose on evidence, then deliver either path.",
          "For S/4HANA journeys specifically, we assess your custom code, data volumes, process debt and business appetite before recommending a route — and we will tell you if the honest answer is a hybrid, selective approach."],
-  approach=["<strong>Assessment before allegiance.</strong> Custom-code analysis, data profiling and process-debt review decide the route — not a preference.",
+  approach=["<strong>Assessment decides the route.</strong> Custom-code analysis, data profiling and process-debt review pick the path on evidence.",
             "<strong>Greenfield: design freedom used deliberately.</strong> Standard-first design, clean master data, only justified customisation.",
-            "<strong>Brownfield: conversion without carry-over.</strong> We use the conversion to retire dead code and clean data, not just to change the database.",
+            "<strong>Brownfield: conversion without carry-over.</strong> We use the conversion to retire dead code and clean data along the way.",
             "<strong>Business continuity throughout.</strong> Month-end still closes, orders still ship, payroll still runs — through every phase."],
   engagements=["Greenfield S/4HANA implementations for growing enterprises", "Brownfield ECC-to-S/4HANA system conversions", "Selective data transition projects combining both approaches", "New-entity builds inside an existing corporate template"],
   outcomes=["A defensible route decision with the trade-offs documented", "A landscape ready for the 2030 ECC maintenance horizon", "Less custom code and cleaner data than you started with"]),
@@ -213,7 +215,7 @@ SERVICES = [
  dict(slug="rollouts-upgrades-migrations", num="04", name="Rollouts, Upgrades & Migrations",
   tag="Multi-country template rollouts, version upgrades and platform migrations — without disrupting the running business.",
   intro=["Rollouts and upgrades fail quietly: a template that ignores local statutory reality, an upgrade that breaks a bolt-on nobody documented, a migration weekend that runs long. We plan for exactly those failure modes.",
-         "With delivery experience across India, Japan, the UAE and Singapore, we understand localisation as a first-class requirement — tax regimes, statutory reporting and language are part of the template design, not an afterthought."],
+         "With delivery experience across India, Japan, the UAE and Singapore, we understand localisation as a first-class requirement — tax regimes, statutory reporting and language are part of the template design from day one."],
   approach=["<strong>Template with local intelligence.</strong> A global core plus a defined localisation layer per country — statutory, language, fiscal calendars.",
             "<strong>Impact analysis before upgrades.</strong> Custom code, interfaces and authorisations tested against the target version before anyone commits a date.",
             "<strong>Rehearsed migrations.</strong> Mock runs with timed cutover plans; the go-live weekend follows a script that has already worked twice.",
@@ -223,8 +225,8 @@ SERVICES = [
 
  dict(slug="digital-transformation", num="05", name="Digital Transformation",
   tag="Process redesign, automation and integration that make transformation real — not just rebranded.",
-  intro=["Automating a broken process gives you broken results, faster. Real transformation starts with the process: what should this workflow look like if we designed it today — and only then, what technology gets us there?",
-         "We keep transformation honest by tying every initiative to an operational measure: days to close, order cycle time, first-time-right rate. If a workstream can't name its measure, it doesn't start."],
+  intro=["Real transformation starts with the process: what should this workflow look like if we designed it today — and only then, what technology gets us there?",
+         "We keep transformation honest by tying every initiative to an operational measure: days to close, order cycle time, first-time-right rate. Every workstream starts by naming the measure it will move."],
   approach=["<strong>Redesign before automation.</strong> Core workflows are challenged and simplified before any tool is configured.",
             "<strong>Integrate, don't duplicate.</strong> One source of truth per data domain, with interfaces designed as products, not point fixes.",
             "<strong>Automate the repeatable.</strong> Workflow, RPA and smart forms where the volume justifies it — measured before and after.",
@@ -236,10 +238,10 @@ SERVICES = [
   tag="Programme and project management that keeps large initiatives honest: plans, risks, governance and decisions on the record.",
   intro=["Large programmes rarely fail from a single bad decision — they fail from a hundred small ones nobody wrote down. A disciplined PMO makes the state of the programme visible: what was decided, what it costs, what is at risk, and who owns the next move.",
          "We run PMO as a service — from full programme management of an implementation to an independent PMO layer over your own delivery teams or another vendor's."],
-  approach=["<strong>A single plan that is real.</strong> One integrated plan with dependencies and capacity — not five decks that disagree.",
+  approach=["<strong>A single plan that is real.</strong> One integrated plan with dependencies and capacity, that everyone works from.",
             "<strong>Risks with owners and dates.</strong> A living risk register reviewed weekly, with escalation that actually escalates.",
             "<strong>Decisions on the record.</strong> Every material decision logged with its context and alternatives — so the programme never re-litigates.",
-            "<strong>Reporting people read.</strong> One page per week for the sponsor: status, spend, risks, asks. No theatre."],
+            "<strong>Reporting people read.</strong> One page per week for the sponsor: status, spend, risks, asks."],
   engagements=["Full programme management of ERP implementations and rollouts", "Independent PMO oversight of a system-integrator-led programme", "Recovery management of programmes in trouble", "Portfolio governance across parallel initiatives"],
   outcomes=["A sponsor who always knows the true state of the programme", "Fewer surprises, earlier — risks surfaced while they are cheap", "An audit trail of decisions from kickoff to closure"]),
 
@@ -250,9 +252,9 @@ SERVICES = [
   approach=["<strong>Structured takeover.</strong> A documented transition: landscape inventory, open-issue triage, knowledge capture — whether from your team or another vendor.",
             "<strong>Defined service levels.</strong> Priority-based response and resolution targets, reported monthly, with an honest conversation when we miss one.",
             "<strong>Prevention over firefighting.</strong> Recurring-incident analysis and quarterly health checks reduce ticket volume over time.",
-            "<strong>Month-end presence.</strong> Support cover aligned to your close calendar, not just business hours."],
+            "<strong>Month-end presence.</strong> Support cover aligned to your close calendar and your time zones."],
   engagements=["Full AMS for SAP landscapes (functional + ABAP + BASIS)", "Second- and third-level support behind your internal service desk", "AMS takeover from an incumbent vendor", "Support for multi-country landscapes across time zones"],
-  outcomes=["Falling incident volume, not just met SLAs", "A support partner who knows your system's history", "Predictable support cost your CFO can plan around"]),
+  outcomes=["Falling incident volume, quarter on quarter", "A support partner who knows your system's history", "Predictable support cost your CFO can plan around"]),
 
  dict(slug="production-support-enhancements", num="08", name="Production Support & Enhancements",
   tag="Steady-state support, issue resolution and continuous small enhancements that keep the system in step with the business.",
@@ -260,7 +262,7 @@ SERVICES = [
          "We combine production support with a managed enhancement pipeline: small, well-scoped improvements delivered in regular cycles, prioritised jointly with your process owners."],
   approach=["<strong>Stabilise first.</strong> Recurring incidents are fixed at root cause before enhancement work begins.",
             "<strong>A visible pipeline.</strong> Enhancement requests estimated, prioritised and scheduled in a backlog your team can see.",
-            "<strong>Small batches, tested properly.</strong> Regular release cycles with regression testing — no risky big-bang change weekends.",
+            "<strong>Small batches, tested properly.</strong> Regular release cycles with regression testing, released in small, safe batches.",
             "<strong>Documentation as part of done.</strong> Every change lands with its documentation and, where needed, user communication."],
   engagements=["Production support for SAP functional modules and custom developments", "Continuous-improvement retainers with a monthly enhancement budget", "Statutory and year-end change support (tax rates, legal reporting)", "Performance tuning and batch-schedule optimisation"],
   outcomes=["A system that keeps pace with the business, quarter by quarter", "Fewer workarounds and shadow tools in the business", "Change delivered safely, on a rhythm your users can trust"]),
@@ -274,24 +276,24 @@ SERVICES = [
             "<strong>Self-service with guardrails.</strong> Curated models your analysts can explore without breaking the definitions.",
             "<strong>Right tool per audience.</strong> SAC or Power BI for leadership, embedded analytics for operations, custom-built dashboards where the requirement outgrows the tools."],
   engagements=["SAP Analytics Cloud implementations for planning and reporting", "Power BI and Tableau dashboard suites over ERP and operational data", "Custom web dashboards for requirements packaged tools can't express", "Group Reporting, consolidation and migration of legacy BO/BW reporting"],
-  outcomes=["Month-end packs produced in hours, not days", "One version of the truth leadership actually trusts", "Dashboards shaped around your decisions, not around a tool's defaults"]),
+  outcomes=["Month-end packs produced in hours, not days", "One version of the truth leadership actually trusts", "Dashboards shaped around your decisions and the way your teams work"]),
 
  dict(slug="training-internships-knowledge-transfer", num="10", name="Training, Internships & Knowledge Transfer",
   tag="Structured SAP training, internship programmes and project-embedded knowledge transfer — Growing Together.",
   intro=["The consulting industry runs on talent, and talent is built deliberately. Growing Together is our people-development practice: SAP training for professionals and graduates, structured internships with real project exposure, and formal knowledge transfer inside every client engagement.",
-         "Our trainers are delivering consultants, not full-time presenters. What we teach on Saturday is what we configured on Thursday."],
+         "Our trainers are delivering consultants. What we teach on Saturday is what we configured on Thursday."],
   approach=["<strong>Practitioner-led curriculum.</strong> Functional and technical SAP tracks built from real project artefacts and scenarios.",
             "<strong>Learning by doing.</strong> Sandbox systems, case-based exercises and supervised work on realistic deliverables.",
             "<strong>Mentoring built in.</strong> Every trainee gets a senior consultant mentor for career and specialisation guidance.",
             "<strong>Certification with a plan.</strong> Honest advice on which SAP certifications matter for your goals — and efficient preparation for them."],
   engagements=["Corporate SAP training for client teams around go-lives", "Open training programmes for professionals moving into SAP", "Graduate internship cohorts with project placement", "End-of-project knowledge-transfer programmes for client IT teams"],
-  outcomes=["Teams that can run and improve their own systems", "Graduates with genuine project experience, not just slides", "A talent pipeline for clients — and for our own bench"]),
+  outcomes=["Teams that can run and improve their own systems", "Graduates with genuine, hands-on project experience", "A talent pipeline for clients — and for our own bench"]),
 
  dict(slug="oracle-multi-erp", num="11", name="Oracle & Multi-ERP Solutions",
   tag="Oracle Fusion Cloud, NetSuite and other leading ERP platforms — the same delivery discipline, applied beyond SAP.",
   intro=["The right ERP depends on your size, complexity and growth plans — not on what a consultancy happens to sell. Our roots are in SAP, and our delivery discipline travels: we implement and support Oracle Fusion Cloud ERP, Oracle NetSuite and other leading platforms where they are the honest fit.",
          "This matters most in mixed estates: a group running SAP at the centre with NetSuite subsidiaries, or an acquisition arriving with Oracle already in place. We work across those boundaries — integration, consolidated reporting and one support arrangement — instead of pretending the estate is uniform."],
-  approach=["<strong>Vendor-agnostic selection.</strong> Platform recommendations follow your requirements and budget, documented with the trade-offs — we hold no resale incentive to steer you.",
+  approach=["<strong>Vendor-agnostic selection.</strong> Platform recommendations follow your requirements and budget, documented with the trade-offs, independent of any resale incentive.",
             "<strong>The same implementation discipline.</strong> Honest scope, blueprint against reality, rehearsed cutover and real hypercare — regardless of the logo on the login screen.",
             "<strong>Mixed-estate integration.</strong> Interfaces, master-data alignment and consolidated reporting across SAP, Oracle and other systems living side by side.",
             "<strong>One support arrangement.</strong> AMS that covers the estate you actually run, not just one vendor's slice of it."],
@@ -301,11 +303,11 @@ SERVICES = [
  dict(slug="ai-integration", num="12", name="AI Integration & Intelligent Automation",
   tag="Practical AI inside your enterprise systems — assistants, document automation and forecasting that respect your data and your controls.",
   intro=["AI in the enterprise fails in two predictable ways: pilots that never touch real workflows, and deployments that ignore the controls finance and audit depend on. We do neither. We integrate AI where it demonstrably saves hours or improves decisions — grounded in your ERP data, inside your security boundary, with a human accountable for anything that posts, pays or promises.",
-         "Our position is deliberately conservative: AI drafts, summarises, extracts and predicts; your systems and your people decide. That is what makes AI adoption survivable in an audited enterprise — and it is why our AI work starts from the ERP outward, not from a chatbot inward."],
+         "Our position is deliberately conservative: AI drafts, summarises, extracts and predicts; your systems and your people decide. That is what makes AI adoption survivable in an audited enterprise — and it is why our AI work starts from the ERP outward."],
   approach=["<strong>Use-cases triaged by value and risk.</strong> We rank candidates by hours saved and control impact — the first deployment should be boring, useful and safe.",
-            "<strong>Grounded on your data.</strong> Assistants answer from your documents and ERP records with access control intact — not from a model's imagination.",
+            "<strong>Grounded on your data.</strong> Assistants answer from your documents and ERP records, with access control intact.",
             "<strong>Human-in-the-loop where it counts.</strong> Anything touching postings, payments or external commitments keeps an approval step by design.",
-            "<strong>Measured, not marketed.</strong> Baseline before, measure after — cycle time, hours returned, error rates. If it doesn't move, we say so."],
+            "<strong>Measured results.</strong> Baseline before, measure after — cycle time, hours returned, error rates. If it doesn't move, we say so."],
   engagements=["AI assistants over ERP, reporting and policy documents for finance and operations teams", "Intelligent document processing: invoices, purchase orders, delivery notes and contracts", "Machine-learning forecasting for cash, demand and inventory", "Workflow automation combining RPA, APIs and LLMs across the back office"],
   outcomes=["Hours returned to teams every week, measured against a baseline", "Faster document cycle times with fewer keying errors", "AI your auditors can live with — controls intact, decisions traceable"]),
 ]
@@ -473,7 +475,7 @@ def build_careers():
   <div class="container">
     <p class="breadcrumb"><a href="{ROOT}index.html">Home</a> / Careers</p>
     <span class="eyebrow">Careers</span>
-    <h1>Do the best work of your career — properly</h1>
+    <h1>Do career-defining work — properly</h1>
     <p class="lead">We hire consultants who care how the work is done: honest scoping, real expertise, long client relationships. If that sounds like you, we'd like to meet you.</p>
   </div>
 </section>
@@ -513,7 +515,7 @@ def build_careers():
   <div class="container" style="max-width:820px;">
     <div class="section-head reveal">
       <h2>Apply — or register your interest</h2>
-      <p>No matching role? Send us your profile anyway. Applications are delivered to our official mailbox and every serious one gets a reply.</p>
+      <p>Every strong profile is welcome — send yours even without a matching role. Applications are delivered to our official mailbox and every serious one gets a reply.</p>
     </div>
     <form class="form-card reveal" data-demo-form novalidate>
       <div class="form-grid">
@@ -710,8 +712,8 @@ def build_japanese():
   <div class="hero-fade" aria-hidden="true"></div>
   <div class="container hero-inner">
     <span class="eyebrow">エンタープライズ・テクノロジー・コンサルティング</span>
-    <h1>導入<span class="dot">。</span>最適化<span class="dot">。</span>変革<span class="dot">。</span></h1>
-    <p class="hero-sub">ERPは事業を支えるためのもの——負担にするものではありません。SS ERP Solutionsは、深いSAPの専門知識と、信頼と紹介によって築かれた確かなデリバリー基準で、現場が本当に使えるエンタープライズ・ソリューションを計画・構築・運用します。</p>
+    <h1 style="font-size:clamp(2rem,4.6vw,3.4rem);">ERPは、事業を<span class="gold">前へ進める</span>力になる。</h1>
+    <p class="hero-sub">SS ERP Solutionsは、深いSAPの専門知識、OracleをはじめとするマルチERP対応力、カスタムダッシュボードと実用的なAIを、信頼と紹介によって築かれた確かなデリバリー基準でお届けします。現場が本当に使えるエンタープライズ・ソリューションを計画・構築・運用します。</p>
     <div class="hero-actions">
       <a class="btn btn-gold" href="#contact">お問い合わせ</a>
       <a class="btn btn-outline" href="#services">サービスを見る</a>
@@ -760,10 +762,10 @@ def build_japanese():
       <h2>私たちが守り続ける5つの約束</h2>
     </div>
     <div class="commit-list reveal">
-      <div class="commit"><div class="commit-num">01</div><div><h3>確実に提供できる仕事だけをお引き受けします</h3><p>能力や体制が伴わない場合は、契約の前に正直に申し上げます。</p></div></div>
+      <div class="commit"><div class="commit-num">01</div><div><h3>確実に提供できる仕事だけをお引き受けします</h3><p>契約の前に、能力と体制を正直に見極めたうえでお引き受けします。</p></div></div>
       <div class="commit"><div class="commit-num">02</div><div><h3>最適なチームを編成します</h3><p>案件ごとに、適切なモジュール経験・業界知識・経験年数を持つコンサルタントを配置します。</p></div></div>
       <div class="commit"><div class="commit-num">03</div><div><h3>長期的な関係を大切にします</h3><p>ゴーライブ後の関係を最優先に考えます。多くのお客様と複数プロジェクトを重ねています。</p></div></div>
-      <div class="commit"><div class="commit-num">04</div><div><h3>実用的で高品質なソリューションを構築します</h3><p>過剰設計ではなく、目的に適った設計。実際に運用する方々のために作ります。</p></div></div>
+      <div class="commit"><div class="commit-num">04</div><div><h3>実用的で高品質なソリューションを構築します</h3><p>目的に適った設計を第一に、実際に運用する方々のために作ります。</p></div></div>
       <div class="commit"><div class="commit-num">05</div><div><h3>学び続けます</h3><p>継続的な資格取得、社内勉強会、率直なプロジェクト振り返りで基準を保ちます。</p></div></div>
     </div>
   </div>
