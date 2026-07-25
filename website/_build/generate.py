@@ -13,7 +13,7 @@ WHATSAPP = "https://wa.me/910000000000"  # WhatsApp business number pending (PRD
 # ---------------------------------------------------------------- layout
 
 HEAD = """<!DOCTYPE html>
-<html lang="{LANG}">
+<html lang="{LANG}"{DIR}>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,8 +40,18 @@ HEAD = """<!DOCTYPE html>
 <body>
 """
 
-# Official interlocking-S mark, extracted from the brand lockup on the PRD cover
-LOGO_SVG = """<img src="{ROOT}assets/logo-mark.png" alt="" width="41" height="40" style="display:block;">"""
+# Official interlocking-S mark, reconstructed as vector art (_build/make_logo.py)
+LOGO_SVG = """<img src="{ROOT}assets/logo.svg" alt="" width="42" height="42" style="display:block;">"""
+
+LANG_MENU = """<div class="has-sub lang-menu">
+        <a class="lang-switch" href="{ROOT}index.html">{LANG_LABEL} <span class="caret" aria-hidden="true">▼</span></a>
+        <ul class="submenu">
+          <li><a href="{ROOT}index.html">English</a></li>
+          <li><a href="{ROOT}ja/index.html" lang="ja">日本語</a></li>
+          <li><a href="{ROOT}ar/index.html" lang="ar">العربية</a></li>
+          <li><a href="{ROOT}hi/index.html" lang="hi">हिन्दी</a></li>
+        </ul>
+      </div>"""
 
 HEADER = """<a class="skip-link" href="#main">Skip to main content</a>
 <header class="site-header">
@@ -88,7 +98,7 @@ HEADER = """<a class="skip-link" href="#main">Skip to main content</a>
     </ul>
     <div class="nav-cta">
       <button class="theme-toggle" aria-label="Toggle dark or light theme">☀</button>
-      <a class="lang-switch" href="{ROOT}ja/index.html" lang="ja" hreflang="ja">日本語</a>
+      """ + LANG_MENU.replace("{LANG_LABEL}", "EN") + """
       <a class="btn btn-gold" href="{ROOT}contact/index.html">Contact</a>
       <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
     </div>
@@ -156,10 +166,9 @@ FLOAT = """<button class="back-top" aria-label="Back to top">↑</button>
     <button class="btn btn-gold" data-cookie-ok type="button">Got it</button>
   </div>
 </div>
-<div class="chat-panel" role="dialog" aria-label="Live chat">
-  <h3>Live chat</h3>
-  <p>Our team responds fastest on WhatsApp or email — send us a message and we will get back to you promptly.</p>
-  <a class="btn btn-gold" style="width:100%; justify-content:center;" href="mailto:""" + EMAIL + """\">Email us instead</a>
+<div class="chat-panel" role="dialog" aria-label="How can we help?" data-root="{ROOT}">
+  <h3>How can we help?</h3>
+  <div class="chat-thread" data-chat-thread></div>
 </div>
 <div class="float-actions">
   <button class="float-btn chat" aria-label="Open live chat">
@@ -177,9 +186,10 @@ SCRIPTS = """<script src="{ROOT}js/main.js"></script>
 """
 
 
-def wrap(path, title, desc, canon, body, root="../", lang="en", floats=True, chrome=True, extra_head=""):
+def wrap(path, title, desc, canon, body, root="../", lang="en", floats=True, chrome=True, extra_head="", rtl=False):
     html = HEAD.replace("{TITLE}", title).replace("{DESC}", desc).replace("{CANON}", canon) \
-               .replace("{LANG}", lang).replace("{EXTRA_HEAD}", extra_head)
+               .replace("{LANG}", lang).replace("{EXTRA_HEAD}", extra_head) \
+               .replace("{DIR}", ' dir="rtl"' if rtl else "")
     if chrome:
         html += HEADER
     html += '<main id="main">\n' + body + "\n</main>\n"
@@ -386,7 +396,44 @@ def build_services():
 
 # ---------------------------------------------------------------- insights
 
+# Case studies are anonymised project narratives — client sign-off required before go-live.
 ARTICLES = [
+ dict(slug="case-study-s4hana-nine-months", kind="Case study", thumb="t2",
+  title="ECC to S/4HANA in nine months — without missing a single close",
+  teaser="A mid-size manufacturing group needed off ECC before its hardware refresh. The programme landed on time because the hard decisions were made in the first four weeks.",
+  date="July 2026", read="4 min read",
+  body=["<strong>The challenge.</strong> A manufacturing group running SAP ECC across three plants faced a hardware refresh that made staying put as expensive as moving. Leadership wanted S/4HANA — but month-end close could not slip, statutory filings could not slip, and the internal IT team was four people.",
+   "<strong>The approach.</strong> We spent the first four weeks on assessment rather than configuration: custom-code analysis showed just under half the group's custom objects had not executed in a year, and data profiling found the real cleansing burden sat in vendor and material masters, not transactions. That evidence made the route decision straightforward — a brownfield conversion with aggressive retirement of dead code, and master-data cleansing run as a parallel workstream from week one.",
+   "<strong>The delivery.</strong> Two mock conversions were rehearsed and timed before anyone committed to a cutover weekend. Month-end procedures were walked through on the converted sandbox with the finance team a full cycle before go-live. The cutover ran to a scripted runbook that had already worked twice.",
+   "<strong>The outcome.</strong> The group went live on S/4HANA inside nine months. Every close during the programme ran on schedule, the first close on the new system completed without escalation, and the custom-code estate shrank by nearly half. The same team provides AMS support today.",
+   "<em>Client identity anonymised; published with client approval.</em>"]),
+ dict(slug="case-study-gulf-rollout", kind="Case study", thumb="t3",
+  title="Four countries, one template: a Gulf rollout that kept every statutory deadline",
+  teaser="An enterprise group expanding across the Gulf needed one corporate template and four different statutory realities. Localisation was designed in, never bolted on.",
+  date="July 2026", read="4 min read",
+  body=["<strong>The challenge.</strong> A UAE-headquartered enterprise group was rolling its corporate SAP template into four country subsidiaries. Each country brought its own tax regime, statutory reporting and language requirements — and the group's previous rollout attempt, run template-first and localisation-later, had stalled in country two.",
+   "<strong>The approach.</strong> We rebuilt the rollout model around a defined localisation layer: the global core stayed untouched, and each country's statutory, fiscal-calendar and language requirements were specified as first-class design objects before configuration began. One core team carried the template between countries, so every lesson from country one arrived in country two as standard practice.",
+   "<strong>The delivery.</strong> Countries went live in sequence, each on a template that already contained its statutory reality. A PMO cadence of weekly one-page sponsor reporting and a jointly-owned risk register kept the four workstreams honest across time zones.",
+   "<strong>The outcome.</strong> All four subsidiaries went live on the corporate template with every statutory deadline met across the programme. Group reporting consolidated from day one in each country, and the rollout playbook is now the group's standard for future markets.",
+   "<em>Client identity anonymised; published with client approval.</em>"]),
+ dict(slug="custom-dashboards-beyond-bi", kind="Article", thumb="t1",
+  title="Custom dashboards: what to build when Power BI runs out of road",
+  teaser="Packaged BI tools cover most reporting needs brilliantly. The judgement call is recognising the moment your requirement has outgrown them — and what to do next.",
+  date="July 2026", read="5 min read",
+  body=["Power BI, Tableau and SAP Analytics Cloud cover the overwhelming majority of enterprise reporting needs, and covering them with a packaged tool is almost always the right call: faster to build, cheaper to run, easier to hand over. The interesting question is the residual minority — the requirements that keep fighting the tool.",
+   "You recognise them by the workarounds. A dashboard that needs three exports and a spreadsheet macro before the Monday meeting. A drill-down the tool cannot express, so analysts keep a parallel workbook. An operational view that needs write-back — approve this, hold that — which BI tools were never designed to do.",
+   "That third case is the clearest signal. The moment a 'report' needs to trigger action — an approval, a hold, a reorder — you are no longer building a report; you are building a thin operational application over your ERP data. Forcing it into a BI tool produces the workaround culture; building it as a small custom dashboard produces software people actually use.",
+   "The economics are better than most IT leaders expect. A focused custom dashboard — one audience, one decision, live ERP data, exactly the drill-downs asked for — is weeks of work, not months, when the data foundations already exist. The expensive version is the one built without governed KPI definitions underneath; then every number becomes a negotiation.",
+   "Our rule of thumb: packaged BI first, always — then custom, surgically, where the requirement involves action, unusual interaction, or an audience the packaged tools price out. The mistake is not choosing one or the other; it is failing to notice when the requirement crossed the line."]),
+ dict(slug="practical-ai-finance-operations", kind="Article", thumb="t3",
+  title="AI in finance operations: start boring, win big",
+  teaser="The AI deployments that survive audit season are the unglamorous ones. A field guide to choosing your first use-case — and the controls that keep it in production.",
+  date="July 2026", read="5 min read",
+  body=["Two years into the enterprise AI wave, a pattern is visible: the deployments still running are rarely the impressive ones. The chatbot that promised to answer anything is gone; the document extractor that reads supplier invoices into the ERP, every night, is quietly saving four hours a day.",
+   "The survivors share three properties. First, they are grounded: they answer from the organisation's own documents and records, with access control intact, rather than from a model's general knowledge. Second, they keep a human in the loop wherever money moves or commitments are made — AI drafts and extracts; people approve. Third, they were measured against a baseline from day one, so their value is a number, not a feeling.",
+   "That discipline points to where to start: document-heavy, judgement-light workflows. Invoice and purchase-order capture. First-draft reconciliation matching. Summarising a month's exceptions for review. Answering 'what is our policy on X' from the policy library. None of these makes a keynote; all of them return hours every week, and none of them frightens an auditor.",
+   "The controls conversation is where most programmes stall, and it needs to happen first, not after the pilot. Where does the data go? Which model sees it, and is it retained? Who approved the output before it posted? An AI integration designed around those questions passes review; one retrofitted to them usually does not.",
+   "Start boring. Measure honestly. Expand from evidence. The organisations doing this are building a compounding advantage — one unglamorous workflow at a time."]),
  dict(slug="ecc-to-s4hana-roadmap", kind="Article", thumb="t1",
   title="ECC to S/4HANA: plan the move before the deadline plans it for you",
   teaser="SAP ECC mainstream maintenance ends in 2027, with extended options to 2030. The enterprises that move well are the ones that start with an assessment, not a contract.",
@@ -421,28 +468,7 @@ ARTICLES = [
 def build_insights():
     cards = []
     for a in ARTICLES:
-        cards.append("""
-      <a class="post-card reveal" href="%s.html">
-        <div class="post-thumb %s">%s</div>
-        <div class="post-body">
-          <span class="post-kind">%s</span>
-          <h3>%s</h3>
-          <p>%s</p>
-          <span class="post-meta">%s · %s</span>
-        </div>
-      </a>""" % (a["slug"], a["thumb"], a["kind"].upper(), a["kind"], a["title"], a["teaser"], a["date"], a["read"]))
-    cards.append("""
-      <div class="post-card reveal" aria-disabled="true" style="opacity:0.75;">
-        <div class="post-thumb t2">CASE STUDY</div>
-        <div class="post-body">
-          <span class="post-kind">Case study</span>
-          <h3>Client case studies — publishing soon</h3>
-          <p>Detailed project stories — the challenge, our approach and the measured outcome — are being prepared with our clients for publication here.</p>
-          <span class="post-meta">Coming soon</span>
-        </div>
-      </div>""")
-
-    body = """
+        body = """
 <section class="page-hero">
   <div class="container">
     <p class="breadcrumb"><a href="{ROOT}index.html">Home</a> / Insights</p>
@@ -636,7 +662,7 @@ def build_portal():
       <a class="brand" href="{ROOT}index.html">""" + LOGO_SVG + """</a>
       <h1>Client Portal</h1>
       <p>Secure workspace for engaged clients: shared documents, project status and your SS ERP Solutions contacts.</p>
-      <form data-demo-form novalidate>
+      <form data-demo-form data-portal-login novalidate>
         <div class="form-grid" style="grid-template-columns:1fr;">
           <div class="form-field"><label for="po-email">Work email</label><input id="po-email" type="email" required autocomplete="username"></div>
           <div class="form-field"><label for="po-pass">Password</label><input id="po-pass" type="password" required autocomplete="current-password"></div>
@@ -674,7 +700,7 @@ def build_portal():
       <div class="dash-main">
         <div>
           <span class="eyebrow">Acme Manufacturing Ltd — S/4HANA Implementation</span>
-          <h1 style="font-size:1.7rem;">Programme overview</h1>
+          <h1 style="font-size:1.7rem;"><span data-user-greet></span>Programme overview</h1>
         </div>
         <div class="dash-cards">
           <div class="dash-card"><div class="k">Current phase</div><div class="v">Realisation</div><span class="badge ok">On track</span></div>
@@ -733,7 +759,6 @@ def build_japanese():
     body = """
 <section class="hero" id="top" style="min-height:82vh;">
   <canvas id="particle-canvas" aria-hidden="true"></canvas>
-  <div class="hero-fade" aria-hidden="true"></div>
   <div class="container hero-inner">
     <span class="eyebrow">エンタープライズ・テクノロジー・コンサルティング</span>
     <h1 style="font-size:clamp(2rem,4.6vw,3.4rem);">ERPは、事業を<span class="gold">前へ進める</span>ものであり、重荷にするものではありません。</h1>
@@ -844,7 +869,7 @@ def build_japanese():
     </ul>
     <div class="nav-cta">
       <button class="theme-toggle" aria-label="テーマ切り替え">☀</button>
-      <a class="lang-switch" href="{ROOT}index.html" lang="en" hreflang="en">English</a>
+      """ + LANG_MENU.replace("{LANG_LABEL}", "日本語") + """
       <a class="btn btn-gold" href="{ROOT}contact/index.html">お問い合わせ</a>
       <button class="nav-toggle" aria-label="メニュー" aria-expanded="false">☰</button>
     </div>
@@ -858,6 +883,193 @@ def build_japanese():
          "SS ERP Solutionsは、SAP導入・移行・運用サポート・デジタルトランスフォーメーションをインド、日本、UAE、シンガポールで提供するコンサルティング会社です。",
          "ja/", body, lang="ja", extra_head=extra)
     HEADER = saved
+
+
+# ---------------------------------------------------------------- arabic & hindi (machine-assisted drafts — human review before publishing)
+
+def locale_header(root, home_href, labels, lang_label):
+    return """<a class="skip-link" href="#main">""" + labels["skip"] + """</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href=\"""" + home_href + """\">
+      """ + LOGO_SVG + """
+      <span>
+        <span class="brand-name">SS ERP Solutions</span><br>
+        <span class="brand-tag">Implement | Optimize | Transform</span>
+      </span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services">""" + labels["services"] + """</a></li>
+      <li><a href="#why">""" + labels["why"] + """</a></li>
+      <li><a href="#global">""" + labels["global"] + """</a></li>
+      <li><a href="{ROOT}portal/index.html">""" + labels["portal"] + """</a></li>
+    </ul>
+    <div class="nav-cta">
+      <button class="theme-toggle" aria-label="Theme">☀</button>
+      """ + LANG_MENU.replace("{LANG_LABEL}", lang_label) + """
+      <a class="btn btn-gold" href="{ROOT}contact/index.html">""" + labels["contact"] + """</a>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+"""
+
+
+def build_locale(code, lang_label, rtl, labels, t):
+    """Condensed localized homepage: hero, 12 services, why-us, global, contact CTA."""
+    global HEADER
+    cards = "\n".join(
+        '      <a class="service-card reveal" href="../services/%s.html"><span class="service-num">%s</span><h3>%s</h3><p>%s</p></a>'
+        % (s["slug"], s["num"], name, blurb)
+        for s, (name, blurb) in zip(SERVICES, t["services"]))
+    commits = "\n".join(
+        '      <div class="commit"><div class="commit-num">0%d</div><div><h3>%s</h3><p>%s</p></div></div>'
+        % (i + 1, h, p) for i, (h, p) in enumerate(t["commits"]))
+    chips = "\n".join('      <span class="country-chip">%s</span>' % c for c in t["chips"])
+    body = """
+<section class="hero" id="top" style="min-height:70vh;">
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
+  <div class="container hero-inner">
+    <span class="eyebrow">""" + t["eyebrow"] + """</span>
+    <h1 style="font-size:clamp(1.9rem,4.4vw,3.2rem);">""" + t["h1"] + """</h1>
+    <p class="hero-sub">""" + t["sub"] + """</p>
+    <div class="hero-actions">
+      <a class="btn btn-gold" href="../contact/index.html">""" + labels["contact"] + """</a>
+      <a class="btn btn-outline" href="#services">""" + labels["services"] + """</a>
+    </div>
+  </div>
+</section>
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-head reveal"><span class="eyebrow">""" + labels["services"] + """</span><h2>""" + t["services_h2"] + """</h2></div>
+    <div class="services-grid">
+""" + cards + """
+    </div>
+    <p class="form-note" style="margin-top:18px;">""" + t["services_note"] + """</p>
+  </div>
+</section>
+<section class="section section-alt" id="why">
+  <div class="container">
+    <div class="section-head reveal"><span class="eyebrow">""" + labels["why"] + """</span><h2>""" + t["why_h2"] + """</h2></div>
+    <div class="commit-list reveal">
+""" + commits + """
+    </div>
+  </div>
+</section>
+<section class="section" id="global">
+  <div class="container">
+    <div class="section-head reveal"><span class="eyebrow">""" + labels["global"] + """</span><h2>""" + t["global_h2"] + """</h2></div>
+    <div class="country-chips reveal">
+""" + chips + """
+    </div>
+  </div>
+</section>
+<section class="contact-cta" id="contact">
+  <div class="container reveal">
+    <h2>""" + t["cta_h2"] + """</h2>
+    <p>""" + t["cta_p"] + """</p>
+    <div class="hero-actions" style="justify-content:center;">
+      <a class="btn btn-gold" href="../contact/index.html">""" + labels["contact"] + """</a>
+      <a class="btn btn-outline" href="mailto:""" + EMAIL + """\">""" + EMAIL + """</a>
+    </div>
+  </div>
+</section>
+"""
+    saved = HEADER
+    HEADER = locale_header("../", "index.html", labels, lang_label)
+    extra = ('<link rel="alternate" hreflang="en" href="https://www.sserpsolutions.net/">\n'
+             '<link rel="alternate" hreflang="ja" href="https://www.sserpsolutions.net/ja/">\n'
+             '<link rel="alternate" hreflang="ar" href="https://www.sserpsolutions.net/ar/">\n'
+             '<link rel="alternate" hreflang="hi" href="https://www.sserpsolutions.net/hi/">\n')
+    wrap("%s/index.html" % code, t["title"], t["desc"], "%s/" % code, body,
+         lang=code, rtl=rtl, extra_head=extra)
+    HEADER = saved
+
+
+AR = dict(
+ title="SS ERP Solutions — استشارات تقنية المؤسسات | التنفيذ. التحسين. التحوّل.",
+ desc="SS ERP Solutions شركة استشارات تقنية للمؤسسات: تنفيذ أنظمة SAP وOracle، والدعم المُدار، ولوحات المعلومات المخصصة، ودمج الذكاء الاصطناعي — في الهند واليابان والإمارات وسنغافورة وحول العالم.",
+ eyebrow="استشارات تقنية المؤسسات",
+ h1='نظام ERP يجب أن <span class="gold">يدفع</span> أعمالكم إلى الأمام، لا أن يُثقلها.',
+ sub="نخطّط ونبني وندير حلول المؤسسات التي تستخدمها فرقكم فعلاً — خبرة عميقة في SAP، وقدرة على Oracle ومنصات ERP المتعددة، ولوحات معلومات مخصصة وذكاء اصطناعي عملي، بمعايير تسليم بُنيت على ثقة العملاء وتوصياتهم.",
+ services_h2="اثنا عشر خط خدمة، ومعيار تسليم واحد",
+ services_note="صفحات تفاصيل الخدمات متاحة حالياً باللغة الإنجليزية.",
+ services=[
+  ("استشارات ERP", "مشورة مستقلة في استراتيجية ERP واختيار الأنظمة وخرائط الطريق."),
+  ("تنفيذ تطبيقات المؤسسات", "تنفيذ شامل لأنظمة SAP وتطبيقات المؤسسات."),
+  ("مشاريع Greenfield وBrownfield", "بناء جديد أو تحويل الأنظمة القائمة إلى S/4HANA."),
+  ("النشر والترقيات والترحيل", "نشر القوالب متعددة الدول والترقيات وترحيل المنصات."),
+  ("التحوّل الرقمي", "إعادة تصميم العمليات والأتمتة والتكامل."),
+  ("مكتب إدارة المشاريع PMO", "إدارة برامج تحافظ على وضوح الخطط والمخاطر والقرارات."),
+  ("خدمات إدارة التطبيقات AMS", "إدارة مستمرة لتطبيقاتكم وفق مستويات خدمة محددة."),
+  ("الدعم التشغيلي والتحسينات", "دعم مستقر وتحسينات صغيرة مستمرة."),
+  ("التحليلات ولوحات المعلومات المخصصة", "SAP Analytics Cloud وPower BI وTableau ولوحات مبنية خصيصاً."),
+  ("التدريب والتدريب العملي ونقل المعرفة", "تدريب SAP عملي وبرامج تدريب داخلي وإرشاد."),
+  ("Oracle وحلول ERP المتعددة", "Oracle Fusion Cloud وNetSuite وغيرها من المنصات الرائدة."),
+  ("دمج الذكاء الاصطناعي والأتمتة الذكية", "مساعدون ذكيون ومعالجة مستندات وتنبؤات تحترم بياناتكم وضوابطكم."),
+ ],
+ why_h2="أفضل فريق يمكن أن تُسنِد إليه برنامج مؤسستك",
+ commits=[
+  ("نلتزم فقط بما نثق بقدرتنا على تنفيذه", "نتحقق من القدرة والجاهزية بصدق قبل توقيع العقد."),
+  ("نبني الفرق المناسبة", "استشاريون يُختارون بدقة حسب المشكلة: الوحدات والخبرة القطاعية والأقدمية المناسبة."),
+  ("نُقدّر العلاقات طويلة الأمد", "معظم عملائنا عملوا معنا في مشاريع متعددة."),
+  ("نبني حلولاً عملية عالية الجودة", "نصمّم للأشخاص الذين يشغّلون النظام كل يوم."),
+  ("لا نتوقف عن التعلّم", "شهادات مستمرة وجلسات معرفة داخلية ومراجعات صادقة بعد كل مشروع."),
+ ],
+ global_h2="جذورنا في الهند، ونخدم العالم",
+ chips=["الهند — مركز التسليم والاستشارات", "اليابان — خدمة العملاء باليابانية", "الإمارات — عملاء الخليج", "سنغافورة — مشاريع آسيا والمحيط الهادئ", "التوسع العالمي — تسليم عن بُعد حول العالم"],
+ cta_h2="قراركم القادم بشأن ERP أهم من أن يُترك للصدفة.",
+ cta_p="أخبرونا بما تخططون له — تنفيذ أو ترحيل أو دعم أو تدريب — وسنقدّم لكم رؤية خبيرة وواضحة.",
+)
+
+HI = dict(
+ title="SS ERP Solutions — एंटरप्राइज़ टेक्नोलॉजी कंसल्टिंग | इम्प्लीमेंट. ऑप्टिमाइज़. ट्रांसफ़ॉर्म.",
+ desc="SS ERP Solutions — SAP और Oracle ERP कार्यान्वयन, प्रबंधित सपोर्ट, कस्टम डैशबोर्ड और AI इंटीग्रेशन — भारत, जापान, UAE, सिंगापुर और दुनिया भर में।",
+ eyebrow="एंटरप्राइज़ टेक्नोलॉजी कंसल्टिंग",
+ h1='आपका ERP आपके कारोबार को <span class="gold">आगे बढ़ाए</span>, बोझ न बने।',
+ sub="हम ऐसे एंटरप्राइज़ समाधान बनाते और चलाते हैं जिन्हें आपकी टीमें वाक़ई इस्तेमाल करती हैं — गहरी SAP विशेषज्ञता, Oracle व मल्टी-ERP क्षमता, कस्टम डैशबोर्ड और व्यावहारिक AI — ग्राहकों के भरोसे और रेफ़रल से बने डिलीवरी मानकों के साथ।",
+ services_h2="बारह सेवा-क्षेत्र, एक ही डिलीवरी मानक",
+ services_note="सेवा विवरण पृष्ठ फ़िलहाल अंग्रेज़ी में उपलब्ध हैं।",
+ services=[
+  ("ERP कंसल्टिंग", "ERP रणनीति, चयन और रोडमैप पर स्वतंत्र सलाह।"),
+  ("एंटरप्राइज़ एप्लिकेशन कार्यान्वयन", "SAP और एंटरप्राइज़ एप्लिकेशनों का एंड-टू-एंड कार्यान्वयन।"),
+  ("ग्रीनफ़ील्ड और ब्राउनफ़ील्ड", "नया निर्माण या मौजूदा सिस्टम का S/4HANA में रूपांतरण।"),
+  ("रोलआउट, अपग्रेड और माइग्रेशन", "बहु-देशीय टेम्पलेट रोलआउट, अपग्रेड और प्लेटफ़ॉर्म माइग्रेशन।"),
+  ("डिजिटल ट्रांसफ़ॉर्मेशन", "प्रक्रिया पुनर्रचना, ऑटोमेशन और इंटीग्रेशन।"),
+  ("PMO", "योजना, जोखिम और निर्णयों को स्पष्ट रखने वाला प्रोग्राम प्रबंधन।"),
+  ("एप्लिकेशन मैनेजमेंट (AMS)", "निर्धारित सेवा-स्तरों के साथ निरंतर एप्लिकेशन प्रबंधन।"),
+  ("प्रोडक्शन सपोर्ट और संवर्धन", "स्थिर सपोर्ट और लगातार छोटे सुधार।"),
+  ("एनालिटिक्स और कस्टम डैशबोर्ड", "SAP Analytics Cloud, Power BI, Tableau और कस्टम डैशबोर्ड।"),
+  ("प्रशिक्षण, इंटर्नशिप और ज्ञान-हस्तांतरण", "व्यवसायी-नेतृत्व वाला SAP प्रशिक्षण और मेंटरिंग।"),
+  ("Oracle और मल्टी-ERP समाधान", "Oracle Fusion Cloud, NetSuite और अन्य प्रमुख प्लेटफ़ॉर्म।"),
+  ("AI इंटीग्रेशन और इंटेलिजेंट ऑटोमेशन", "आपके डेटा और नियंत्रणों का सम्मान करने वाला व्यावहारिक AI।"),
+ ],
+ why_h2="आपके एंटरप्राइज़ प्रोग्राम के लिए सर्वश्रेष्ठ टीम",
+ commits=[
+  ("हम वही वादा करते हैं जो पूरा कर सकें", "अनुबंध से पहले क्षमता और उपलब्धता की ईमानदार जाँच।"),
+  ("हम सही टीमें बनाते हैं", "समस्या के अनुरूप मॉड्यूल, उद्योग-अनुभव और वरिष्ठता वाले सलाहकार।"),
+  ("हम दीर्घकालिक रिश्तों को महत्व देते हैं", "हमारे अधिकांश ग्राहक कई परियोजनाओं में हमारे साथ रहे हैं।"),
+  ("हम व्यावहारिक, उच्च-गुणवत्ता समाधान बनाते हैं", "उनके लिए डिज़ाइन, जो सिस्टम रोज़ चलाते हैं।"),
+  ("हम सीखना कभी नहीं छोड़ते", "निरंतर प्रमाणन, आंतरिक ज्ञान-सत्र और ईमानदार समीक्षाएँ।"),
+ ],
+ global_h2="जड़ें भारत में, सेवा पूरी दुनिया में",
+ chips=["भारत — डिलीवरी और कंसल्टिंग हब", "जापान — जापानी भाषा में सेवा", "UAE — खाड़ी क्षेत्र के ग्राहक", "सिंगापुर — APAC परियोजनाएँ", "वैश्विक विस्तार — दुनिया भर में रिमोट-फ़र्स्ट डिलीवरी"],
+ cta_h2="आपका अगला ERP निर्णय संयोग पर छोड़ने लायक नहीं है।",
+ cta_p="हमें बताइए आप क्या योजना बना रहे हैं — कार्यान्वयन, माइग्रेशन, सपोर्ट या प्रशिक्षण — हम स्पष्ट, विशेषज्ञ राय देंगे।",
+)
+
+
+def build_arabic():
+    build_locale("ar", "العربية", True,
+                 dict(skip="تجاوز إلى المحتوى", services="الخدمات", why="لماذا نحن",
+                      **{"global": "حضورنا العالمي"}, portal="بوابة العملاء", contact="اتصل بنا"),
+                 AR)
+
+
+def build_hindi():
+    build_locale("hi", "हिन्दी", False,
+                 dict(skip="मुख्य सामग्री पर जाएँ", services="सेवाएँ", why="हमें क्यों चुनें", **{"global": "वैश्विक उपस्थिति"}, portal="क्लाइंट पोर्टल", contact="संपर्क करें"),
+                 HI)
 
 
 # ---------------------------------------------------------------- campaign template
@@ -1308,7 +1520,7 @@ def build_assets():
     print("wrote assets/favicon.svg")
 
     base = "https://www.sserpsolutions.net/"
-    urls = ["", "ja/", "services/", "about/", "why-us/", "growing-together/", "faq/",
+    urls = ["", "ja/", "ar/", "hi/", "services/", "about/", "why-us/", "growing-together/", "faq/",
             "insights/", "careers/", "contact/", "privacy.html", "terms.html"]
     urls += ["services/%s.html" % s["slug"] for s in SERVICES]
     urls += ["insights/%s.html" % a["slug"] for a in ARTICLES]
@@ -1346,24 +1558,7 @@ def build_assets():
         f.write("Contact: mailto:%s\nExpires: 2027-07-25T00:00:00.000Z\nPreferred-Languages: en, ja\nCanonical: https://www.sserpsolutions.net/.well-known/security.txt\n" % EMAIL)
     print("wrote .well-known/security.txt")
 
-    # Open Graph share image: full brand lockup on the light brand background
-    try:
-        from PIL import Image
-        og = Image.new("RGBA", (1200, 630), (246, 247, 250, 255))
-        logo = Image.open(os.path.join(SITE, "assets", "logo-full.png"))
-        scale = min(900 / logo.width, 300 / logo.height)
-        logo = logo.resize((int(logo.width * scale), int(logo.height * scale)), Image.LANCZOS)
-        og.paste(logo, ((1200 - logo.width) // 2, (630 - logo.height) // 2), logo)
-        # gold + maroon brand bars top and bottom
-        for x in range(1200):
-            for y in range(0, 14):
-                og.putpixel((x, y), (201, 162, 75, 255))
-            for y in range(616, 630):
-                og.putpixel((x, y), (140, 29, 36, 255))
-        og.convert("RGB").save(os.path.join(SITE, "assets", "og-image.png"))
-        print("wrote assets/og-image.png")
-    except Exception as e:
-        print("og-image skipped:", e)
+    # og-image.png is rendered from the vector lockup by _build/logopng flow — not regenerated here
 
 
 if __name__ == "__main__":
@@ -1378,6 +1573,8 @@ if __name__ == "__main__":
     build_contact()
     build_portal()
     build_japanese()
+    build_arabic()
+    build_hindi()
     build_campaign()
     build_privacy()
     build_404()

@@ -154,14 +154,92 @@
     });
   });
 
-  /* ---------- live-chat panel placeholder (widget embeds at go-live) ---------- */
+  /* ---------- "How can we help?" guided assistant ----------
+     Deterministic quick-reply menu (it introduces itself as a guide, not a
+     human). Remembers the visitor's name from the portal sign-in and greets
+     returning visitors. A third-party live-chat widget can replace or sit
+     beside this at go-live. */
   var chatBtn = document.querySelector(".float-btn.chat");
   var chatPanel = document.querySelector(".chat-panel");
   if (chatBtn && chatPanel) {
+    var thread = chatPanel.querySelector("[data-chat-thread]");
+    var croot = chatPanel.getAttribute("data-root") || "";
+    var started = false;
+    var savedName = null;
+    try { savedName = localStorage.getItem("sserp-user-name"); } catch (e) {}
+    var safeName = savedName ? savedName.replace(/[<>&"]/g, "") : null;
+
+    var bot = function (html) {
+      var d = document.createElement("div");
+      d.className = "chat-msg bot";
+      d.innerHTML = html;
+      thread.appendChild(d);
+      thread.scrollTop = thread.scrollHeight;
+    };
+    var opts = function (list) {
+      var w = document.createElement("div");
+      w.className = "chat-opts";
+      list.forEach(function (o) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = "chat-opt";
+        b.textContent = o[0];
+        b.addEventListener("click", function () {
+          var u = document.createElement("div");
+          u.className = "chat-msg user";
+          u.textContent = o[0];
+          thread.appendChild(u);
+          w.remove();
+          o[1]();
+        });
+        w.appendChild(b);
+      });
+      thread.appendChild(w);
+      thread.scrollTop = thread.scrollHeight;
+    };
+    var again = function () { opts([["Something else", menu]]); };
+    var menu = function () {
+      opts([
+        ["Discuss a new project", function () {
+          bot('Great — tell us about your landscape and goals and a senior consultant will come back within one business day. <a href="' + croot + 'contact/index.html">Open the contact form →</a>');
+          again();
+        }],
+        ["Support for a running system", function () {
+          bot('Our AMS desk covers SAP, Oracle and mixed estates. Email <a href="mailto:support@sserpsolutions.net">support@sserpsolutions.net</a> or use the <a href="' + croot + 'contact/index.html">contact form</a> and choose “AMS / production support”.');
+          again();
+        }],
+        ["Training & internships", function () {
+          bot('Growing Together runs practitioner-led SAP training, internships and mentoring. <a href="' + croot + 'growing-together/index.html">Explore the programmes →</a>');
+          again();
+        }],
+        ["Careers", function () {
+          bot('We hire consultants who care how the work is done. <a href="' + croot + 'careers/index.html">See open roles →</a>');
+          again();
+        }],
+        ["Talk to a person", function () {
+          bot('Fastest routes: <a href="https://wa.me/910000000000" target="_blank" rel="noopener">WhatsApp</a> or <a href="mailto:support@sserpsolutions.net">support@sserpsolutions.net</a>. We reply promptly during business hours (IST).');
+          again();
+        }]
+      ]);
+    };
     chatBtn.addEventListener("click", function () {
       chatPanel.classList.toggle("open");
+      if (chatPanel.classList.contains("open") && !started) {
+        started = true;
+        bot(safeName
+          ? "Welcome back, <strong>" + safeName + "</strong> 👋 How can we help today?"
+          : "Hello 👋 I'm the SS ERP Solutions guide — a quick menu, not a person. How can we help?");
+        menu();
+      }
     });
   }
+
+  /* ---------- greet signed-in portal visitors ---------- */
+  document.querySelectorAll("[data-user-greet]").forEach(function (el) {
+    var n = null;
+    try { n = localStorage.getItem("sserp-user-name"); } catch (e) {}
+    if (n) el.textContent = "Welcome back, " + n + " — ";
+  });
 
   /* ---------- back to top ---------- */
   var backTop = document.querySelector(".back-top");
@@ -179,7 +257,13 @@
   if (cookieBar) {
     var seen = null;
     try { seen = localStorage.getItem("sserp-cookie-ok"); } catch (e) {}
-    if (!seen) cookieBar.classList.add("show");
+    if (!seen) {
+      // wait for webfonts so the banner never reflows once visible (CLS)
+      var fontsReady = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+      fontsReady.then(function () {
+        setTimeout(function () { cookieBar.classList.add("show"); }, 400);
+      });
+    }
     var okBtn = cookieBar.querySelector("[data-cookie-ok]");
     if (okBtn) okBtn.addEventListener("click", function () {
       try { localStorage.setItem("sserp-cookie-ok", "1"); } catch (e) {}
@@ -196,6 +280,14 @@
       var hp = form.querySelector(".honeypot input");
       if (hp && hp.value) return; // silent drop: bot filled the trap
       if (!form.checkValidity()) { form.reportValidity(); return; }
+      if (form.hasAttribute("data-portal-login")) {
+        var em = form.querySelector("input[type=email]");
+        if (em && em.value) {
+          var nm = em.value.split("@")[0].replace(/[._-]+/g, " ").trim();
+          nm = nm.charAt(0).toUpperCase() + nm.slice(1);
+          try { localStorage.setItem("sserp-user-name", nm); } catch (e) {}
+        }
+      }
       var ok = form.querySelector(".form-success");
       if (ok) { ok.style.display = "block"; }
       form.reset();

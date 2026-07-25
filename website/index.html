@@ -8,6 +8,8 @@
 <link rel="canonical" href="https://www.sserpsolutions.net/">
 <link rel="alternate" hreflang="en" href="https://www.sserpsolutions.net/">
 <link rel="alternate" hreflang="ja" href="https://www.sserpsolutions.net/ja/">
+<link rel="alternate" hreflang="ar" href="https://www.sserpsolutions.net/ar/">
+<link rel="alternate" hreflang="hi" href="https://www.sserpsolutions.net/hi/">
 <!-- Open Graph (PRD §8 SEO) -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="SS ERP Solutions — Implement. Optimize. Transform.">
@@ -34,7 +36,7 @@
 <header class="site-header">
   <div class="container nav">
     <a class="brand" href="index.html" aria-label="SS ERP Solutions — home">
-      <img src="assets/logo-mark.png" alt="" width="41" height="40" style="display:block;">
+      <img src="assets/logo.svg" alt="" width="42" height="42" style="display:block;">
       <span>
         <span class="brand-name">SS ERP Solutions</span><br>
         <span class="brand-tag">Implement | Optimize | Transform</span>
@@ -75,7 +77,15 @@
     </ul>
     <div class="nav-cta">
       <button class="theme-toggle" aria-label="Toggle dark or light theme">☀</button>
-      <a class="lang-switch" href="ja/index.html" lang="ja" hreflang="ja">日本語</a>
+      <div class="has-sub lang-menu">
+        <a class="lang-switch" href="index.html">EN <span class="caret" aria-hidden="true">▼</span></a>
+        <ul class="submenu">
+          <li><a href="index.html">English</a></li>
+          <li><a href="ja/index.html" lang="ja">日本語</a></li>
+          <li><a href="ar/index.html" lang="ar">العربية</a></li>
+          <li><a href="hi/index.html" lang="hi">हिन्दी</a></li>
+        </ul>
+      </div>
       <a class="btn btn-gold" href="contact/index.html">Contact</a>
       <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
     </div>
@@ -87,7 +97,6 @@
 <!-- ============ 2. HERO ============ -->
 <section class="hero" id="top">
   <canvas id="particle-canvas" aria-hidden="true"></canvas>
-  <div class="hero-fade" aria-hidden="true"></div>
   <div class="container hero-inner">
     <span class="eyebrow">Enterprise Technology Consulting</span>
     <h1>Your ERP should <span class="gold">carry</span> your business forward and not weigh it down.</h1>
@@ -228,6 +237,27 @@
   </div>
 </section>
 
+<!-- ============ SOLUTIONS (capability view) ============ -->
+<section class="section section-alt" id="solutions">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Solutions</span>
+      <h2>Every enterprise function has a bottleneck. We remove it.</h2>
+      <p>Start from the capability you need — we'll bring the right service line and platform to it.</p>
+    </div>
+    <div class="solution-grid reveal">
+      <a class="solution-link" href="services/erp-consulting.html">ERP Advisory &amp; Selection</a>
+      <a class="solution-link" href="services/enterprise-application-implementation.html">Financial Close</a>
+      <a class="solution-link" href="services/analytics-reporting.html">Consolidation &amp; Group Reporting</a>
+      <a class="solution-link" href="services/analytics-reporting.html">Reporting &amp; FP&amp;A</a>
+      <a class="solution-link" href="services/enterprise-application-implementation.html">Treasury &amp; Liquidity</a>
+      <a class="solution-link" href="services/digital-transformation.html">GRC &amp; Process Controls</a>
+      <a class="solution-link" href="services/ai-integration.html">AI &amp; Intelligent Automation</a>
+      <a class="solution-link" href="services/ams.html">Managed Support</a>
+    </div>
+  </div>
+</section>
+
 <!-- ============ 6. TECHNOLOGY EXPERTISE ============ -->
 <section class="marquee-band" id="technology" aria-label="SAP technology expertise">
   <div class="container" style="margin-bottom:34px;">
@@ -310,6 +340,49 @@
   </div>
 </section>
 
+<!-- ============ INSIGHTS & CASE STUDIES (teaser -> /insights/) ============ -->
+<section class="section" id="insights" style="padding-top:0;">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Insights &amp; Case Studies</span>
+      <h2>Proof, and points of view</h2>
+      <p>Project stories from our delivery work, and practical writing on the decisions our clients face.</p>
+    </div>
+    <div class="card-grid">
+      <a class="post-card reveal" href="insights/case-study-s4hana-nine-months.html">
+        <div class="post-thumb t2">CASE STUDY</div>
+        <div class="post-body">
+          <span class="post-kind">Case study</span>
+          <h3>ECC to S/4HANA in nine months — without missing a single close</h3>
+          <p>The programme landed on time because the hard decisions were made in the first four weeks.</p>
+          <span class="post-meta">4 min read</span>
+        </div>
+      </a>
+      <a class="post-card reveal" href="insights/case-study-gulf-rollout.html">
+        <div class="post-thumb t3">CASE STUDY</div>
+        <div class="post-body">
+          <span class="post-kind">Case study</span>
+          <h3>Four countries, one template: a Gulf rollout that kept every deadline</h3>
+          <p>Localisation designed in from day one — never bolted on at the end.</p>
+          <span class="post-meta">4 min read</span>
+        </div>
+      </a>
+      <a class="post-card reveal" href="insights/practical-ai-finance-operations.html">
+        <div class="post-thumb t1">ARTICLE</div>
+        <div class="post-body">
+          <span class="post-kind">Article</span>
+          <h3>AI in finance operations: start boring, win big</h3>
+          <p>The AI deployments that survive audit season are the unglamorous ones.</p>
+          <span class="post-meta">5 min read</span>
+        </div>
+      </a>
+    </div>
+    <div style="margin-top:36px;" class="reveal">
+      <a class="btn btn-outline" href="insights/index.html">All insights &amp; case studies</a>
+    </div>
+  </div>
+</section>
+
 <!-- ============ GROWING TOGETHER (teaser -> /growing-together/) ============ -->
 <section class="section section-alt" id="growing-together">
   <div class="container split">
@@ -361,7 +434,7 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a class="brand" href="index.html" aria-label="SS ERP Solutions — home">
-          <img src="assets/logo-mark.png" alt="" width="41" height="40" style="display:block;">
+          <img src="assets/logo.svg" alt="" width="42" height="42" style="display:block;">
           <span><span class="brand-name">SS ERP Solutions</span><br><span class="brand-tag">Implement | Optimize | Transform</span></span>
         </a>
         <p>Enterprise technology consulting — rooted in India, serving clients worldwide.</p>
@@ -418,10 +491,9 @@
     <button class="btn btn-gold" data-cookie-ok type="button">Got it</button>
   </div>
 </div>
-<div class="chat-panel" role="dialog" aria-label="Live chat">
-  <h3>Live chat</h3>
-  <p>The live-chat widget (third-party, free tier) is embedded here at go-live. For now, reach us on WhatsApp or by email — we reply quickly.</p>
-  <a class="btn btn-gold" style="width:100%; justify-content:center;" href="mailto:support@sserpsolutions.net">Email us instead</a>
+<div class="chat-panel" role="dialog" aria-label="How can we help?" data-root="">
+  <h3>How can we help?</h3>
+  <div class="chat-thread" data-chat-thread></div>
 </div>
 <div class="float-actions">
   <button class="float-btn chat" aria-label="Open live chat">
