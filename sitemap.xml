@@ -2,6 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://www.sserpsolutions.net/</loc></url>
   <url><loc>https://www.sserpsolutions.net/ja/</loc></url>
+  <url><loc>https://www.sserpsolutions.net/ar/</loc></url>
+  <url><loc>https://www.sserpsolutions.net/hi/</loc></url>
   <url><loc>https://www.sserpsolutions.net/services/</loc></url>
   <url><loc>https://www.sserpsolutions.net/about/</loc></url>
   <url><loc>https://www.sserpsolutions.net/why-us/</loc></url>
@@ -24,6 +26,10 @@
   <url><loc>https://www.sserpsolutions.net/services/training-internships-knowledge-transfer.html</loc></url>
   <url><loc>https://www.sserpsolutions.net/services/oracle-multi-erp.html</loc></url>
   <url><loc>https://www.sserpsolutions.net/services/ai-integration.html</loc></url>
+  <url><loc>https://www.sserpsolutions.net/insights/case-study-s4hana-nine-months.html</loc></url>
+  <url><loc>https://www.sserpsolutions.net/insights/case-study-gulf-rollout.html</loc></url>
+  <url><loc>https://www.sserpsolutions.net/insights/custom-dashboards-beyond-bi.html</loc></url>
+  <url><loc>https://www.sserpsolutions.net/insights/practical-ai-finance-operations.html</loc></url>
   <url><loc>https://www.sserpsolutions.net/insights/ecc-to-s4hana-roadmap.html</loc></url>
   <url><loc>https://www.sserpsolutions.net/insights/greenfield-vs-brownfield.html</loc></url>
   <url><loc>https://www.sserpsolutions.net/insights/ams-handover-checklist.html</loc></url>
