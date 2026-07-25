@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Portal — Demo Dashboard — SS ERP Solutions</title>
+<meta name="description" content="Demonstration of the SS ERP Solutions client portal: shared documents, project status and contacts.">
+<link rel="canonical" href="https://www.sserpsolutions.net/portal/dashboard.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Client Portal — Demo Dashboard — SS ERP Solutions">
+<meta property="og:description" content="Demonstration of the SS ERP Solutions client portal: shared documents, project status and contacts.">
+<meta property="og:url" content="https://www.sserpsolutions.net/portal/dashboard.html">
+<meta property="og:site_name" content="SS ERP Solutions">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add("js");(function(){try{var t=localStorage.getItem("sserp-theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t);}}catch(e){}})();</script>
+<link rel="stylesheet" href="../css/styles.css">
+<link rel="icon" type="image/png" href="../assets/logo-mark.png">
+<link rel="manifest" href="../site.webmanifest">
+<meta name="theme-color" content="#0B1220">
+<meta property="og:image" content="https://www.sserpsolutions.net/assets/og-image.png">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="../index.html" aria-label="SS ERP Solutions — home">
+      <img src="../assets/logo-mark.png" alt="" width="41" height="40" style="display:block;">
+      <span>
+        <span class="brand-name">SS ERP Solutions</span><br>
+        <span class="brand-tag">Implement | Optimize | Transform</span>
+      </span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html#services">Services</a></li>
+      <li><a href="../index.html#why-us">Why Us</a></li>
+      <li><a href="../index.html#growing-together">Growing Together</a></li>
+      <li><a href="../insights/index.html">Insights</a></li>
+      <li><a href="../careers/index.html">Careers</a></li>
+      <li><a href="../index.html#faq">FAQ</a></li>
+      <li><a href="../portal/index.html">Client Portal</a></li>
+    </ul>
+    <div class="nav-cta">
+      <button class="theme-toggle" aria-label="Toggle dark or light theme">☀</button>
+      <a class="lang-switch" href="../ja/index.html" lang="ja" hreflang="ja">日本語</a>
+      <a class="btn btn-gold" href="../contact/index.html">Contact</a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<section style="padding-top:var(--header-h);">
+  <div class="container">
+    <div style="margin-top:28px;border:1px dashed var(--maroon-light);border-radius:10px;padding:12px 18px;font-family:var(--font-mono);font-size:0.78rem;color:var(--maroon-light);letter-spacing:0.08em;">
+      DEMO DASHBOARD — illustrative only. Final portal scope (documents, status, contacts, access, administration) is agreed in the Section 10 workshop before the M4 build.
+    </div>
+    <div class="dash-layout" style="padding-top:28px;">
+      <aside class="dash-side">
+        <nav>
+          <a class="active" href="#">Overview</a>
+          <a href="#documents">Documents</a>
+          <a href="#status">Project status</a>
+          <a href="#contacts">Your contacts</a>
+        </nav>
+      </aside>
+      <div class="dash-main">
+        <div>
+          <span class="eyebrow">Acme Manufacturing Ltd — S/4HANA Implementation</span>
+          <h1 style="font-size:1.7rem;">Programme overview</h1>
+        </div>
+        <div class="dash-cards">
+          <div class="dash-card"><div class="k">Current phase</div><div class="v">Realisation</div><span class="badge ok">On track</span></div>
+          <div class="dash-card"><div class="k">Next milestone</div><div class="v">Integration test start</div><span class="badge info">12 Aug 2026</span></div>
+          <div class="dash-card"><div class="k">Open actions on client</div><div class="v">3</div><span class="badge warn">2 due this week</span></div>
+        </div>
+        <div class="panel" id="status">
+          <div class="panel-head"><h3>Workstream status</h3><span class="badge ok">Updated weekly</span></div>
+          <table class="data-table">
+            <thead><tr><th>Workstream</th><th>Lead</th><th>Status</th><th>Note</th></tr></thead>
+            <tbody>
+              <tr><td>Finance (FICO)</td><td>SSES</td><td><span class="badge ok">On track</span></td><td>CO-PA design signed off</td></tr>
+              <tr><td>Logistics (MM/SD)</td><td>SSES</td><td><span class="badge warn">Watch</span></td><td>Pricing decision pending client input</td></tr>
+              <tr><td>Data migration</td><td>Joint</td><td><span class="badge ok">On track</span></td><td>Mock load 2 reconciled</td></tr>
+              <tr><td>Integrations</td><td>Client IT</td><td><span class="badge info">Starting</span></td><td>Bank interface spec in review</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel" id="documents">
+          <div class="panel-head"><h3>Shared documents</h3></div>
+          <table class="data-table">
+            <thead><tr><th>Document</th><th>Type</th><th>Updated</th></tr></thead>
+            <tbody>
+              <tr><td>Weekly status report — W30</td><td>PDF</td><td>24 Jul 2026</td></tr>
+              <tr><td>Integration test plan v0.9</td><td>DOCX</td><td>22 Jul 2026</td></tr>
+              <tr><td>Data migration reconciliation — Mock 2</td><td>XLSX</td><td>18 Jul 2026</td></tr>
+              <tr><td>Steering committee pack — July</td><td>PDF</td><td>15 Jul 2026</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel" id="contacts">
+          <div class="panel-head"><h3>Your SS ERP Solutions contacts</h3></div>
+          <table class="data-table">
+            <thead><tr><th>Name</th><th>Role</th><th>Email</th></tr></thead>
+            <tbody>
+              <tr><td>Programme Manager</td><td>Delivery lead &amp; escalation</td><td class="mono">pm@sserpsolutions.net</td></tr>
+              <tr><td>Finance Lead</td><td>FICO workstream</td><td class="mono">fico@sserpsolutions.net</td></tr>
+              <tr><td>Support Desk</td><td>Issues &amp; requests</td><td class="mono">support@sserpsolutions.net</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="../index.html">
+          <img src="../assets/logo-mark.png" alt="" width="41" height="40" style="display:block;">
+          <span><span class="brand-name">SS ERP Solutions</span><br><span class="brand-tag">Implement | Optimize | Transform</span></span>
+        </a>
+        <p>Enterprise technology consulting across India, Japan, the UAE and Singapore.</p>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="../index.html#who-we-are">Who We Are</a></li>
+          <li><a href="../index.html#why-us">Why Choose Us</a></li>
+          <li><a href="../index.html#growing-together">Growing Together</a></li>
+          <li><a href="../careers/index.html">Careers</a></li>
+          <li><a href="../privacy.html">Privacy Notice</a></li>
+          <li><a href="../terms.html">Terms of Use</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="../services/erp-consulting.html">ERP Consulting</a></li>
+          <li><a href="../services/enterprise-application-implementation.html">Implementation</a></li>
+          <li><a href="../services/rollouts-upgrades-migrations.html">Rollouts &amp; Upgrades</a></li>
+          <li><a href="../services/ams.html">AMS &amp; Support</a></li>
+          <li><a href="../services/oracle-multi-erp.html">Oracle &amp; Multi-ERP</a></li>
+          <li><a href="../services/analytics-reporting.html">Analytics &amp; Dashboards</a></li>
+          <li><a href="../services/ai-integration.html">AI Integration</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="../insights/index.html">Insights</a></li>
+          <li><a href="../contact/index.html">Contact</a></li>
+          <li><a href="../portal/index.html">Client Portal</a></li>
+          <li><a href="https://www.linkedin.com/" rel="noopener" target="_blank">LinkedIn</a></li>
+          <li><a href="../ja/index.html" lang="ja">日本語</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 SS ERP Solutions. All rights reserved.</span>
+      <span>Implement | Optimize | Transform</span>
+    </div>
+  </div>
+</footer>
+<script src="../js/main.js"></script>
+</body>
+</html>
