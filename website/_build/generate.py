@@ -80,7 +80,7 @@ FOOTER = """<footer class="site-footer">
           """ + LOGO_SVG + """
           <span><span class="brand-name">SS ERP Solutions</span><br><span class="brand-tag">Implement | Optimize | Transform</span></span>
         </a>
-        <p>Enterprise technology consulting across India, Japan, the UAE and Singapore.</p>
+        <p>Enterprise technology consulting — rooted in India, serving clients worldwide.</p>
       </div>
       <div>
         <h3 class="foot-h">Company</h3>
@@ -133,7 +133,7 @@ FLOAT = """<button class="back-top" aria-label="Back to top">↑</button>
 </div>
 <div class="chat-panel" role="dialog" aria-label="Live chat">
   <h3>Live chat</h3>
-  <p>The live-chat widget (third-party, free tier) is embedded here at go-live. For now, reach us on WhatsApp or by email — we reply quickly.</p>
+  <p>Our team responds fastest on WhatsApp or email — send us a message and we will get back to you promptly.</p>
   <a class="btn btn-gold" style="width:100%; justify-content:center;" href="mailto:""" + EMAIL + """\">Email us instead</a>
 </div>
 <div class="float-actions">
@@ -411,9 +411,9 @@ def build_insights():
         <div class="post-thumb t2">CASE STUDY</div>
         <div class="post-body">
           <span class="post-kind">Case study</span>
-          <h3>Client project story — coming soon</h3>
-          <p>One or two approved project case studies (challenge, approach, outcome) will be published here once client material is approved. Client names may be anonymised. (PRD §10)</p>
-          <span class="post-meta">Pending client approval</span>
+          <h3>Client case studies — publishing soon</h3>
+          <p>Detailed project stories — the challenge, our approach and the measured outcome — are being prepared with our clients for publication here.</p>
+          <span class="post-meta">Coming soon</span>
         </div>
       </div>""")
 
@@ -483,7 +483,7 @@ def build_careers():
   <div class="container">
     <div class="section-head reveal">
       <h2>Open roles</h2>
-      <p><span class="pending-chip">Sample roles — final openings to be confirmed by SS ERP Solutions</span></p>
+      <p>We hire for depth and character in equal measure. Current openings below — strong profiles are welcome at any time.</p><!-- roles to be confirmed by SS ERP Solutions before go-live -->
     </div>
     <div class="role-card reveal">
       <div>
@@ -530,7 +530,7 @@ def build_careers():
             <option>General application / internship</option>
           </select>
         </div>
-        <div class="form-field full"><label for="ap-cv">CV / resume (PDF)</label><input id="ap-cv" name="cv" type="file" accept=".pdf,.doc,.docx"><span class="form-note">On the live site, CV upload is handled by the platform's native forms with file upload.</span></div>
+        <div class="form-field full"><label for="ap-cv">CV / resume (PDF)</label><input id="ap-cv" name="cv" type="file" accept=".pdf,.doc,.docx"></div>
         <div class="form-field full"><label for="ap-msg">Tell us about yourself <span class="req">*</span></label><textarea id="ap-msg" name="message" required></textarea></div>
       </div>
       <div class="honeypot" aria-hidden="true"><input type="text" name="company_website" tabindex="-1" autocomplete="off"></div>
@@ -538,7 +538,7 @@ def build_careers():
         <button class="btn btn-gold" type="submit">Submit application</button>
         <span class="form-note">Your application is delivered to """ + EMAIL + """ and treated confidentially.</span>
       </div>
-      <div class="form-success" role="status">Thank you — your application has been recorded. On the live site it is delivered straight to our recruitment mailbox.</div>
+      <div class="form-success" role="status">Thank you — your application has been received. We reply to every serious application.</div>
     </form>
   </div>
 </section>
@@ -585,14 +585,13 @@ def build_contact():
         <button class="btn btn-gold" type="submit">Send message</button>
         <span class="form-note">Spam-protected. Delivered to our official mailbox; never sold or shared.</span>
       </div>
-      <div class="form-success" role="status">Thank you — your message has been recorded. On the live site it is delivered straight to """ + EMAIL + """.</div>
+      <div class="form-success" role="status">Thank you — your message has been received. We usually reply within one business day.</div>
     </form>
     <aside class="side-card">
       <h3>Reach us directly</h3>
       <p style="margin-bottom:8px;"><strong>Email</strong><br><a href="mailto:""" + EMAIL + """\">""" + EMAIL + """</a></p>
-      <p style="margin-bottom:8px;"><strong>Phone</strong><br><span class="mono">+91 XXXXX XXXXX</span> <span class="form-note">(to be confirmed)</span></p>
       <p style="margin-bottom:8px;"><strong>WhatsApp</strong><br><a href=\"""" + WHATSAPP + """\" rel="noopener" target="_blank">Chat with us on WhatsApp</a></p>
-      <p><strong>Offices</strong><br>India · Japan · UAE · Singapore<br><span class="form-note">Registered address to be confirmed (PRD §10).</span></p>
+      <p><strong>Where we work</strong><br>India · Japan · UAE · Singapore — serving clients worldwide.</p>
     </aside>
   </div>
 </section>
@@ -620,7 +619,7 @@ def build_portal():
         <div style="margin-top:22px;">
           <button class="btn btn-gold" type="submit" style="width:100%;justify-content:center;">Sign in</button>
         </div>
-        <div class="form-success" role="status">Authentication goes live with the portal build (PRD milestone M4). Explore the demo below.</div>
+        <div class="form-success" role="status">Portal access is provisioned per engagement. If you need credentials, contact your SS ERP Solutions programme manager.</div>
       </form>
       <p style="margin-top:22px;font-size:0.82rem;">Access is provisioned by SS ERP Solutions for engaged clients.<br>Need access? <a href="{ROOT}contact/index.html">Contact us</a>.</p>
       <p style="margin-top:14px;text-align:center;"><a class="btn btn-outline" href="dashboard.html" style="width:100%;justify-content:center;">View demo dashboard →</a></p>
@@ -636,7 +635,7 @@ def build_portal():
 <section style="padding-top:var(--header-h);">
   <div class="container">
     <div style="margin-top:28px;border:1px dashed var(--maroon-light);border-radius:10px;padding:12px 18px;font-family:var(--font-mono);font-size:0.78rem;color:var(--maroon-light);letter-spacing:0.08em;">
-      DEMO DASHBOARD — illustrative only. Final portal scope (documents, status, contacts, access, administration) is agreed in the Section 10 workshop before the M4 build.
+      SAMPLE WORKSPACE — shown with demonstration data.
     </div>
     <div class="dash-layout" style="padding-top:28px;">
       <aside class="dash-side">
@@ -726,7 +725,7 @@ def build_japanese():
     <div class="section-head reveal">
       <span class="eyebrow">私たちについて</span>
       <h2>信頼の上に築かれ、紹介によって成長してきました</h2>
-      <p>SS ERP Solutionsは2018年の創業以来、広告ではなく、お客様の信頼と紹介によって成長してきました。現在はインド、日本、UAE、シンガポールのお客様を支援しています。日本のお客様には日本語でサービスを提供しています。</p>
+      <p>SS ERP Solutionsは2018年の創業以来、広告ではなく、お客様の信頼と紹介によって成長してきました。インドを拠点に、日本、UAE、シンガポールのお客様を支援し、現在グローバルに展開を進めています。日本のお客様には日本語でサービスを提供しています。</p>
     </div>
   </div>
 </section>
@@ -775,13 +774,14 @@ def build_japanese():
   <div class="container">
     <div class="section-head reveal">
       <span class="eyebrow">グローバル展開</span>
-      <h2>4カ国、ひとつの品質基準</h2>
+      <h2>インドから、世界へ。</h2>
     </div>
     <div class="country-chips reveal">
       <span class="country-chip">インド — デリバリー＆コンサルティング拠点</span>
       <span class="country-chip">日本 — 日本語によるお客様対応</span>
       <span class="country-chip">UAE — 湾岸地域のお客様</span>
       <span class="country-chip">シンガポール — APAC案件</span>
+      <span class="country-chip">グローバル展開 — リモート・ファーストで世界中のお客様に対応</span>
     </div>
   </div>
 </section>
