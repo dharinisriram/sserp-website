@@ -54,6 +54,7 @@ Subpages are generated from `_build/generate.py` (shared header/footer). After e
 - LinkedIn company page URL
 - Team/office photography (styled placeholder in Who We Are)
 - Japanese content review by a human translator
+- Message relay activation (one-time, before go-live): the on-site chat window and portal form deliver via FormSubmit — the first submission triggers a confirmation email to support@sserpsolutions.net; click it once and delivery is live. Optional WhatsApp push: get a (free) CallMeBot API key from the business WhatsApp number and set `WA_RELAY_KEY` in `js/main.js`. No wa.me links exist anywhere and the number is never rendered (client rule).
 - Google sign-in on the portal: create an OAuth client ID in Google Cloud Console (authorized origins = the site's domains) and paste it into `GOOGLE_CLIENT_ID` in `_build/generate.py`, then regenerate — the button activates automatically
 - Portal requirements workshop → real portal build (Next.js on Webflow Cloud per PRD §9)
 

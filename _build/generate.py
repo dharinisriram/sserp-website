@@ -8,7 +8,7 @@ import os
 
 SITE = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))
 EMAIL = "support@sserpsolutions.net"
-WHATSAPP_ATTR = 'href="#" data-wa'  # number lives only encoded in main.js (client: never show it)
+WA_OPEN_ATTR = 'href="#" data-wa-open'  # opens the on-site chat window; no direct WhatsApp links (client rule)
 
 # ---------------------------------------------------------------- layout
 
@@ -160,6 +160,26 @@ FOOTER = """<footer class="site-footer">
 """
 
 FLOAT = """<button class="back-top" aria-label="Back to top">↑</button>
+<div class="wa-panel" role="dialog" aria-label="Message us">
+  <div class="wa-head">
+    <img src="{ROOT}assets/logo-mark.png" alt="">
+    <div>
+      <div class="wa-name">SS ERP Solutions</div>
+      <div class="wa-status">Typically replies within a few hours</div>
+    </div>
+  </div>
+  <div class="wa-body" data-wa-thread>
+    <div class="wa-msg in">Hi 👋 Tell us what you need — and leave an email or phone number so we can reply. Your message goes straight to our team.</div>
+  </div>
+  <div class="wa-foot">
+    <textarea data-wa-input placeholder="Type your message…" rows="1"></textarea>
+    <button class="wa-send" type="button" data-wa-send aria-label="Send">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M2.01 21 23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </div>
+  <div class="wa-note">Sent securely from this page — no app needed.</div>
+</div>
+
 <div class="cookie-bar" role="region" aria-label="Privacy notice">
   <div class="container">
     <p>This site stores your theme preference in your browser and, at go-live, will use privacy-respecting analytics to measure visits. Form data goes only to our official mailbox. See the <a href="{ROOT}privacy.html">privacy notice</a>.</p>
@@ -174,9 +194,9 @@ FLOAT = """<button class="back-top" aria-label="Back to top">↑</button>
   <button class="float-btn chat" aria-label="Open live chat">
     <svg viewBox="0 0 24 24" fill="none" stroke="#0B1220" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
   </button>
-  <a class="float-btn whatsapp" aria-label="Chat on WhatsApp" """ + WHATSAPP_ATTR + """ rel="noopener">
+  <button class="float-btn whatsapp" aria-label="Message us" data-wa-open>
     <svg viewBox="0 0 24 24" fill="#fff"><path d="M17.5 14.4c-.3-.15-1.75-.86-2-.96-.27-.1-.47-.15-.66.15-.2.3-.77.96-.94 1.15-.17.2-.35.22-.64.08-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.04-.17-.3-.02-.46.13-.6.13-.14.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.66-1.6-.9-2.18-.24-.58-.5-.5-.66-.5h-.56c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.9 1.22 3.1.15.2 2.1 3.2 5.08 4.5.7.3 1.26.5 1.7.63.7.23 1.35.2 1.86.12.57-.08 1.75-.72 2-1.4.24-.7.24-1.3.17-1.42-.08-.13-.28-.2-.57-.35zM12.05 21.8h-.02a9.87 9.87 0 0 1-5.03-1.38l-.36-.2-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.9-9.88a9.82 9.82 0 0 1 7 2.9 9.82 9.82 0 0 1 2.9 7c0 5.45-4.45 9.88-9.9 9.88zm8.42-18.3A11.8 11.8 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.9c0 2.1.55 4.15 1.6 5.95L.06 24l6.3-1.65a11.9 11.9 0 0 0 5.68 1.45h.01c6.55 0 11.9-5.34 11.9-11.9 0-3.18-1.24-6.17-3.48-8.4z"/></svg>
-  </a>
+  </button>
 </div>
 """
 
@@ -728,7 +748,7 @@ def build_contact():
     <aside class="side-card">
       <h3>Reach us directly</h3>
       <p style="margin-bottom:8px;"><strong>Email</strong><br><a href="mailto:""" + EMAIL + """\">""" + EMAIL + """</a></p>
-      <p style="margin-bottom:8px;"><strong>WhatsApp</strong><br><a """ + WHATSAPP_ATTR + """ rel="noopener">Chat with us on WhatsApp</a></p>
+      <p style="margin-bottom:8px;"><strong>Chat</strong><br><a """ + WA_OPEN_ATTR + """>Message us from this page</a></p>
       <p><strong>Where we work</strong><br>India · Japan · UAE · Singapore — serving clients worldwide.</p>
     </aside>
   </div>
@@ -796,12 +816,11 @@ def build_portal():
           </div>
         </div>
         <div class="honeypot" aria-hidden="true"><input type="text" name="company_website" tabindex="-1" autocomplete="off"></div>
-        <div style="margin-top:20px;"><button class="btn btn-gold" type="submit" style="width:100%;justify-content:center;">Prepare my message</button></div>
+        <div style="margin-top:20px;"><button class="btn btn-gold" type="submit" style="width:100%;justify-content:center;">Send to our team</button></div>
         <div class="relay-actions">
-          <a class="btn btn-gold" data-relay-mail href="#">Send via Email</a>
-          <a class="btn btn-outline" data-relay-wa href="#" target="_blank" rel="noopener">Send via WhatsApp</a>
+          <a class="btn btn-outline" data-relay-mail href="#">Send by email instead</a>
         </div>
-        <div class="form-success" role="status">Your message is ready — choose Email or WhatsApp above. Both open pre-filled and go straight to our team.</div>
+        <div class="form-success" role="status">Sent — your requirement is on its way to our team. We usually reply within one business day.</div>
       </form>
     </div>
   </div>
@@ -1701,7 +1720,7 @@ def build_healthcheck():
         <div style="margin-top:20px;"><button class="btn btn-gold" type="submit" style="width:100%;justify-content:center;">Request the conversation</button></div>
         <div class="form-success" role="status">Thank you — a senior consultant will reach out within one business day.</div>
       </form>
-      <p class="form-note" style="margin-top:14px;">Prefer to talk now? <a href="#" data-wa rel="noopener">WhatsApp us</a>.</p>
+      <p class="form-note" style="margin-top:14px;">Prefer to chat now? <a href="#" data-wa-open>Message us from this page</a>.</p>
     </aside>
   </div>
 </section>

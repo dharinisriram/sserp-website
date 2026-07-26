@@ -25,18 +25,71 @@
     setThemeIcon();
   }
 
-  /* WhatsApp routing: number is never rendered in any page or static markup;
-     the link is assembled only at click time. */
-  var waHref = function (txt) {
-    var n = atob("OTE4OTM5MTI2MjMy");
-    return "https://wa.me/" + n + (txt ? "?text=" + encodeURIComponent(txt) : "");
+  /* ---------- message delivery (no direct WhatsApp links, client rule) ----------
+     Messages are relayed from the page itself: email via the FormSubmit
+     relay (activate once by clicking the confirmation mail it sends to
+     support@), and optionally pushed to the team's WhatsApp via CallMeBot
+     when WA_RELAY_KEY is configured. The number is never rendered. */
+  var RELAY_EMAIL = "support@sserpsolutions.net";
+  var WA_RELAY_KEY = ""; // CallMeBot apikey — set to enable WhatsApp push
+  var deliver = function (subject, text) {
+    var jobs = [];
+    jobs.push(fetch("https://formsubmit.co/ajax/" + RELAY_EMAIL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({ _subject: subject, message: text, page: location.href })
+    }).then(function (r) { if (!r.ok) throw new Error("relay " + r.status); return r.json(); }));
+    if (WA_RELAY_KEY) {
+      var n = atob("OTE4OTM5MTI2MjMy");
+      jobs.push(fetch("https://api.callmebot.com/whatsapp.php?phone=" + n +
+        "&apikey=" + encodeURIComponent(WA_RELAY_KEY) +
+        "&text=" + encodeURIComponent(subject + "\n" + text), { mode: "no-cors" }).catch(function () {}));
+    }
+    return jobs[0];
   };
-  document.querySelectorAll("[data-wa]").forEach(function (el) {
-    el.addEventListener("click", function (e) {
-      e.preventDefault();
-      window.open(waHref(el.getAttribute("data-wa-text") || ""), "_blank", "noopener");
+
+  /* ---------- on-site chat window ---------- */
+  var waPanel = document.querySelector(".wa-panel");
+  if (waPanel) {
+    var waThread = waPanel.querySelector("[data-wa-thread]");
+    var waInput = waPanel.querySelector("[data-wa-input]");
+    var waBubble = function (cls, text) {
+      var d = document.createElement("div");
+      d.className = "wa-msg " + cls;
+      d.textContent = text;
+      var t = document.createElement("span");
+      t.className = "wa-time";
+      t.textContent = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+      d.appendChild(t);
+      waThread.appendChild(d);
+      waThread.scrollTop = waThread.scrollHeight;
+    };
+    document.querySelectorAll("[data-wa-open]").forEach(function (el) {
+      el.addEventListener("click", function (e) {
+        e.preventDefault();
+        waPanel.classList.toggle("open");
+        if (waPanel.classList.contains("open") && waInput) waInput.focus();
+      });
     });
-  });
+    var waSendBtn = waPanel.querySelector("[data-wa-send]");
+    var waSending = false;
+    var waSend = function () {
+      var text = (waInput.value || "").trim();
+      if (!text || waSending) return;
+      waSending = true;
+      waBubble("out", text);
+      waInput.value = "";
+      deliver("Chat message from sserpsolutions.net", text).then(function () {
+        waBubble("in", "Delivered ✓ We usually reply within a few hours — make sure your message includes an email or phone number.");
+      }).catch(function () {
+        waBubble("in", "Hmm, that didn't go through from the browser. Please email us at " + RELAY_EMAIL + " — sorry about that.");
+      }).then(function () { waSending = false; });
+    };
+    if (waSendBtn) waSendBtn.addEventListener("click", waSend);
+    if (waInput) waInput.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); waSend(); }
+    });
+  }
 
   /* ---------- sticky header state ---------- */
   var header = document.querySelector(".site-header");
@@ -234,7 +287,7 @@
           again();
         }],
         ["Talk to a person", function () {
-          bot('Fastest routes: <a href="' + waHref() + '" target="_blank" rel="noopener">WhatsApp</a> or <a href="mailto:support@sserpsolutions.net">support@sserpsolutions.net</a>. We reply promptly during business hours (IST).');
+          bot('Two quick routes: the green message button below (goes straight to our team) or <a href="mailto:support@sserpsolutions.net">support@sserpsolutions.net</a>. We reply promptly during business hours (IST).');
           again();
         }]
       ]);
@@ -302,13 +355,18 @@
       var company = form.querySelector("#rq-company");
       var subject = "New requirement — " + (company && company.value ? company.value : "website enquiry");
       var mail = form.querySelector("[data-relay-mail]");
-      var wa = form.querySelector("[data-relay-wa]");
-      if (mail) mail.href = "mailto:support@sserpsolutions.net?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(text);
-      if (wa) wa.href = waHref(text);
-      var actions = form.querySelector(".relay-actions");
-      if (actions) actions.style.display = "flex";
-      var ok = form.querySelector(".form-success");
-      if (ok) ok.style.display = "block";
+      if (mail) mail.href = "mailto:" + RELAY_EMAIL + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(text);
+      var btn = form.querySelector("button[type=submit]");
+      if (btn) { btn.disabled = true; btn.textContent = "Sending…"; }
+      deliver(subject, text).then(function () {
+        var ok = form.querySelector(".form-success");
+        if (ok) ok.style.display = "block";
+        if (btn) btn.textContent = "Sent ✓";
+      }).catch(function () {
+        var actions = form.querySelector(".relay-actions");
+        if (actions) actions.style.display = "flex";
+        if (btn) { btn.disabled = false; btn.textContent = "Try again"; }
+      });
       var nm = form.querySelector("#rq-name");
       if (nm && nm.value) { try { localStorage.setItem("sserp-user-name", nm.value.split(" ")[0]); } catch (er) {} }
     });
