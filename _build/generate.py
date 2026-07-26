@@ -481,7 +481,34 @@ def build_services():
 
 # Case studies are anonymised project narratives — client sign-off required before go-live.
 ARTICLES = [
- dict(slug="case-study-s4hana-nine-months", kind="Case study", thumb="t2",
+ dict(slug="ecc-countdown-numbers", illus="facts-deadline.svg", kind="Article", thumb="t1",
+  title="The ECC countdown, in plain numbers",
+  teaser="Three dates, one premium, and a statistic that should worry late movers: the facts every ECC-running business should have on one page.",
+  date="July 2026", read="4 min read",
+  body=["The dates first, because everything else follows from them. For SAP ERP 6.0 on enhancement packages 0 through 5, mainstream maintenance has already ended — those systems moved to customer-specific maintenance in late 2025. For enhancement packages 6, 7 and 8, mainstream maintenance runs until <strong>31 December 2027</strong>. After that, optional extended maintenance is available until <strong>31 December 2030</strong> — at a premium of roughly <strong>2% on top of the existing maintenance base</strong>, and only for systems on EhP 6 or above.",
+   "Now the statistic. Independent research on the S/4HANA transition suggests that only around <strong>57% of ECC customers will have completed</strong> their move when mainstream maintenance ends in 2027. Read that from the other side: nearly half the installed base will be mid-flight or not yet started, all drawing on the same limited pool of experienced consultants, at the same time.",
+   "That is the real deadline risk for a mid-size business — not that SAP switches your system off (it does not), but that the market around you tightens. Partner capacity gets scarcer and pricier as 2027 approaches; the best consultants get locked into multi-year enterprise programmes; and a rushed migration is precisely the kind of project that fails expensively.",
+   "What we recommend, and it is deliberately boring: get a readiness assessment done now, even if you intend to move late. It costs weeks, fixes nothing prematurely, and converts an unknown deadline into a plannable programme — with your route (greenfield, brownfield or selective) chosen on evidence while every option is still open.",
+   '<em>Sources: <a href="https://support.sap.com/en/offerings-programs/strategy.html" rel="noopener" target="_blank">SAP maintenance strategy</a>; <a href="https://www.seidor.com/en-us/blog/understanding-sap-ecc-deadlines" rel="noopener" target="_blank">SEIDOR — Understanding SAP ECC deadlines</a>; <a href="https://www.basistechnologies.com/blog/the-true-state-of-s4hana/" rel="noopener" target="_blank">Basis Technologies — The True State of S/4HANA</a>.</em>']),
+ dict(slug="why-erp-projects-overrun", illus="facts-overrun.svg", kind="Article", thumb="t2",
+  title="Why ERP projects blow their budgets — the numbers, then the fix",
+  teaser="McKinsey and Oxford studied 5,400 large IT projects: 45% over budget on average. The causes are known, measured — and avoidable.",
+  date="July 2026", read="5 min read",
+  body=["Start with the most sobering dataset in enterprise IT. McKinsey, working with the University of Oxford, analysed over <strong>5,400 large IT projects</strong> and found they run <strong>45% over budget</strong> and 7% over time on average — while delivering less value than promised. Industry analyses of ERP specifically put the share of projects that fail to meet their objectives at <strong>55% to 75%</strong>.",
+   "The causes are just as well measured. Surveys of ERP overruns repeatedly land on the same three: <strong>underestimated staffing (~38%)</strong>, <strong>scope expansion (~35%)</strong> and <strong>data or technical issues (~34%)</strong>. Notice what is missing from that list: the software. ERP projects rarely fail because the product cannot do the job; they fail because the organisation around the project was mis-planned.",
+   "Each cause has a practical antidote. Staffing: insist on named consultants with the right module depth before signing — not a rate card and a promise. Scope: freeze what 'done' means in writing, and treat every addition as a costed decision rather than a favour. Data: start migration work in week one — mapping, cleansing, mock loads — because opening balances that don't reconcile are the single most common go-live delay.",
+   "There is also a structural fix, and it is the reason we deliver support-first: most of the risk above comes from doing too much at once. A running system, stabilised and understood, is the safest foundation for change — small tested releases, then bigger moves once the foundations have proven themselves. Boring beats broken.",
+   '<em>Sources: <a href="https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/delivering-large-scale-it-projects-on-time-on-budget-and-on-value" rel="noopener" target="_blank">McKinsey &amp; Oxford — Delivering large-scale IT projects</a>; <a href="https://www.testhouse.net/blogs/55-of-erp-projects-exceed-budgets-heres-how-to-avoid-it/" rel="noopener" target="_blank">Testhouse — 55% of ERP projects exceed budgets</a>; <a href="https://pemeco.com/two-big-reasons-erp-implementation-failure/" rel="noopener" target="_blank">Pemeco — Why ERP failure rates exceed 50%</a>.</em>']),
+ dict(slug="cost-of-waiting-ecc", illus="facts-costs.svg", kind="Article", thumb="t3",
+  title="Staying on ECC until 2030: what the extended-maintenance route really costs",
+  teaser="Extended maintenance is a legitimate strategy — SAP offers it for a reason. But its price is more than the 2% premium, and it should be a decision, not a default.",
+  date="July 2026", read="4 min read",
+  body=["Let us be fair to the stay-put option first. SAP's extended maintenance keeps ECC systems on EhP 6–8 supported from 2028 through <strong>the end of 2030</strong>, for a premium of about <strong>2% on the annual maintenance base</strong>. For a business mid-way through an acquisition, a leadership change or a difficult year, buying three more years of certainty can be entirely rational.",
+   "But the premium is the smallest line in the true cost. The larger ones: three more years of custom code accumulating on a platform you will leave; integration work built twice — once against ECC now, again after the move; skills becoming scarcer and dearer as the remaining ECC consultant pool shrinks; and the migration itself landing in 2029–2030, exactly when everyone else who waited is bidding for the same delivery capacity.",
+   "There is also a subtler cost: optionality. Move early and you can choose a phased, selective route with rehearsals and fallbacks. Move against a hard deadline and the calendar chooses for you — usually the fastest technical conversion, with process improvements deferred to 'phase two', which every practitioner knows is the phase that never comes.",
+   "Our advice cuts both ways. If you stay: make it a written decision with a date attached — retire dead custom code now, freeze non-essential ECC investment, and bank the savings for the move. If you go: an assessment this year makes 2027 comfortable instead of frantic. What we would not recommend is the third option most businesses actually take: not deciding.",
+   '<em>Sources: <a href="https://support.sap.com/en/offerings-programs/strategy.html" rel="noopener" target="_blank">SAP maintenance strategy</a>; <a href="https://saplicensingexperts.com/blog/sap-extended-maintenance-2027-2030" rel="noopener" target="_blank">SAP Licensing Experts — Extended maintenance 2027–2030</a>; <a href="https://www.all-for-one.pl/en/whitepapers/what-about-sap-maintenance-after-2027/" rel="noopener" target="_blank">All for One — SAP maintenance after 2027</a>.</em>']),
+ dict(slug="case-study-s4hana-nine-months", illus="cs-s4hana.svg", kind="Case study", thumb="t2",
   title="ECC to S/4HANA in nine months — without missing a single close",
   teaser="A mid-size manufacturing group needed off ECC before its hardware refresh. The programme landed on time because the hard decisions were made in the first four weeks.",
   date="July 2026", read="4 min read",
@@ -490,7 +517,7 @@ ARTICLES = [
    "<strong>The delivery.</strong> Two mock conversions were rehearsed and timed before anyone committed to a cutover weekend. Month-end procedures were walked through on the converted sandbox with the finance team a full cycle before go-live. The cutover ran to a scripted runbook that had already worked twice.",
    "<strong>The outcome.</strong> The group went live on S/4HANA inside nine months. Every close during the programme ran on schedule, the first close on the new system completed without escalation, and the custom-code estate shrank by nearly half. The same team provides AMS support today.",
    "<em>Client identity anonymised; published with client approval.</em>"]),
- dict(slug="case-study-gulf-rollout", kind="Case study", thumb="t3",
+ dict(slug="case-study-gulf-rollout", illus="cs-gulf.svg", kind="Case study", thumb="t3",
   title="Four countries, one template: a Gulf rollout that kept every statutory deadline",
   teaser="An enterprise group expanding across the Gulf needed one corporate template and four different statutory realities. Localisation was designed in, never bolted on.",
   date="July 2026", read="4 min read",
@@ -499,7 +526,7 @@ ARTICLES = [
    "<strong>The delivery.</strong> Countries went live in sequence, each on a template that already contained its statutory reality. A PMO cadence of weekly one-page sponsor reporting and a jointly-owned risk register kept the four workstreams honest across time zones.",
    "<strong>The outcome.</strong> All four subsidiaries went live on the corporate template with every statutory deadline met across the programme. Group reporting consolidated from day one in each country, and the rollout playbook is now the group's standard for future markets.",
    "<em>Client identity anonymised; published with client approval.</em>"]),
- dict(slug="custom-dashboards-beyond-bi", kind="Article", thumb="t1",
+ dict(slug="custom-dashboards-beyond-bi", illus="dashboards.svg", kind="Article", thumb="t1",
   title="Custom dashboards: what to build when Power BI runs out of road",
   teaser="Packaged BI tools cover most reporting needs brilliantly. The judgement call is recognising the moment your requirement has outgrown them — and what to do next.",
   date="July 2026", read="5 min read",
@@ -508,7 +535,7 @@ ARTICLES = [
    "That third case is the clearest signal. The moment a 'report' needs to trigger action — an approval, a hold, a reorder — you are no longer building a report; you are building a thin operational application over your ERP data. Forcing it into a BI tool produces the workaround culture; building it as a small custom dashboard produces software people actually use.",
    "The economics are better than most IT leaders expect. A focused custom dashboard — one audience, one decision, live ERP data, exactly the drill-downs asked for — is weeks of work, not months, when the data foundations already exist. The expensive version is the one built without governed KPI definitions underneath; then every number becomes a negotiation.",
    "Our rule of thumb: packaged BI first, always — then custom, surgically, where the requirement involves action, unusual interaction, or an audience the packaged tools price out. The mistake is not choosing one or the other; it is failing to notice when the requirement crossed the line."]),
- dict(slug="practical-ai-finance-operations", kind="Article", thumb="t3",
+ dict(slug="practical-ai-finance-operations", illus="ai.svg", kind="Article", thumb="t3",
   title="AI in finance operations: start boring, win big",
   teaser="The AI deployments that survive audit season are the unglamorous ones. A field guide to choosing your first use-case — and the controls that keep it in production.",
   date="July 2026", read="5 min read",
@@ -517,7 +544,7 @@ ARTICLES = [
    "That discipline points to where to start: document-heavy, judgement-light workflows. Invoice and purchase-order capture. First-draft reconciliation matching. Summarising a month's exceptions for review. Answering 'what is our policy on X' from the policy library. None of these makes a keynote; all of them return hours every week, and none of them frightens an auditor.",
    "The controls conversation is where most programmes stall, and it needs to happen first, not after the pilot. Where does the data go? Which model sees it, and is it retained? Who approved the output before it posted? An AI integration designed around those questions passes review; one retrofitted to them usually does not.",
    "Start boring. Measure honestly. Expand from evidence. The organisations doing this are building a compounding advantage — one unglamorous workflow at a time."]),
- dict(slug="ecc-to-s4hana-roadmap", kind="Article", thumb="t1",
+ dict(slug="ecc-to-s4hana-roadmap", illus="ecc-clock.svg", kind="Article", thumb="t1",
   title="ECC to S/4HANA: plan the move before the deadline plans it for you",
   teaser="SAP ECC mainstream maintenance ends in 2027, with extended options to 2030. The enterprises that move well are the ones that start with an assessment, not a contract.",
   date="July 2026", read="6 min read",
@@ -526,7 +553,7 @@ ARTICLES = [
    "In our assessments it is common to find that 40–60% of custom code has not been executed in the last year. That single finding changes the migration conversation: you are not carrying your whole history forward, only the part that is alive.",
    "From there, the route decision becomes evidence-based. Heavy process drift and poor master data push towards greenfield — a clean reimplementation. A disciplined landscape with valued customisations favours brownfield conversion. Many real answers are selective: a new core, with surgical carry-over of what has proven value.",
    "Whichever route, the calendar argument is the same: assessment now costs weeks and buys you options. Assessment later costs the options. If your organisation runs ECC and has no written S/4HANA position yet, the assessment — not the migration — is the urgent step."]),
- dict(slug="greenfield-vs-brownfield", kind="Article", thumb="t2",
+ dict(slug="greenfield-vs-brownfield", illus="paths.svg", kind="Article", thumb="t2",
   title="Greenfield or brownfield? An honest decision framework",
   teaser="Vendors tend to recommend whichever route they sell best. The right answer comes from your custom code, your data quality and your appetite for change — not from a preference.",
   date="July 2026", read="5 min read",
@@ -535,7 +562,7 @@ ARTICLES = [
    "Brownfield — a system conversion — preserves your history, your customisations and much of your users' muscle memory. Its price is that you carry your past forward: process debt, dormant code and old configuration decisions arrive in the new system unless you deliberately clean as you convert.",
    "Our framework asks four questions. One: how much of your customisation still earns its keep? Two: would your process owners redesign their workflows today if given the chance — and do they have the energy to? Three: can your business absorb a re-implementation's disruption, or is continuity the binding constraint? Four: what does your data deserve — a fresh start or a faithful carry?",
    "Score those honestly and the route usually names itself. And when the answers conflict, selective transition — new core, chosen history — is a legitimate middle path, not a compromise. What matters is that the decision is made on your evidence, once, with the trade-offs written down."]),
- dict(slug="ams-handover-checklist", kind="Article", thumb="t3",
+ dict(slug="ams-handover-checklist", illus="handover.svg", kind="Article", thumb="t3",
   title="Taking over SAP support without drama: the AMS handover checklist",
   teaser="Switching AMS vendors — or moving support in-house — fails at handover more often than at steady state. Here is the checklist we run before we accept a single ticket.",
   date="July 2026", read="5 min read",
@@ -549,6 +576,9 @@ ARTICLES = [
 
 
 ARTICLE_SERVICE = {
+    "ecc-countdown-numbers": ("erp-consulting", "ERP Consulting & Health Checks"),
+    "why-erp-projects-overrun": ("erp-consulting", "ERP Consulting & Health Checks"),
+    "cost-of-waiting-ecc": ("greenfield-brownfield", "Greenfield & Brownfield Projects"),
     "case-study-s4hana-nine-months": ("greenfield-brownfield", "Greenfield & Brownfield Projects"),
     "case-study-gulf-rollout": ("rollouts-upgrades-migrations", "Rollouts, Upgrades & Migrations"),
     "custom-dashboards-beyond-bi": ("analytics-reporting", "Analytics, Reporting & Custom Dashboards"),
@@ -573,7 +603,22 @@ def article_ld(a):
 def build_insights():
     cards = []
     for a in ARTICLES:
-        body = """
+        if a.get("illus"):
+            thumb = '<div class="post-thumb"><img src="{ROOT}assets/illus/%s" alt="" loading="lazy"></div>' % a["illus"]
+        else:
+            thumb = '<div class="post-thumb %s">%s</div>' % (a["thumb"], a["kind"].upper())
+        cards.append("""
+      <a class="post-card reveal" href="%s.html">
+        %s
+        <div class="post-body">
+          <span class="post-kind">%s</span>
+          <h3>%s</h3>
+          <p>%s</p>
+          <span class="post-meta">%s · %s</span>
+        </div>
+      </a>""" % (a["slug"], thumb, a["kind"], a["title"], a["teaser"], a["date"], a["read"]))
+
+    body = """
 <section class="page-hero">
   <div class="container">
     <p class="breadcrumb"><a href="{ROOT}index.html">Home</a> / Insights</p>
@@ -605,6 +650,7 @@ def build_insights():
 <section class="section">
   <div class="container detail-grid">
     <article class="prose">
+      """ + (('<figure class="article-illus"><img src="{ROOT}assets/illus/%s" alt=""></figure>' % a["illus"]) if a.get("illus") else "") + """
       """ + "\n      ".join("<p>%s</p>" % p for p in a["body"]) + """
     </article>
     <aside class="side-card">
