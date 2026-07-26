@@ -622,7 +622,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .dash-card { border: 1px solid var(--navy-line); border-radius: var(--radius); background: var(--navy-800); padding: 24px; }
 .dash-card .k { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
 .dash-card .v { font-family: var(--font-head); font-size: 1.5rem; font-weight: 700; margin-top: 8px; }
+.dash-charts { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.kpi-delta { display: block; margin-top: 10px; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.04em; color: var(--muted); }
+.kpi-delta.up { color: #4CC38A; }
+.kpi-delta.down { color: var(--maroon-light); }
+:root[data-theme="light"] .kpi-delta.up { color: #1E7A4C; }
+.util-bar { height: 8px; border-radius: 999px; background: var(--navy-line); overflow: hidden; }
+.util-bar span { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, #A98536, #C9A24B); }
 .badge { display: inline-block; font-family: var(--font-mono); font-size: 0.7rem; padding: 4px 12px; border-radius: 999px; letter-spacing: 0.06em; }
+.badge.crit { background: rgba(140, 29, 36, 0.18); color: #E37A82; border: 1px solid rgba(176, 58, 66, 0.5); }
+:root[data-theme="light"] .badge.crit { color: #8C1D24; }
 .badge.ok { background: rgba(46, 160, 100, 0.14); color: #4CC38A; border: 1px solid rgba(76, 195, 138, 0.35); }
 .badge.warn { background: var(--gold-dim); color: var(--gold-light); border: 1px solid var(--gold); }
 .badge.info { background: rgba(90, 130, 220, 0.12); color: #8FAEF0; border: 1px solid rgba(143, 174, 240, 0.35); }

@@ -94,30 +94,113 @@
       <aside class="dash-side">
         <nav>
           <a class="active" href="#">Overview</a>
+          <a href="#performance">Performance</a>
+          <a href="#status">Workstreams</a>
+          <a href="#risks">Risks</a>
+          <a href="#updates">Status updates</a>
+          <a href="#worklog">Work log</a>
+          <a href="#minutes">Meeting minutes</a>
           <a href="#documents">Documents</a>
-          <a href="#status">Project status</a>
-          <a href="#contacts">Your contacts</a>
+          <a href="#contacts">Points of contact</a>
         </nav>
       </aside>
       <div class="dash-main">
         <div>
-          <span class="eyebrow">Acme Manufacturing Ltd — S/4HANA Implementation</span>
+          <span class="eyebrow">Acme Manufacturing Ltd — SAP AMS &amp; S/4HANA Programme</span>
           <h1 style="font-size:1.7rem;"><span data-user-greet></span>Programme overview</h1>
         </div>
-        <div class="dash-cards">
-          <div class="dash-card"><div class="k">Current phase</div><div class="v">Realisation</div><span class="badge ok">On track</span></div>
-          <div class="dash-card"><div class="k">Next milestone</div><div class="v">Integration test start</div><span class="badge info">12 Aug 2026</span></div>
-          <div class="dash-card"><div class="k">Open actions on client</div><div class="v">3</div><span class="badge warn">2 due this week</span></div>
+        <div class="dash-cards" style="grid-template-columns:repeat(3,1fr);">
+          <div class="dash-card"><div class="k">SLA compliance — July</div><div class="v">96.4%</div><span class="kpi-delta up">▲ 1.2 pts vs June</span></div>
+          <div class="dash-card"><div class="k">Open incidents</div><div class="v">7</div><span class="kpi-delta up">▼ 3 vs last month · none P1</span></div>
+          <div class="dash-card"><div class="k">Avg P1 response</div><div class="v">22 min</div><span class="kpi-delta up">target 30 min</span></div>
+          <div class="dash-card"><div class="k">Enhancements shipped — Q3</div><div class="v">11</div><span class="kpi-delta up">backlog: 9 approved</span></div>
+          <div class="dash-card"><div class="k">System availability — 90 days</div><div class="v">99.95%</div><span class="kpi-delta up">0 unplanned outages</span></div>
+          <div class="dash-card"><div class="k">Next month-end close</div><div class="v">5 working days</div><span class="kpi-delta up">readiness: 8 of 9 checks green</span></div>
+        </div>
+        <div class="dash-charts" id="performance">
+          <div class="panel">
+            <div class="panel-head"><h3>Incidents — last 8 weeks</h3>
+              <span style="font-family:var(--font-mono);font-size:0.7rem;color:var(--muted);"><span style="color:#A98536;">■</span> Opened&nbsp;&nbsp;<span style="color:#6489DD;">■</span> Resolved</span>
+            </div>
+            <div style="padding:18px 20px 12px;"><svg viewBox="0 0 520 224" role="img" aria-label="Incidents opened versus resolved per week" style="width:100%;height:auto;font-family:IBM Plex Mono,monospace;"><line x1="44.0" y1="200.0" x2="500" y2="200.0" stroke="#22314F" stroke-width="1"/><text x="36.0" y="203.0" text-anchor="end" font-size="10" fill="#8D99B2">0</text><line x1="44.0" y1="138.7" x2="500" y2="138.7" stroke="#22314F" stroke-width="1"/><text x="36.0" y="141.7" text-anchor="end" font-size="10" fill="#8D99B2">5</text><line x1="44.0" y1="77.3" x2="500" y2="77.3" stroke="#22314F" stroke-width="1"/><text x="36.0" y="80.3" text-anchor="end" font-size="10" fill="#8D99B2">10</text><line x1="44.0" y1="16.0" x2="500" y2="16.0" stroke="#22314F" stroke-width="1"/><text x="36.0" y="19.0" text-anchor="end" font-size="10" fill="#8D99B2">15</text><path d="M 55.5 200.0 L 55.5 31.3 Q 55.5 28.3 58.5 28.3 L 68.5 28.3 Q 71.5 28.3 71.5 31.3 L 71.5 200.0 Z" fill="#A98536"><title>W23 - Opened: 14</title></path><path d="M 73.5 200.0 L 73.5 55.8 Q 73.5 52.8 76.5 52.8 L 86.5 52.8 Q 89.5 52.8 89.5 55.8 L 89.5 200.0 Z" fill="#6489DD"><title>W23 - Resolved: 12</title></path><text x="72.5" y="216" text-anchor="middle" font-size="10" fill="#8D99B2">W23</text><path d="M 112.5 200.0 L 112.5 68.1 Q 112.5 65.1 115.5 65.1 L 125.5 65.1 Q 128.5 65.1 128.5 68.1 L 128.5 200.0 Z" fill="#A98536"><title>W24 - Opened: 11</title></path><path d="M 130.5 200.0 L 130.5 43.5 Q 130.5 40.5 133.5 40.5 L 143.5 40.5 Q 146.5 40.5 146.5 43.5 L 146.5 200.0 Z" fill="#6489DD"><title>W24 - Resolved: 13</title></path><text x="129.5" y="216" text-anchor="middle" font-size="10" fill="#8D99B2">W24</text><path d="M 169.5 200.0 L 169.5 55.8 Q 169.5 52.8 172.5 52.8 L 182.5 52.8 Q 185.5 52.8 185.5 55.8 L 185.5 200.0 Z" fill="#A98536"><title>W25 - Opened: 12</title></path><path d="M 187.5 200.0 L 187.5 68.1 Q 187.5 65.1 190.5 65.1 L 200.5 65.1 Q 203.5 65.1 203.5 68.1 L 203.5 200.0 Z" fill="#6489DD"><title>W25 - Resolved: 11</title></path><text x="186.5" y="216" text-anchor="middle" font-size="10" fill="#8D99B2">W25</text><path d="M 226.5 200.0 L 226.5 92.6 Q 226.5 89.6 229.5 89.6 L 239.5 89.6 Q 242.5 89.6 242.5 92.6 L 242.5 200.0 Z" fill="#A98536"><title>W26 - Opened: 9</title></path><path d="M 244.5 200.0 L 244.5 80.3 Q 244.5 77.3 247.5 77.3 L 257.5 77.3 Q 260.5 77.3 260.5 80.3 L 260.5 200.0 Z" fill="#6489DD"><title>W26 - Resolved: 10</title></path><text x="243.5" y="216" text-anchor="middle" font-size="10" fill="#8D99B2">W26</text><path d="M 283.5 200.0 L 283.5 80.3 Q 283.5 77.3 286.5 77.3 L 296.5 77.3 Q 299.5 77.3 299.5 80.3 L 299.5 200.0 Z" fill="#A98536"><title>W27 - Opened: 10</title></path><path d="M 301.5 200.0 L 301.5 68.1 Q 301.5 65.1 304.5 65.1 L 314.5 65.1 Q 317.5 65.1 317.5 68.1 L 317.5 200.0 Z" fill="#6489DD"><title>W27 - Resolved: 11</title></path><text x="300.5" y="216" text-anchor="middle" font-size="10" fill="#8D99B2">W27</text><path d="M 340.5 200.0 L 340.5 104.9 Q 340.5 101.9 343.5 101.9 L 353.5 101.9 Q 356.5 101.9 356.5 104.9 L 356.5 200.0 Z" fill="#A98536"><title>W28 - Opened: 8</title></path><path d="M 358.5 200.0 L 358.5 92.6 Q 358.5 89.6 361.5 89.6 L 371.5 89.6 Q 374.5 89.6 374.5 92.6 L 374.5 200.0 Z" fill="#6489DD"><title>W28 - Resolved: 9</title></path><text x="357.5" y="216" text-anchor="middle" font-size="10" fill="#8D99B2">W28</text><path d="M 397.5 200.0 L 397.5 92.6 Q 397.5 89.6 400.5 89.6 L 410.5 89.6 Q 413.5 89.6 413.5 92.6 L 413.5 200.0 Z" fill="#A98536"><title>W29 - Opened: 9</title></path><path d="M 415.5 200.0 L 415.5 92.6 Q 415.5 89.6 418.5 89.6 L 428.5 89.6 Q 431.5 89.6 431.5 92.6 L 431.5 200.0 Z" fill="#6489DD"><title>W29 - Resolved: 9</title></path><text x="414.5" y="216" text-anchor="middle" font-size="10" fill="#8D99B2">W29</text><path d="M 454.5 200.0 L 454.5 117.1 Q 454.5 114.1 457.5 114.1 L 467.5 114.1 Q 470.5 114.1 470.5 117.1 L 470.5 200.0 Z" fill="#A98536"><title>W30 - Opened: 7</title></path><path d="M 472.5 200.0 L 472.5 104.9 Q 472.5 101.9 475.5 101.9 L 485.5 101.9 Q 488.5 101.9 488.5 104.9 L 488.5 200.0 Z" fill="#6489DD"><title>W30 - Resolved: 8</title></path><text x="471.5" y="216" text-anchor="middle" font-size="10" fill="#8D99B2">W30</text><text x="462.5" y="109.1" text-anchor="middle" font-size="10" fill="#C4CDDD">7</text><text x="480.5" y="96.9" text-anchor="middle" font-size="10" fill="#C4CDDD">8</text></svg></div>
+            <div style="padding:0 20px 16px;font-size:0.8rem;color:var(--muted);">Backlog down 5 tickets over the period — resolution rate has out-paced intake for six straight weeks.</div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>SLA compliance by priority — July</h3></div>
+            <div style="padding:18px 20px 4px;"><svg viewBox="0 0 520 158" role="img" aria-label="SLA compliance by priority" style="width:100%;height:auto;font-family:IBM Plex Mono,monospace;"><line x1="425.0" y1="8" x2="425.0" y2="132" stroke="#B03A42" stroke-width="1.5" stroke-dasharray="4 4"/><text x="425.0" y="150" text-anchor="middle" font-size="10" fill="#B03A42">target 95%</text><path d="M 64.0 14.0 L 434.2 14.0 Q 437.2 14.0 437.2 17.0 L 437.2 29.0 Q 437.2 32.0 434.2 32.0 L 64.0 32.0 Z" fill="#A98536"><title>P1 SLA compliance: 98.2%</title></path><text x="54.0" y="27.0" text-anchor="end" font-size="11" fill="#8D99B2">P1</text><text x="445.2" y="27.0" font-size="11" fill="#C4CDDD">98.2%</text><path d="M 64.0 44.0 L 430.0 44.0 Q 433.0 44.0 433.0 47.0 L 433.0 59.0 Q 433.0 62.0 430.0 62.0 L 64.0 62.0 Z" fill="#A98536"><title>P2 SLA compliance: 97.1%</title></path><text x="54.0" y="57.0" text-anchor="end" font-size="11" fill="#8D99B2">P2</text><text x="441.0" y="57.0" font-size="11" fill="#C4CDDD">97.1%</text><path d="M 64.0 74.0 L 420.5 74.0 Q 423.5 74.0 423.5 77.0 L 423.5 89.0 Q 423.5 92.0 420.5 92.0 L 64.0 92.0 Z" fill="#A98536"><title>P3 SLA compliance: 94.6%</title></path><text x="54.0" y="87.0" text-anchor="end" font-size="11" fill="#8D99B2">P3</text><text x="431.5" y="87.0" font-size="11" fill="#C4CDDD">94.6%</text><path d="M 64.0 104.0 L 437.2 104.0 Q 440.2 104.0 440.2 107.0 L 440.2 119.0 Q 440.2 122.0 437.2 122.0 L 64.0 122.0 Z" fill="#A98536"><title>P4 SLA compliance: 99.0%</title></path><text x="54.0" y="117.0" text-anchor="end" font-size="11" fill="#8D99B2">P4</text><text x="448.2" y="117.0" font-size="11" fill="#C4CDDD">99.0%</text></svg></div>
+            <div style="padding:0 20px 16px;font-size:0.8rem;color:var(--muted);">P3 sits just under target — driven by two enhancement-related tickets held for your UAT sign-off.</div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h3>Advisor notes — what we'd look at next</h3><span class="badge info">Updated weekly</span></div>
+          <table class="data-table">
+            <tbody>
+              <tr><td style="width:36px;color:var(--gold);">◆</td><td><strong>Vendor master duplicates are creeping up</strong> — 41 suspected duplicates (+9 this month). A half-day cleanup now prevents payment-run noise at quarter end.</td></tr>
+              <tr><td style="color:var(--gold);">◆</td><td><strong>Nightly batch window grew 14 minutes since May</strong> — two jobs account for most of it. A tuning pass is queued in the enhancement backlog; recommend prioritising before year-end volumes.</td></tr>
+              <tr><td style="color:var(--gold);">◆</td><td><strong>6 custom reports had zero executions in 12 months</strong> — candidates for retirement. Less custom code now means a cheaper, faster S/4HANA conversion later.</td></tr>
+            </tbody>
+          </table>
         </div>
         <div class="panel" id="status">
           <div class="panel-head"><h3>Workstream status</h3><span class="badge ok">Updated weekly</span></div>
           <table class="data-table">
             <thead><tr><th>Workstream</th><th>Lead</th><th>Status</th><th>Note</th></tr></thead>
             <tbody>
-              <tr><td>Finance (FICO)</td><td>SSES</td><td><span class="badge ok">On track</span></td><td>CO-PA design signed off</td></tr>
-              <tr><td>Logistics (MM/SD)</td><td>SSES</td><td><span class="badge warn">Watch</span></td><td>Pricing decision pending client input</td></tr>
-              <tr><td>Data migration</td><td>Joint</td><td><span class="badge ok">On track</span></td><td>Mock load 2 reconciled</td></tr>
+              <tr><td>AMS &amp; production support</td><td>SSES</td><td><span class="badge ok">On track</span></td><td>All SLAs met for 11 consecutive weeks</td></tr>
+              <tr><td>Enhancement pipeline</td><td>Joint</td><td><span class="badge ok">On track</span></td><td>Release 2026-08 scoped; 4 changes in test</td></tr>
+              <tr><td>S/4HANA readiness</td><td>SSES</td><td><span class="badge warn">Watch</span></td><td>Custom-code review 70% done; data profiling starts W32</td></tr>
               <tr><td>Integrations</td><td>Client IT</td><td><span class="badge info">Starting</span></td><td>Bank interface spec in review</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel" id="risks">
+          <div class="panel-head"><h3>Risk register — top 3</h3></div>
+          <table class="data-table">
+            <thead><tr><th>Risk</th><th>Severity</th><th>Owner</th><th>Mitigation</th></tr></thead>
+            <tbody>
+              <tr><td>Key-user availability during August UAT window</td><td><span class="badge crit">High</span></td><td>Client</td><td>Backup approvers named by 05 Aug; UAT scripts shortened</td></tr>
+              <tr><td>Batch window growth ahead of year-end volumes</td><td><span class="badge warn">Medium</span></td><td>SSES</td><td>Tuning pass scheduled in release 2026-08</td></tr>
+              <tr><td>Single point of knowledge on legacy pricing exits</td><td><span class="badge warn">Medium</span></td><td>SSES</td><td>Documentation + shadow assignment in progress</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel" id="updates">
+          <div class="panel-head"><h3>Status updates</h3><span class="badge info">Weekly</span></div>
+          <table class="data-table">
+            <tbody>
+              <tr><td class="mono" style="width:110px;">24 Jul</td><td><strong>W30:</strong> All SLAs met. Release 2026-08 scope frozen (4 changes). Custom-code review reached 70% — dormant-code list shared for your review. P3 ticket #4812 waiting on UAT sign-off.</td></tr>
+              <tr><td class="mono">17 Jul</td><td><strong>W29:</strong> Month-end close completed on schedule; no P1/P2 incidents during close. Batch-window tuning added to enhancement backlog after 14-minute growth trend confirmed.</td></tr>
+              <tr><td class="mono">10 Jul</td><td><strong>W28:</strong> Quarterly SLA pack published. Two enhancements shipped (credit-limit report, plant 2 label format). S/4HANA readiness assessment kicked off.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel" id="worklog">
+          <div class="panel-head"><h3>Work log — July</h3>
+            <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--muted);">Retainer: 62 of 80 hrs used</span>
+          </div>
+          <div style="padding:14px 20px 0;">
+            <div class="util-bar"><span style="width:77.5%;"></span></div>
+          </div>
+          <table class="data-table">
+            <thead><tr><th>Date</th><th>Consultant</th><th>Hours</th><th>Work item</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">24 Jul</td><td>R. Iyer (FICO)</td><td class="mono">6.0</td><td>Ticket #4820 — GL allocation cycle fix + regression test</td></tr>
+              <tr><td class="mono">23 Jul</td><td>A. Sharma (ABAP)</td><td class="mono">7.5</td><td>Release 2026-08 — credit-limit report build</td></tr>
+              <tr><td class="mono">22 Jul</td><td>K. Menon (BASIS)</td><td class="mono">3.0</td><td>Monthly patching — QA system, kernel + notes</td></tr>
+              <tr><td class="mono">21 Jul</td><td>R. Iyer (FICO)</td><td class="mono">4.5</td><td>Month-end support — close monitoring &amp; job restarts</td></tr>
+              <tr><td class="mono">18 Jul</td><td>S. Pillai (SD)</td><td class="mono">5.0</td><td>Ticket #4812 — pricing exit correction (awaiting UAT)</td></tr>
+            </tbody>
+          </table>
+          <div style="padding:10px 20px 16px;font-size:0.78rem;color:var(--muted);">Full timesheet export is attached to the monthly SLA pack. Unused retainer hours roll into enhancement work by agreement.</div>
+        </div>
+        <div class="panel" id="minutes">
+          <div class="panel-head"><h3>Minutes — governance call, 22 Jul 2026</h3><span class="badge ok">Approved</span></div>
+          <table class="data-table">
+            <tbody>
+              <tr><td style="width:130px;font-family:var(--font-mono);font-size:0.75rem;color:var(--muted);">ATTENDEES</td><td>V. Rao, M. Desai (Acme) · Engagement Manager, FICO Lead (SSES)</td></tr>
+              <tr><td style="font-family:var(--font-mono);font-size:0.75rem;color:var(--muted);">DECISIONS</td><td>Release 2026-08 scope frozen at 4 changes · batch-window tuning prioritised ahead of year-end · dormant custom reports to be retired in September window</td></tr>
+              <tr><td style="font-family:var(--font-mono);font-size:0.75rem;color:var(--muted);">ACTIONS</td><td>Acme: name backup UAT approvers by <span class="mono">05 Aug</span> (M. Desai) · SSES: share S/4HANA custom-code final report by <span class="mono">08 Aug</span> · Joint: vendor-master cleanup scoping call in W32</td></tr>
+              <tr><td style="font-family:var(--font-mono);font-size:0.75rem;color:var(--muted);">NEXT CALL</td><td><span class="mono">05 Aug 2026, 15:00 IST</span> — standing governance slot</td></tr>
             </tbody>
           </table>
         </div>
@@ -127,22 +210,25 @@
             <thead><tr><th>Document</th><th>Type</th><th>Updated</th></tr></thead>
             <tbody>
               <tr><td>Weekly status report — W30</td><td>PDF</td><td>24 Jul 2026</td></tr>
-              <tr><td>Integration test plan v0.9</td><td>DOCX</td><td>22 Jul 2026</td></tr>
-              <tr><td>Data migration reconciliation — Mock 2</td><td>XLSX</td><td>18 Jul 2026</td></tr>
-              <tr><td>Steering committee pack — July</td><td>PDF</td><td>15 Jul 2026</td></tr>
+              <tr><td>SLA performance pack — July</td><td>PDF</td><td>23 Jul 2026</td></tr>
+              <tr><td>Enhancement backlog &amp; estimates</td><td>XLSX</td><td>21 Jul 2026</td></tr>
+              <tr><td>S/4HANA custom-code review — interim findings</td><td>PDF</td><td>18 Jul 2026</td></tr>
             </tbody>
           </table>
         </div>
         <div class="panel" id="contacts">
-          <div class="panel-head"><h3>Your SS ERP Solutions contacts</h3></div>
+          <div class="panel-head"><h3>Points of contact</h3></div>
           <table class="data-table">
-            <thead><tr><th>Name</th><th>Role</th><th>Email</th></tr></thead>
+            <thead><tr><th>Name</th><th>Role</th><th>Reach</th><th>Hours (IST)</th></tr></thead>
             <tbody>
-              <tr><td>Programme Manager</td><td>Delivery lead &amp; escalation</td><td class="mono">pm@sserpsolutions.net</td></tr>
-              <tr><td>Finance Lead</td><td>FICO workstream</td><td class="mono">fico@sserpsolutions.net</td></tr>
-              <tr><td>Support Desk</td><td>Issues &amp; requests</td><td class="mono">support@sserpsolutions.net</td></tr>
+              <tr><td><strong>Engagement Manager</strong> — SSES</td><td>Delivery owner &amp; escalation point</td><td class="mono">pm@sserpsolutions.net</td><td class="mono">09:00–19:00 Mon–Fri</td></tr>
+              <tr><td><strong>AMS Desk</strong> — SSES</td><td>Incidents &amp; service requests</td><td class="mono">support@sserpsolutions.net</td><td class="mono">08:00–20:00 + P1 on-call</td></tr>
+              <tr><td><strong>R. Iyer</strong> — SSES</td><td>FICO lead (your finance workstream)</td><td class="mono">fico@sserpsolutions.net</td><td class="mono">10:00–19:00 Mon–Fri</td></tr>
+              <tr><td><strong>V. Rao</strong> — Acme</td><td>Programme sponsor</td><td class="mono">via portal</td><td class="mono">by appointment</td></tr>
+              <tr><td><strong>M. Desai</strong> — Acme</td><td>IT manager · UAT owner</td><td class="mono">via portal</td><td class="mono">09:30–18:00 Mon–Fri</td></tr>
             </tbody>
           </table>
+          <div style="padding:10px 20px 16px;font-size:0.78rem;color:var(--muted);">P1 escalation path: AMS Desk → Engagement Manager (30 min) → Delivery Director (60 min).</div>
         </div>
       </div>
     </div>
