@@ -246,6 +246,20 @@ img { max-width: 100%; display: block; }
 .service-card h3 { color: var(--ink); margin: 10px 0 10px; }
 .service-card p { font-size: 0.95rem; color: var(--muted); }
 
+/* ---------- vendor logo strip ---------- */
+.vendor-strip {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 30px; flex-wrap: wrap; margin: 8px 0 44px;
+}
+.vendor-strip img {
+  height: 30px; width: auto; opacity: 0.85;
+  filter: grayscale(1) brightness(1.9); transition: opacity 0.15s ease, filter 0.15s ease;
+}
+.vendor-strip img.lg { height: 38px; }
+.vendor-strip img:hover { opacity: 1; filter: none; }
+:root[data-theme="light"] .vendor-strip img { filter: grayscale(1) opacity(0.7); }
+:root[data-theme="light"] .vendor-strip img:hover { filter: none; }
+
 /* ---------- tech marquee ---------- */
 .marquee-band { padding: 64px 0; border-top: 1px solid var(--navy-line); border-bottom: 1px solid var(--navy-line); background: var(--navy-850); overflow: hidden; }
 .marquee { display: flex; overflow: hidden; user-select: none; gap: 0; }
