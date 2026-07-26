@@ -68,15 +68,15 @@ HEADER = """<a class="skip-link" href="#main">Skip to main content</a>
         <a href="{ROOT}services/index.html">Services <span class="caret" aria-hidden="true">▼</span></a>
         <ul class="submenu submenu-wide">
           <li class="sub-all"><a href="{ROOT}services/index.html">ALL SERVICES →</a></li>
-          <li><a href="{ROOT}services/erp-consulting.html">ERP Consulting</a></li>
-          <li><a href="{ROOT}services/enterprise-application-implementation.html">Application Implementation</a></li>
-          <li><a href="{ROOT}services/greenfield-brownfield.html">Greenfield &amp; Brownfield</a></li>
+          <li><a href="{ROOT}services/ams.html">Application Management (AMS)</a></li>
+          <li><a href="{ROOT}services/production-support-enhancements.html">Production Support &amp; Enhancements</a></li>
           <li><a href="{ROOT}services/rollouts-upgrades-migrations.html">Rollouts, Upgrades &amp; Migrations</a></li>
+          <li><a href="{ROOT}services/erp-consulting.html">ERP Consulting &amp; Health Checks</a></li>
+          <li><a href="{ROOT}services/analytics-reporting.html">Analytics &amp; Custom Dashboards</a></li>
           <li><a href="{ROOT}services/digital-transformation.html">Digital Transformation</a></li>
           <li><a href="{ROOT}services/pmo.html">PMO</a></li>
-          <li><a href="{ROOT}services/ams.html">Application Management (AMS)</a></li>
-          <li><a href="{ROOT}services/production-support-enhancements.html">Production Support</a></li>
-          <li><a href="{ROOT}services/analytics-reporting.html">Analytics &amp; Custom Dashboards</a></li>
+          <li><a href="{ROOT}services/enterprise-application-implementation.html">Application Implementation</a></li>
+          <li><a href="{ROOT}services/greenfield-brownfield.html">Greenfield &amp; Brownfield</a></li>
           <li><a href="{ROOT}services/training-internships-knowledge-transfer.html">Training &amp; Internships</a></li>
           <li><a href="{ROOT}services/oracle-multi-erp.html">Oracle &amp; Multi-ERP</a></li>
           <li><a href="{ROOT}services/ai-integration.html">AI Integration</a></li>
@@ -214,7 +214,7 @@ def li(items):
 
 SERVICES = [
  dict(slug="erp-consulting", num="01", name="ERP Consulting",
-  tag="Independent advice on ERP strategy, selection and roadmaps — grounded in how your business actually runs.",
+  tag="Independent advice on the ERP you already run — health checks, optimisation roadmaps and honest answers — and clear-eyed selection when something new is genuinely needed.",
   intro=["An ERP decision outlives the people who make it. The platform you choose — and the processes you design around it — will shape how your organisation works for a decade. We help you make that decision with clear eyes: what you need, what it will really cost, and what it will take to land. Most of our clients are growing mid-size businesses making this call for the first time — so we explain everything, and assume nothing.",
          "We are practitioners first. The consultants who write your roadmap are the same people who have implemented, migrated and supported these systems — so the advice is grounded in delivery reality."],
   approach=["<strong>Process audit first.</strong> We map how your business actually operates today — order-to-cash, procure-to-pay, record-to-report — before any technology talk.",
@@ -281,7 +281,7 @@ SERVICES = [
   outcomes=["A sponsor who always knows the true state of the programme", "Fewer surprises, earlier — risks surfaced while they are cheap", "An audit trail of decisions from kickoff to closure"]),
 
  dict(slug="ams", num="07", name="Application Management Services",
-  tag="Ongoing management of your enterprise application landscape under defined service levels — so your team can focus on the business.",
+  tag="Our core practice: ongoing care of live SAP landscapes under defined service levels — so your team can focus on the business, and the system keeps earning its keep.",
   intro=["After go-live, an ERP system needs steady, competent care: incidents resolved, changes controlled, month-ends supported, patches applied. Our AMS provides that care under defined service levels — with the continuity that makes support genuinely good.",
          "We deliberately keep the same consultants on your account. The person who fixes your issue in month twelve knows the decisions made in month one — for systems we implemented, and for systems we inherited."],
   approach=["<strong>Structured takeover.</strong> A documented transition: landscape inventory, open-issue triage, knowledge capture — whether from your team or another vendor.",
@@ -292,7 +292,7 @@ SERVICES = [
   outcomes=["Falling incident volume, quarter on quarter", "A support partner who knows your system's history", "Predictable support cost your CFO can plan around"]),
 
  dict(slug="production-support-enhancements", num="08", name="Production Support & Enhancements",
-  tag="Steady-state support, issue resolution and continuous small enhancements that keep the system in step with the business.",
+  tag="Steady-state support, issue resolution and continuous enhancements — the quiet work that keeps a running ERP in step with a growing business.",
   intro=["Businesses change every quarter; systems that don't follow become the reason for workarounds, shadow spreadsheets and eventually a costly reimplementation. Continuous small enhancements are the cheapest insurance against that drift.",
          "We combine production support with a managed enhancement pipeline: small, well-scoped improvements delivered in regular cycles, prioritised jointly with your process owners."],
   approach=["<strong>Stabilise first.</strong> Recurring incidents are fixed at root cause before enhancement work begins.",
@@ -346,6 +346,18 @@ SERVICES = [
   engagements=["AI assistants over ERP, reporting and policy documents for finance and operations teams", "Intelligent document processing: invoices, purchase orders, delivery notes and contracts", "Machine-learning forecasting for cash, demand and inventory", "Workflow automation combining RPA, APIs and LLMs across the back office"],
   outcomes=["Hours returned to teams every week, measured against a baseline", "Faster document cycle times with fewer keying errors", "AI your auditors can live with — controls intact, decisions traceable"]),
 ]
+
+
+# Primary business is care of running ERP estates (client instruction 2026-07-26):
+# support-side services lead; new builds and non-SAP lines follow.
+_OLD_ORDER = [s["slug"] for s in SERVICES]
+_NEW_ORDER = ["ams", "production-support-enhancements", "rollouts-upgrades-migrations",
+              "erp-consulting", "analytics-reporting", "digital-transformation", "pmo",
+              "enterprise-application-implementation", "greenfield-brownfield",
+              "training-internships-knowledge-transfer", "oracle-multi-erp", "ai-integration"]
+SERVICES.sort(key=lambda s: _NEW_ORDER.index(s["slug"]))
+for _i, _s in enumerate(SERVICES):
+    _s["num"] = "%02d" % (_i + 1)
 
 
 def service_related(current):
@@ -918,10 +930,11 @@ def locale_header(root, home_href, labels, lang_label):
 def build_locale(code, lang_label, rtl, labels, t):
     """Condensed localized homepage: hero, 12 services, why-us, global, contact CTA."""
     global HEADER
+    tmap = dict(zip(_OLD_ORDER, t["services"]))
     cards = "\n".join(
         '      <a class="service-card reveal" href="../services/%s.html"><span class="service-num">%s</span><h3>%s</h3><p>%s</p></a>'
-        % (s["slug"], s["num"], name, blurb)
-        for s, (name, blurb) in zip(SERVICES, t["services"]))
+        % (s["slug"], s["num"], tmap[s["slug"]][0], tmap[s["slug"]][1])
+        for s in SERVICES)
     commits = "\n".join(
         '      <div class="commit"><div class="commit-num">0%d</div><div><h3>%s</h3><p>%s</p></div></div>'
         % (i + 1, h, p) for i, (h, p) in enumerate(t["commits"]))
@@ -1177,7 +1190,7 @@ def build_services_index():
     <p class="breadcrumb"><a href="{ROOT}index.html">Home</a> / Services</p>
     <span class="eyebrow">What We Do</span>
     <h1>Twelve service lines. One standard of delivery.</h1>
-    <p class="lead">From first blueprint to long-term support, every engagement follows the same discipline: understand the process before touching the technology.</p>
+    <p class="lead">Most of our work is on ERP systems that already exist — supporting them, tuning them and extending them, SAP first. When something new is genuinely needed, we build that properly too. Every engagement follows the same discipline: understand the process before touching the technology.</p>
   </div>
 </section>
 <section class="section">
@@ -1432,7 +1445,7 @@ def build_growing():
 
 FAQS = [
  ("What services does SS ERP Solutions provide?",
-  "We provide twelve service lines across the enterprise technology lifecycle: ERP consulting, enterprise application implementation, greenfield and brownfield projects, rollouts, upgrades and migrations, digital transformation, PMO, application management services (AMS), production support and enhancements, analytics, reporting and custom dashboards, SAP training, internships and knowledge transfer, Oracle and multi-ERP solutions, and AI integration and intelligent automation."),
+  "Our core work is the care of running ERP systems: application management services (AMS), production support and enhancements, and rollouts, upgrades and migrations — SAP above all. Around that we provide ERP consulting and health checks, analytics and custom dashboards, digital transformation, PMO, new implementations including greenfield and brownfield projects, SAP training and internships, Oracle and multi-ERP solutions, and AI integration."),
  ("Which ERP platforms and modules do you work with?",
   "Our deepest expertise is SAP: S/4HANA, ECC and Business One, with functional depth in FICO, Group Reporting, Central Finance, Treasury, RAR, MM, SD, PP, QM and PM, analytics on SAP Analytics Cloud (SAC), and technical capability in ABAP and BASIS. We also implement and support Oracle Fusion Cloud ERP, Oracle NetSuite and other leading platforms such as Microsoft Dynamics 365 where they are the better fit, and build custom dashboards and AI integrations across all of them."),
  ("Which countries do you operate in?",
