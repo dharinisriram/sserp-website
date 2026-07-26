@@ -64,11 +64,28 @@
       waThread.appendChild(d);
       waThread.scrollTop = waThread.scrollHeight;
     };
+    var waGreeted = false;
+    var waGreet = function () {
+      if (waGreeted) return;
+      waGreeted = true;
+      var h = new Date().getHours();
+      var hello = h < 12 ? "Good morning" : (h < 17 ? "Good afternoon" : "Good evening");
+      var name = null;
+      try { name = localStorage.getItem("sserp-user-name"); } catch (e) {}
+      var first = waThread.querySelector(".wa-msg");
+      var g = document.createElement("div");
+      g.className = "wa-msg in";
+      g.textContent = hello + (name ? ", " + name : "") + " 👋 Welcome to SS ERP Solutions.";
+      waThread.insertBefore(g, first);
+    };
     document.querySelectorAll("[data-wa-open]").forEach(function (el) {
       el.addEventListener("click", function (e) {
         e.preventDefault();
         waPanel.classList.toggle("open");
-        if (waPanel.classList.contains("open") && waInput) waInput.focus();
+        if (waPanel.classList.contains("open")) {
+          waGreet();
+          if (waInput) waInput.focus();
+        }
       });
     });
     var waSendBtn = waPanel.querySelector("[data-wa-send]");
