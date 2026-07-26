@@ -215,7 +215,7 @@ def li(items):
 SERVICES = [
  dict(slug="erp-consulting", num="01", name="ERP Consulting",
   tag="Independent advice on ERP strategy, selection and roadmaps — grounded in how your business actually runs.",
-  intro=["An ERP decision outlives the people who make it. The platform you choose — and the processes you design around it — will shape how your organisation works for a decade. We help you make that decision with clear eyes: what you need, what it will really cost, and what it will take to land.",
+  intro=["An ERP decision outlives the people who make it. The platform you choose — and the processes you design around it — will shape how your organisation works for a decade. We help you make that decision with clear eyes: what you need, what it will really cost, and what it will take to land. Most of our clients are growing mid-size businesses making this call for the first time — so we explain everything, and assume nothing.",
          "We are practitioners first. The consultants who write your roadmap are the same people who have implemented, migrated and supported these systems — so the advice is grounded in delivery reality."],
   approach=["<strong>Process audit first.</strong> We map how your business actually operates today — order-to-cash, procure-to-pay, record-to-report — before any technology talk.",
             "<strong>Requirements before vendors.</strong> Selection criteria come from your processes and growth plans.",
@@ -1206,6 +1206,7 @@ def build_about():
     <div class="reveal">
       <p class="lead">SS ERP Solutions was founded in 2018 on a simple conviction: enterprise technology work should be done properly, or not at all.</p>
       <p style="margin-top:16px;">We have grown entirely through trust: every engagement we hold today traces back to a client who trusted us with something difficult — and then told someone else. It is a patient way to build a company, and the right one. SAP is where our practice was born and where it runs deepest — the majority of our consultants, projects and training hours live in the SAP ecosystem.</p>
+      <p style="margin-top:16px;">Most of our clients are growing mid-size businesses: companies stepping up to enterprise-grade systems without enterprise-size IT departments. We built our delivery model for exactly that — senior attention, honest scope and systems your team can actually run.</p>
       <p>From our roots in India we support organisations across Japan, the UAE and Singapore — and we are expanding globally, with a delivery model built to serve clients anywhere: implementing and optimising enterprise systems, running transformation programmes, and keeping mission-critical applications healthy long after go-live.</p>
       <p>We hold ourselves to high professional standards, and we commit only to work we are confident we can deliver.</p>
     </div>
