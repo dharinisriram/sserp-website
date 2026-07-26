@@ -8,7 +8,7 @@ import os
 
 SITE = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))
 EMAIL = "support@sserpsolutions.net"
-WHATSAPP = "https://wa.me/910000000000"  # WhatsApp business number pending (PRD §10)
+WHATSAPP = "https://wa.me/918939126232"  # official WhatsApp business number (client, 2026-07-26)
 
 # ---------------------------------------------------------------- layout
 
@@ -41,7 +41,7 @@ HEAD = """<!DOCTYPE html>
 """
 
 # Official interlocking-S mark, reconstructed as vector art (_build/make_logo.py)
-LOGO_SVG = """<img src="{ROOT}assets/logo.svg" alt="" width="42" height="42" style="display:block;">"""
+LOGO_SVG = """<img src="{ROOT}assets/logo-mark.png" alt="" width="42" height="41" style="display:block;">"""
 
 LANG_MENU = """<div class="has-sub lang-menu">
         <a class="lang-switch" href="{ROOT}index.html">{LANG_LABEL} <span class="caret" aria-hidden="true">▼</span></a>
@@ -222,7 +222,13 @@ SERVICES = [
             "<strong>Honest fit assessment.</strong> We tell you which gaps are configuration, which are customisation, and which should change your process instead.",
             "<strong>A roadmap you can execute.</strong> Phasing, team shape, budget ranges and risks — written so your board can act on it."],
   engagements=["ERP strategy and platform selection for a first ERP or a replacement", "S/4HANA readiness assessments and migration roadmaps", "Health checks of existing implementations that underperform", "Business-case development for transformation programmes"],
-  outcomes=["A decision your leadership can defend, with the trade-offs on paper", "Realistic budget and timeline ranges before you commit", "Reduced implementation risk because the groundwork happened first"]),
+  outcomes=["A decision your leadership can defend, with the trade-offs on paper", "Realistic budget and timeline ranges before you commit", "Reduced implementation risk because the groundwork happened first"],
+  faqs=[("What does an SAP health check include?",
+         "A senior consultant reviews performance, custom code, process fit, security and authorisations, and your support arrangements. You receive a written findings report with quick wins, risks and a prioritised roadmap — in plain language your leadership can act on."),
+        ("How long does a health check take?",
+         "Typically one to three weeks depending on landscape size, and most of it runs remotely. We need read access, a handful of interviews and your recent pain points — not a project team."),
+        ("Are we obliged to buy anything afterwards?",
+         "No. The report is yours either way, and sometimes the honest recommendation is to leave things alone. If action is needed, you can deliver it with us, with your own team, or with someone else.")]),
 
  dict(slug="enterprise-application-implementation", num="02", name="Enterprise Application Implementation",
   tag="End-to-end implementation of SAP and enterprise applications — scoped honestly, staffed properly, delivered to plan.",
@@ -256,6 +262,12 @@ SERVICES = [
             "<strong>Rehearsed migrations.</strong> Mock runs with timed cutover plans; the go-live weekend follows a script that has already worked twice.",
             "<strong>One team across countries.</strong> The same core team carries the template between rollouts, so lessons compound instead of repeating."],
   engagements=["Country rollouts of an existing corporate SAP template", "SAP version upgrades and enhancement-pack projects", "Database and platform migrations (including to HANA)", "Landscape consolidations after mergers and acquisitions"],
+  faqs=[("Can you upgrade our system without freezing the business?",
+         "Yes — that is the point of the rehearsed approach. Impact analysis runs first, mock cutovers are timed before anyone commits a date, and the go-live weekend follows a runbook that has already worked twice."),
+        ("Do you handle country rollouts with local statutory requirements?",
+         "Yes. Localisation — tax regimes, statutory reporting, fiscal calendars, language — is designed into the template as a first-class layer. We have delivered across India, Japan, the UAE and Singapore."),
+        ("We are on ECC. When should we plan the S/4HANA move?",
+         "Plan now, move on evidence. Mainstream ECC maintenance ends in 2027 with extended options to 2030; a readiness assessment today keeps every route open, while waiting narrows them. See our article on planning the move.")],
   outcomes=["Go-lives that hit their weekend and their budget", "Local statutory compliance built in from day one", "An upgrade path your team understands and can repeat"]),
 
  dict(slug="digital-transformation", num="05", name="Digital Transformation",
@@ -289,6 +301,12 @@ SERVICES = [
             "<strong>Prevention over firefighting.</strong> Recurring-incident analysis and quarterly health checks reduce ticket volume over time.",
             "<strong>Month-end presence.</strong> Support cover aligned to your close calendar and your time zones."],
   engagements=["Full AMS for SAP landscapes (functional + ABAP + BASIS)", "Second- and third-level support behind your internal service desk", "AMS takeover from an incumbent vendor", "Support for multi-country landscapes across time zones"],
+  faqs=[("What does your AMS actually cover?",
+         "Functional support across the SAP core, ABAP and BASIS, incident resolution under priority-based SLAs, monitoring, month-end cover aligned to your close calendar, and small enhancements within the retainer."),
+        ("Can you take over support from another vendor or our internal team?",
+         "Yes — through a structured four-to-eight-week transition: landscape inventory, open-item triage and knowledge capture while the outgoing team is still reachable. No big-bang handover."),
+        ("How is AMS priced?",
+         "As a monthly retainer sized to your landscape and ticket history, reviewed quarterly so capacity tracks reality. You get a predictable support cost your CFO can plan around — and an honest conversation whenever the numbers say the sizing should change.")],
   outcomes=["Falling incident volume, quarter on quarter", "A support partner who knows your system's history", "Predictable support cost your CFO can plan around"]),
 
  dict(slug="production-support-enhancements", num="08", name="Production Support & Enhancements",
@@ -300,6 +318,12 @@ SERVICES = [
             "<strong>Small batches, tested properly.</strong> Regular release cycles with regression testing, released in small, safe batches.",
             "<strong>Documentation as part of done.</strong> Every change lands with its documentation and, where needed, user communication."],
   engagements=["Production support for SAP functional modules and custom developments", "Continuous-improvement retainers with a monthly enhancement budget", "Statutory and year-end change support (tax rates, legal reporting)", "Performance tuning and batch-schedule optimisation"],
+  faqs=[("How is this different from AMS?",
+         "AMS is stewardship of the whole landscape under service levels; production support and enhancements is a focused stream of fixes and continuous improvements. Many clients combine them — AMS as the foundation, an enhancement pipeline on top."),
+        ("How do you handle urgent issues during month-end?",
+         "Support cover is aligned to your close calendar, priority-one incidents escalate to named senior consultants, and the first close after any change follows a walked-through script."),
+        ("Can small changes be delivered without a big project?",
+         "That is the model: a visible enhancement backlog, estimated and prioritised with your process owners, delivered in regular tested release cycles — small batches, no risky change weekends.")],
   outcomes=["A system that keeps pace with the business, quarter by quarter", "Fewer workarounds and shadow tools in the business", "Change delivered safely, on a rhythm your users can trust"]),
 
  dict(slug="analytics-reporting", num="09", name="Analytics, Reporting & Custom Dashboards",
@@ -360,6 +384,32 @@ for _i, _s in enumerate(SERVICES):
     _s["num"] = "%02d" % (_i + 1)
 
 
+def faq_block(s):
+    if not s.get("faqs"):
+        return ""
+    items = "\n".join("""
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">%s<span class="chev">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">%s</div></div>
+      </div>""" % (q, a) for q, a in s["faqs"])
+    return '<h2>Frequently asked</h2>' + '\n      <div class="faq-list">' + items + '\n      </div>'
+
+
+def service_ld(s):
+    import json as _json
+    ld = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.sserpsolutions.net/"},
+        {"@type": "ListItem", "position": 2, "name": "Services", "item": "https://www.sserpsolutions.net/services/"},
+        {"@type": "ListItem", "position": 3, "name": s["name"]}]}
+    out = '<script type="application/ld+json">' + _json.dumps(ld, ensure_ascii=False) + '</script>'
+    if s.get("faqs"):
+        fld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}}
+            for q, a in s["faqs"]]}
+        out += '<script type="application/ld+json">' + _json.dumps(fld, ensure_ascii=False) + '</script>'
+    return out
+
+
 def service_related(current):
     others = [s for s in SERVICES if s["slug"] != current][:4]
     return "\n".join('<li><a href="%s.html">%s</a></li>' % (s["slug"], s["name"]) for s in others)
@@ -386,6 +436,7 @@ def build_services():
       <ul>""" + li(s["engagements"]) + """</ul>
       <h2>What you can expect</h2>
       <ul>""" + li(s["outcomes"]) + """</ul>
+      """ + faq_block(s) + """
     </article>
     <aside class="side-card">
       <h3>Discuss this with us</h3>
@@ -403,7 +454,7 @@ def build_services():
              s["name"] + " — SS ERP Solutions",
              s["tag"],
              "services/%s.html" % s["slug"],
-             body)
+             body + service_ld(s))
 
 
 # ---------------------------------------------------------------- insights
@@ -477,6 +528,28 @@ ARTICLES = [
 ]
 
 
+ARTICLE_SERVICE = {
+    "case-study-s4hana-nine-months": ("greenfield-brownfield", "Greenfield & Brownfield Projects"),
+    "case-study-gulf-rollout": ("rollouts-upgrades-migrations", "Rollouts, Upgrades & Migrations"),
+    "custom-dashboards-beyond-bi": ("analytics-reporting", "Analytics, Reporting & Custom Dashboards"),
+    "practical-ai-finance-operations": ("ai-integration", "AI Integration & Intelligent Automation"),
+    "ecc-to-s4hana-roadmap": ("greenfield-brownfield", "Greenfield & Brownfield Projects"),
+    "greenfield-vs-brownfield": ("greenfield-brownfield", "Greenfield & Brownfield Projects"),
+    "ams-handover-checklist": ("ams", "Application Management Services"),
+}
+
+
+def article_ld(a):
+    import json as _json
+    ld = {"@context": "https://schema.org", "@type": "Article",
+          "headline": a["title"], "description": a["teaser"],
+          "datePublished": "2026-07-25",
+          "author": {"@type": "Organization", "name": "SS ERP Solutions"},
+          "publisher": {"@type": "Organization", "name": "SS ERP Solutions",
+                        "logo": {"@type": "ImageObject", "url": "https://www.sserpsolutions.net/assets/logo-mark.png"}}}
+    return '<script type="application/ld+json">' + _json.dumps(ld, ensure_ascii=False) + '</script>'
+
+
 def build_insights():
     cards = []
     for a in ARTICLES:
@@ -519,7 +592,9 @@ def build_insights():
       <p>These articles are written by our delivery consultants. If the topic is live for your organisation, we're happy to discuss it.</p>
       <a class="btn btn-gold" href="{ROOT}contact/index.html">Start a conversation</a>
       <ul class="side-links">
-        <li><strong style="font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.14em;color:var(--muted);">MORE INSIGHTS</strong></li>
+        <li><strong style="font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.14em;color:var(--muted);">RELATED SERVICE</strong></li>
+        <li><a href="{ROOT}services/""" + ARTICLE_SERVICE[a["slug"]][0] + """.html">""" + ARTICLE_SERVICE[a["slug"]][1] + """</a></li>
+        <li style="margin-top:10px;"><strong style="font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.14em;color:var(--muted);">MORE INSIGHTS</strong></li>
         """ + "\n".join('<li><a href="%s.html">%s</a></li>' % (o["slug"], o["title"]) for o in ARTICLES if o["slug"] != a["slug"]) + """
       </ul>
     </aside>
@@ -527,7 +602,7 @@ def build_insights():
 </section>
 """
         wrap("insights/%s.html" % a["slug"], a["title"] + " — SS ERP Solutions Insights",
-             a["teaser"], "insights/%s.html" % a["slug"], abody)
+             a["teaser"], "insights/%s.html" % a["slug"], abody + article_ld(a))
 
 
 # ---------------------------------------------------------------- careers
@@ -1344,7 +1419,23 @@ def build_whyus():
     </div>
   </div>
 </section>
-<section class="section section-alt">
+<section class="section section-alt" id="how-we-deliver">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">How We Deliver</span>
+      <h2>One method, five stages</h2>
+      <p>Whether we inherit a struggling system or extend a healthy one, the sequence is the same — and it starts with the system you already run, never with a pitch for a new one.</p>
+    </div>
+    <div class="commit-list reveal">
+      <div class="commit"><div class="commit-num">01</div><div><h3>Assess</h3><p>We look before we touch: landscape, custom code, data quality, open issues and how your people actually work. Findings on paper, in plain language.</p></div></div>
+      <div class="commit"><div class="commit-num">02</div><div><h3>Stabilise</h3><p>Recurring incidents fixed at root cause, month-end made boring, the backlog triaged honestly. Nothing new gets built on shaky ground.</p></div></div>
+      <div class="commit"><div class="commit-num">03</div><div><h3>Optimise</h3><p>Performance tuning, process simplification and the retirement of dead customisation — the system gets faster and simpler before it gets bigger.</p></div></div>
+      <div class="commit"><div class="commit-num">04</div><div><h3>Extend</h3><p>Enhancements, new modules, dashboards, AI — delivered in small tested releases from a backlog your process owners prioritise.</p></div></div>
+      <div class="commit"><div class="commit-num">05</div><div><h3>Grow</h3><p>New countries, new entities, new platforms when they are truly needed — rollouts, migrations and builds on foundations that have already proven themselves.</p></div></div>
+    </div>
+  </div>
+</section>
+<section class="section">
   <div class="container">
     <div class="section-head reveal">
       <span class="eyebrow">What Clients Say</span>
@@ -1501,6 +1592,82 @@ def build_faq():
          "faq/", body)
 
 
+# ---------------------------------------------------------------- health check landing
+
+def build_healthcheck():
+    import json as _json
+    faqs = [
+        ("Is the health check really free?",
+         "The initial conversation and scoping are free. A full written assessment is a short paid engagement — a fixed fee agreed up front, credited against any follow-on work you choose to do with us."),
+        ("What do you need from us?",
+         "Read access to the system, a handful of interviews with the people who run it, and your honest list of pain points. Most of the review runs remotely and takes one to three weeks."),
+        ("What if the system is actually fine?",
+         "Then the report says so — with the evidence. Knowing your system is healthy, and which small things keep it that way, is a perfectly good outcome."),
+    ]
+    fld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+        {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faqs]}
+    faq_items = "\n".join("""
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">%s<span class="chev">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">%s</div></div>
+      </div>""" % (q, a) for q, a in faqs)
+    body = """
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="{ROOT}index.html">Home</a> / SAP Health Check</p>
+    <span class="eyebrow">SAP Health Check</span>
+    <h1>Get an honest read on your SAP system</h1>
+    <p class="lead">A senior consultant reviews the system you already run — performance, custom code, process fit, security and support setup — and gives you a clear picture of what to fix, what to leave, and what it takes.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container detail-grid">
+    <article class="prose">
+      <h2 style="margin-top:0;">What you get</h2>
+      <ul>
+        <li><strong>A written findings report</strong> in plain language — what is healthy, what is fragile, what is expensive.</li>
+        <li><strong>Quick wins</strong> your own team can act on immediately, regardless of who you work with next.</li>
+        <li><strong>A risk list</strong> ranked by business impact — from month-end threats to dormant custom code.</li>
+        <li><strong>A prioritised roadmap</strong> with realistic effort ranges, so improvement becomes plannable.</li>
+        <li><strong>A support-cost view</strong> — whether your current arrangement matches what the system actually needs.</li>
+      </ul>
+      <h2>How it works</h2>
+      <ul>
+        <li><strong>1 — A 30-minute conversation.</strong> You tell us what hurts; we tell you honestly whether a review is worth it.</li>
+        <li><strong>2 — The review.</strong> Read access plus a handful of interviews; one to three weeks, mostly remote.</li>
+        <li><strong>3 — The findings session.</strong> We walk your team through the report and the roadmap — and the report is yours to keep.</li>
+      </ul>
+      <h2>Frequently asked</h2>
+      <div class="faq-list">""" + faq_items + """
+      </div>
+    </article>
+    <aside class="side-card">
+      <h3>Request a health check</h3>
+      <form data-demo-form novalidate>
+        <div class="form-grid" style="grid-template-columns:1fr;">
+          <div class="form-field"><label for="hc-name">Full name <span class="req">*</span></label><input id="hc-name" type="text" required autocomplete="name"></div>
+          <div class="form-field"><label for="hc-company">Company <span class="req">*</span></label><input id="hc-company" type="text" required autocomplete="organization"></div>
+          <div class="form-field"><label for="hc-email">Work email <span class="req">*</span></label><input id="hc-email" type="email" required autocomplete="email"></div>
+          <div class="form-field"><label for="hc-sys">Your landscape</label>
+            <select id="hc-sys"><option>SAP S/4HANA</option><option>SAP ECC</option><option>SAP Business One</option><option>Mixed / other ERP</option></select>
+          </div>
+          <div class="form-field"><label for="hc-msg">What hurts most right now?</label><textarea id="hc-msg" style="min-height:90px;"></textarea></div>
+        </div>
+        <div class="honeypot" aria-hidden="true"><input type="text" name="company_website" tabindex="-1" autocomplete="off"></div>
+        <div style="margin-top:20px;"><button class="btn btn-gold" type="submit" style="width:100%;justify-content:center;">Request the conversation</button></div>
+        <div class="form-success" role="status">Thank you — a senior consultant will reach out within one business day.</div>
+      </form>
+      <p class="form-note" style="margin-top:14px;">Prefer to talk now? <a href="https://wa.me/918939126232" rel="noopener" target="_blank">WhatsApp us</a>.</p>
+    </aside>
+  </div>
+</section>
+<script type="application/ld+json">""" + _json.dumps(fld, ensure_ascii=False) + """</script>
+"""
+    wrap("health-check.html", "SAP Health Check — SS ERP Solutions",
+         "An honest senior review of your running SAP system: findings report, quick wins, risk list and a prioritised roadmap — from SS ERP Solutions.",
+         "health-check.html", body, root="")
+
+
 # ---------------------------------------------------------------- 404 & terms
 
 def build_404():
@@ -1562,7 +1729,7 @@ def build_assets():
 
     base = "https://www.sserpsolutions.net/"
     urls = ["", "ja/", "ar/", "hi/", "services/", "about/", "why-us/", "growing-together/", "faq/",
-            "insights/", "careers/", "contact/", "privacy.html", "terms.html"]
+            "insights/", "careers/", "contact/", "health-check.html", "privacy.html", "terms.html"]
     urls += ["services/%s.html" % s["slug"] for s in SERVICES]
     urls += ["insights/%s.html" % a["slug"] for a in ARTICLES]
     sm = ['<?xml version="1.0" encoding="UTF-8"?>',
@@ -1616,6 +1783,7 @@ if __name__ == "__main__":
     build_japanese()
     build_arabic()
     build_hindi()
+    build_healthcheck()
     build_campaign()
     build_privacy()
     build_404()
