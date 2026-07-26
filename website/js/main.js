@@ -200,6 +200,10 @@
     var again = function () { opts([["Something else", menu]]); };
     var menu = function () {
       opts([
+        ["Request an SAP health check", function () {
+          bot('Smart place to start. A senior consultant reviews your system and gives you an honest findings report. <a href="' + croot + 'health-check.html">See what the health check covers →</a>');
+          again();
+        }],
         ["Discuss a new project", function () {
           bot('Great — tell us about your landscape and goals and a senior consultant will come back within one business day. <a href="' + croot + 'contact/index.html">Open the contact form →</a>');
           again();
@@ -217,7 +221,7 @@
           again();
         }],
         ["Talk to a person", function () {
-          bot('Fastest routes: <a href="https://wa.me/910000000000" target="_blank" rel="noopener">WhatsApp</a> or <a href="mailto:support@sserpsolutions.net">support@sserpsolutions.net</a>. We reply promptly during business hours (IST).');
+          bot('Fastest routes: <a href="https://wa.me/918939126232" target="_blank" rel="noopener">WhatsApp</a> or <a href="mailto:support@sserpsolutions.net">support@sserpsolutions.net</a>. We reply promptly during business hours (IST).');
           again();
         }]
       ]);
