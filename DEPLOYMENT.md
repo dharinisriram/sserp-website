@@ -24,7 +24,17 @@ by changing the same DNS records.
 **Netlify:** `netlify deploy --prod --dir=website` (config in `netlify.toml`), then add the
 custom domain and set GoDaddy `CNAME www → <site>.netlify.app`.
 
-**GitHub Pages:** push this repo to GitHub → Settings → Pages → deploy from branch,
+**GitHub Pages (prepared — branches ready):** `main` holds the project, `gh-pages` holds
+the website at its root with the CNAME file already in place. Once the GitHub repo exists:
+1. `git remote add origin <repo-url>` then `git push -u origin main gh-pages`
+2. On GitHub: Settings → Pages → Source: *Deploy from a branch* → Branch: `gh-pages` / `/ (root)` → Save
+3. Same page: Custom domain = `www.sserpsolutions.net` → Save (then tick *Enforce HTTPS* once the cert issues)
+4. GoDaddy DNS (leave MX/TXT untouched):
+   - CNAME `www` → `YOUR-USERNAME.github.io`
+   - Apex `@` A records → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+5. Wait for DNS (minutes to a few hours) — the site is then live at https://www.sserpsolutions.net
+
+**Old note — GitHub Pages:** push this repo to GitHub → Settings → Pages → deploy from branch,
 folder `/website` (the `website/CNAME` file already names the domain) → GoDaddy
 `CNAME www → <user>.github.io`.
 
