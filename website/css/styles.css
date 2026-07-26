@@ -529,7 +529,20 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 /* ---------- portal ---------- */
 .portal-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: calc(var(--header-h) + 40px) 24px 60px; }
-.portal-card { width: 100%; max-width: 420px; border: 1px solid var(--navy-line); border-radius: var(--radius); background: var(--navy-800); padding: 44px; box-shadow: var(--shadow); }
+.portal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; width: 100%; max-width: 980px; align-items: start; }
+.portal-card { width: 100%; border: 1px solid var(--navy-line); border-radius: var(--radius); background: var(--navy-800); padding: 40px; box-shadow: var(--shadow); }
+.google-btn {
+  width: 100%; display: flex; align-items: center; justify-content: center; gap: 12px;
+  background: #fff; color: #1f1f1f; border: 1px solid #dadce0; border-radius: 10px;
+  padding: 12px 18px; font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; cursor: pointer;
+  transition: box-shadow 0.15s ease;
+}
+.google-btn:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.25); }
+.google-note { display: none; margin-top: 10px; font-size: 0.78rem; color: var(--muted); }
+.auth-divider { display: flex; align-items: center; gap: 14px; margin: 22px 0; color: var(--muted); font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; }
+.auth-divider::before, .auth-divider::after { content: ""; flex: 1; height: 1px; background: var(--navy-line); }
+.relay-actions { display: none; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
+.relay-actions .btn { flex: 1; justify-content: center; min-width: 150px; }
 .portal-card .brand { justify-content: center; margin-bottom: 28px; }
 .portal-card h1 { font-size: 1.5rem; text-align: center; margin-bottom: 8px; }
 .portal-card > p { text-align: center; font-size: 0.92rem; color: var(--muted); margin-bottom: 28px; }

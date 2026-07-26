@@ -8,7 +8,7 @@ import os
 
 SITE = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))
 EMAIL = "support@sserpsolutions.net"
-WHATSAPP = "https://wa.me/918939126232"  # official WhatsApp business number (client, 2026-07-26)
+WHATSAPP_ATTR = 'href="#" data-wa'  # number lives only encoded in main.js (client: never show it)
 
 # ---------------------------------------------------------------- layout
 
@@ -174,7 +174,7 @@ FLOAT = """<button class="back-top" aria-label="Back to top">↑</button>
   <button class="float-btn chat" aria-label="Open live chat">
     <svg viewBox="0 0 24 24" fill="none" stroke="#0B1220" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
   </button>
-  <a class="float-btn whatsapp" aria-label="Chat on WhatsApp" href=\"""" + WHATSAPP + """\" target="_blank" rel="noopener">
+  <a class="float-btn whatsapp" aria-label="Chat on WhatsApp" """ + WHATSAPP_ATTR + """ rel="noopener">
     <svg viewBox="0 0 24 24" fill="#fff"><path d="M17.5 14.4c-.3-.15-1.75-.86-2-.96-.27-.1-.47-.15-.66.15-.2.3-.77.96-.94 1.15-.17.2-.35.22-.64.08-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.04-.17-.3-.02-.46.13-.6.13-.14.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.66-1.6-.9-2.18-.24-.58-.5-.5-.66-.5h-.56c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.9 1.22 3.1.15.2 2.1 3.2 5.08 4.5.7.3 1.26.5 1.7.63.7.23 1.35.2 1.86.12.57-.08 1.75-.72 2-1.4.24-.7.24-1.3.17-1.42-.08-.13-.28-.2-.57-.35zM12.05 21.8h-.02a9.87 9.87 0 0 1-5.03-1.38l-.36-.2-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.9-9.88a9.82 9.82 0 0 1 7 2.9 9.82 9.82 0 0 1 2.9 7c0 5.45-4.45 9.88-9.9 9.88zm8.42-18.3A11.8 11.8 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.9c0 2.1.55 4.15 1.6 5.95L.06 24l6.3-1.65a11.9 11.9 0 0 0 5.68 1.45h.01c6.55 0 11.9-5.34 11.9-11.9 0-3.18-1.24-6.17-3.48-8.4z"/></svg>
   </a>
 </div>
@@ -728,7 +728,7 @@ def build_contact():
     <aside class="side-card">
       <h3>Reach us directly</h3>
       <p style="margin-bottom:8px;"><strong>Email</strong><br><a href="mailto:""" + EMAIL + """\">""" + EMAIL + """</a></p>
-      <p style="margin-bottom:8px;"><strong>WhatsApp</strong><br><a href=\"""" + WHATSAPP + """\" rel="noopener" target="_blank">Chat with us on WhatsApp</a></p>
+      <p style="margin-bottom:8px;"><strong>WhatsApp</strong><br><a """ + WHATSAPP_ATTR + """ rel="noopener">Chat with us on WhatsApp</a></p>
       <p><strong>Where we work</strong><br>India · Japan · UAE · Singapore — serving clients worldwide.</p>
     </aside>
   </div>
@@ -741,14 +741,25 @@ def build_contact():
 
 # ---------------------------------------------------------------- portal
 
+# Google OAuth client ID for portal sign-in — create one in Google Cloud Console
+# (OAuth consent screen + Web credentials with the site's origins) and paste it here.
+GOOGLE_CLIENT_ID = ""
+
+
 def build_portal():
     login = """
 <div class="portal-wrap">
-  <div>
+  <div class="portal-grid">
     <div class="portal-card">
       <a class="brand" href="{ROOT}index.html">""" + LOGO_SVG + """</a>
       <h1>Client Portal</h1>
       <p>Secure workspace for engaged clients: shared documents, project status and your SS ERP Solutions contacts.</p>
+      <button class="google-btn" type="button" data-google-signin>
+        <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+        Continue with Google
+      </button>
+      <p class="google-note" role="status"></p>
+      <div class="auth-divider">OR SIGN IN WITH EMAIL</div>
       <form data-demo-form data-portal-login novalidate>
         <div class="form-grid" style="grid-template-columns:1fr;">
           <div class="form-field"><label for="po-email">Work email</label><input id="po-email" type="email" required autocomplete="username"></div>
@@ -762,12 +773,45 @@ def build_portal():
       <p style="margin-top:22px;font-size:0.82rem;">Access is provisioned by SS ERP Solutions for engaged clients.<br>Need access? <a href="{ROOT}contact/index.html">Contact us</a>.</p>
       <p style="margin-top:14px;text-align:center;"><a class="btn btn-outline" href="dashboard.html" style="width:100%;justify-content:center;">View demo dashboard →</a></p>
     </div>
+    <div class="portal-card">
+      <h1 style="font-size:1.4rem;text-align:left;">New here? Tell us what you need</h1>
+      <p style="text-align:left;">Share your requirement and pick a time to talk — your message goes straight to our team by email and WhatsApp, and we come to the call prepared.</p>
+      <form data-relay-form novalidate>
+        <div class="form-grid" style="grid-template-columns:1fr 1fr;">
+          <div class="form-field"><label for="rq-name">Full name <span class="req">*</span></label><input id="rq-name" type="text" required autocomplete="name"></div>
+          <div class="form-field"><label for="rq-company">Company <span class="req">*</span></label><input id="rq-company" type="text" required autocomplete="organization"></div>
+          <div class="form-field"><label for="rq-email">Work email <span class="req">*</span></label><input id="rq-email" type="email" required autocomplete="email"></div>
+          <div class="form-field"><label for="rq-phone">Phone / WhatsApp</label><input id="rq-phone" type="tel" autocomplete="tel"></div>
+          <div class="form-field full"><label for="rq-service">What do you need?</label>
+            <select id="rq-service">
+              <option>SAP support / AMS</option><option>SAP health check</option><option>Upgrade / migration</option>
+              <option>Rollout to new country</option><option>New implementation</option><option>Dashboards / analytics</option>
+              <option>AI integration</option><option>Contract / subcontract capacity</option><option>Something else</option>
+            </select>
+          </div>
+          <div class="form-field full"><label for="rq-detail">Your requirement <span class="req">*</span></label><textarea id="rq-detail" required style="min-height:90px;" placeholder="A few lines about your system, the problem and the timeline."></textarea></div>
+          <div class="form-field"><label for="rq-date">Preferred call date</label><input id="rq-date" type="date"></div>
+          <div class="form-field"><label for="rq-slot">Preferred time (IST)</label>
+            <select id="rq-slot"><option>10:00 – 12:00</option><option>12:00 – 14:00</option><option>14:00 – 16:00</option><option>16:00 – 18:00</option></select>
+          </div>
+        </div>
+        <div class="honeypot" aria-hidden="true"><input type="text" name="company_website" tabindex="-1" autocomplete="off"></div>
+        <div style="margin-top:20px;"><button class="btn btn-gold" type="submit" style="width:100%;justify-content:center;">Prepare my message</button></div>
+        <div class="relay-actions">
+          <a class="btn btn-gold" data-relay-mail href="#">Send via Email</a>
+          <a class="btn btn-outline" data-relay-wa href="#" target="_blank" rel="noopener">Send via WhatsApp</a>
+        </div>
+        <div class="form-success" role="status">Your message is ready — choose Email or WhatsApp above. Both open pre-filled and go straight to our team.</div>
+      </form>
+    </div>
   </div>
 </div>
+<div data-google-config data-client-id=\"""" + GOOGLE_CLIENT_ID + """\"></div>
 """
+    extra = '<script src="https://accounts.google.com/gsi/client" async defer></script>\n' if GOOGLE_CLIENT_ID else ""
     wrap("portal/index.html", "Client Portal — SS ERP Solutions",
-         "Secure client portal for SS ERP Solutions engagement documents and project status.",
-         "portal/", login, floats=False, chrome=False)
+         "Client portal: sign in with Google or email, share your requirement and schedule a call with SS ERP Solutions.",
+         "portal/", login, floats=False, chrome=False, extra_head=extra)
 
     dash = """
 <section style="padding-top:var(--header-h);">
@@ -1657,7 +1701,7 @@ def build_healthcheck():
         <div style="margin-top:20px;"><button class="btn btn-gold" type="submit" style="width:100%;justify-content:center;">Request the conversation</button></div>
         <div class="form-success" role="status">Thank you — a senior consultant will reach out within one business day.</div>
       </form>
-      <p class="form-note" style="margin-top:14px;">Prefer to talk now? <a href="https://wa.me/918939126232" rel="noopener" target="_blank">WhatsApp us</a>.</p>
+      <p class="form-note" style="margin-top:14px;">Prefer to talk now? <a href="#" data-wa rel="noopener">WhatsApp us</a>.</p>
     </aside>
   </div>
 </section>

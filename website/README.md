@@ -54,6 +54,7 @@ Subpages are generated from `_build/generate.py` (shared header/footer). After e
 - LinkedIn company page URL
 - Team/office photography (styled placeholder in Who We Are)
 - Japanese content review by a human translator
+- Google sign-in on the portal: create an OAuth client ID in Google Cloud Console (authorized origins = the site's domains) and paste it into `GOOGLE_CLIENT_ID` in `_build/generate.py`, then regenerate — the button activates automatically
 - Portal requirements workshop → real portal build (Next.js on Webflow Cloud per PRD §9)
 
 ## Webflow rebuild notes

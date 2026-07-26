@@ -25,6 +25,19 @@
     setThemeIcon();
   }
 
+  /* WhatsApp routing: number is never rendered in any page or static markup;
+     the link is assembled only at click time. */
+  var waHref = function (txt) {
+    var n = atob("OTE4OTM5MTI2MjMy");
+    return "https://wa.me/" + n + (txt ? "?text=" + encodeURIComponent(txt) : "");
+  };
+  document.querySelectorAll("[data-wa]").forEach(function (el) {
+    el.addEventListener("click", function (e) {
+      e.preventDefault();
+      window.open(waHref(el.getAttribute("data-wa-text") || ""), "_blank", "noopener");
+    });
+  });
+
   /* ---------- sticky header state ---------- */
   var header = document.querySelector(".site-header");
   if (header) {
@@ -221,7 +234,7 @@
           again();
         }],
         ["Talk to a person", function () {
-          bot('Fastest routes: <a href="https://wa.me/918939126232" target="_blank" rel="noopener">WhatsApp</a> or <a href="mailto:support@sserpsolutions.net">support@sserpsolutions.net</a>. We reply promptly during business hours (IST).');
+          bot('Fastest routes: <a href="' + waHref() + '" target="_blank" rel="noopener">WhatsApp</a> or <a href="mailto:support@sserpsolutions.net">support@sserpsolutions.net</a>. We reply promptly during business hours (IST).');
           again();
         }]
       ]);
@@ -237,6 +250,69 @@
       }
     });
   }
+
+  /* ---------- Google sign-in (portal) ----------
+     Uses Google Identity Services when a client ID is configured on the
+     [data-google-config] element; until then, shows an honest note. */
+  var gbtn = document.querySelector("[data-google-signin]");
+  if (gbtn) {
+    gbtn.addEventListener("click", function () {
+      var cfg = document.querySelector("[data-google-config]");
+      var cid = cfg ? cfg.getAttribute("data-client-id") : "";
+      var note = document.querySelector(".google-note");
+      if (!cid) {
+        if (note) { note.textContent = "Google sign-in activates once the Google OAuth client ID is configured for this domain — use email sign-in meanwhile."; note.style.display = "block"; }
+        return;
+      }
+      if (window.google && google.accounts && google.accounts.id) {
+        google.accounts.id.initialize({
+          client_id: cid,
+          callback: function (resp) {
+            try {
+              var payload = JSON.parse(atob(resp.credential.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")));
+              if (payload.name) localStorage.setItem("sserp-user-name", payload.name.split(" ")[0]);
+              if (payload.email) localStorage.setItem("sserp-user-email", payload.email);
+            } catch (e) {}
+            window.location.href = "dashboard.html";
+          }
+        });
+        google.accounts.id.prompt();
+      } else if (note) {
+        note.textContent = "Google sign-in script did not load — use email sign-in meanwhile.";
+        note.style.display = "block";
+      }
+    });
+  }
+
+  /* ---------- requirement relay: compose once, deliver via email AND WhatsApp ---------- */
+  document.querySelectorAll("form[data-relay-form]").forEach(function (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var hp = form.querySelector(".honeypot input");
+      if (hp && hp.value) return;
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      var lines = ["New requirement via sserpsolutions.net"];
+      form.querySelectorAll("input[id], select[id], textarea[id]").forEach(function (f) {
+        if (!f.value) return;
+        var label = form.querySelector('label[for="' + f.id + '"]');
+        var name = label ? label.textContent.replace("*", "").trim() : f.id;
+        lines.push(name + ": " + f.value);
+      });
+      var text = lines.join("\n");
+      var company = form.querySelector("#rq-company");
+      var subject = "New requirement — " + (company && company.value ? company.value : "website enquiry");
+      var mail = form.querySelector("[data-relay-mail]");
+      var wa = form.querySelector("[data-relay-wa]");
+      if (mail) mail.href = "mailto:support@sserpsolutions.net?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(text);
+      if (wa) wa.href = waHref(text);
+      var actions = form.querySelector(".relay-actions");
+      if (actions) actions.style.display = "flex";
+      var ok = form.querySelector(".form-success");
+      if (ok) ok.style.display = "block";
+      var nm = form.querySelector("#rq-name");
+      if (nm && nm.value) { try { localStorage.setItem("sserp-user-name", nm.value.split(" ")[0]); } catch (er) {} }
+    });
+  });
 
   /* ---------- greet signed-in portal visitors ---------- */
   document.querySelectorAll("[data-user-greet]").forEach(function (el) {
