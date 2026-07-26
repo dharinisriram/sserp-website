@@ -50,7 +50,7 @@ Subpages are generated from `_build/generate.py` (shared header/footer). After e
 - Client testimonial quotes with written permission (placeholder cards flagged on-page)
 - Case-study material for Insights
 - Real open roles for Careers
-- WhatsApp business number (`wa.me/910000000000` placeholder), phone, registered address
+- Phone and registered address (WhatsApp is connected — the number lives only encoded in `js/main.js` and is never rendered, per client instruction)
 - LinkedIn company page URL
 - Team/office photography (styled placeholder in Who We Are)
 - Japanese content review by a human translator
