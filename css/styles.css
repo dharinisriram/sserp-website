@@ -246,19 +246,32 @@ img { max-width: 100%; display: block; }
 .service-card h3 { color: var(--ink); margin: 10px 0 10px; }
 .service-card p { font-size: 0.95rem; color: var(--muted); }
 
-/* ---------- vendor logo strip ---------- */
-.vendor-strip {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 30px; flex-wrap: wrap; margin: 8px 0 44px;
+/* ---------- platform band (small icons, pre-footer) ---------- */
+.platform-band { padding: 36px 0; border-top: 1px solid var(--navy-line); }
+.platform-band .container { display: flex; align-items: center; gap: 34px; flex-wrap: wrap; justify-content: center; }
+.platform-caption {
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--muted);
 }
-.vendor-strip img {
-  height: 30px; width: auto; opacity: 0.85;
+.platform-icons { display: flex; align-items: center; gap: 34px; flex-wrap: wrap; }
+.platform-icons img {
+  height: 18px; width: auto; opacity: 0.6;
   filter: grayscale(1) brightness(1.9); transition: opacity 0.15s ease, filter 0.15s ease;
 }
-.vendor-strip img.lg { height: 38px; }
-.vendor-strip img:hover { opacity: 1; filter: none; }
-:root[data-theme="light"] .vendor-strip img { filter: grayscale(1) opacity(0.7); }
-:root[data-theme="light"] .vendor-strip img:hover { filter: none; }
+.platform-icons img:hover { opacity: 1; filter: none; }
+:root[data-theme="light"] .platform-icons img { filter: grayscale(1) opacity(0.65); }
+:root[data-theme="light"] .platform-icons img:hover { filter: none; }
+
+/* ---------- mid-page CTA band ---------- */
+.cta-band {
+  margin-top: 44px; border: 1px solid var(--gold); border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--gold-dim), transparent 60%), var(--navy-800);
+  padding: 34px 38px; display: flex; align-items: center; justify-content: space-between;
+  gap: 28px; flex-wrap: wrap;
+}
+.cta-band h3 { margin-bottom: 8px; }
+.cta-band p { max-width: 560px; color: var(--ink-soft); font-size: 0.98rem; }
+.cta-band-actions { display: flex; gap: 14px; flex-wrap: wrap; flex: none; }
 
 /* ---------- tech marquee ---------- */
 .marquee-band { padding: 64px 0; border-top: 1px solid var(--navy-line); border-bottom: 1px solid var(--navy-line); background: var(--navy-850); overflow: hidden; }
@@ -400,9 +413,14 @@ img { max-width: 100%; display: block; }
 .lang-menu { position: relative; }
 .lang-menu .submenu { left: auto; right: 0; min-width: 150px; }
 
-/* ---------- scroll reveal (scoped to html.js so content shows without JS) ---------- */
-html.js .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s ease; }
-html.js .reveal.visible { opacity: 1; transform: none; }
+/* ---------- scroll reveal ----------
+   Content is ALWAYS visible by default; entering the viewport merely plays
+   a fade-up animation. If the observer never fires, nothing is hidden. */
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(26px); }
+  to { opacity: 1; transform: none; }
+}
+html.js .reveal.visible { animation: reveal-up 0.7s ease both; }
 
 /* ---------- accessibility: skip link + focus ---------- */
 .skip-link {
@@ -617,7 +635,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-  .reveal { opacity: 1; transform: none; }
+  html.js .reveal.visible { animation: none; }
   .marquee-track { animation: none; }
   .word-wheel span { animation: none; }
 }
