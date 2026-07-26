@@ -625,7 +625,7 @@ def build_contact():
         <div class="form-field"><label for="ct-topic">What is this about?</label>
           <select id="ct-topic" name="topic">
             <option>ERP consulting / selection</option><option>New implementation</option><option>S/4HANA migration</option>
-            <option>Rollout / upgrade</option><option>AMS / production support</option><option>Analytics &amp; reporting</option>
+            <option>Rollout / upgrade</option><option>AMS / production support</option><option>Contract / subcontract delivery</option><option>Analytics &amp; reporting</option>
             <option>Training / internships</option><option>Something else</option>
           </select>
         </div>
@@ -1186,6 +1186,31 @@ def build_services_index():
     </div>
   </div>
 </section>
+<section class="section section-alt" id="engagement-models">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">How We Engage</span>
+      <h2>Three ways to work with us</h2>
+    </div>
+    <div class="grow-grid" style="grid-template-columns:repeat(3,1fr);">
+      <div class="grow-card reveal">
+        <span class="ico" aria-hidden="true">◆</span>
+        <h3>Direct engagements</h3>
+        <p>Project-based delivery and AMS retainers contracted directly with your business — from assessment to go-live and beyond.</p>
+      </div>
+      <div class="grow-card reveal">
+        <span class="ico" aria-hidden="true">◆</span>
+        <h3>Contract &amp; subcontract delivery</h3>
+        <p>Consulting firms and system integrators subcontract SAP workstreams or complete deliveries to us — under your methodology or ours, white-label where required, confidentiality respected.</p>
+      </div>
+      <div class="grow-card reveal">
+        <span class="ico" aria-hidden="true">◆</span>
+        <h3>Consultant contracting</h3>
+        <p>Our SAP consultants join your programme on contract — individually or as a ready-made pod — with the bench strength to scale up when your timeline demands it.</p>
+      </div>
+    </div>
+  </div>
+</section>
 """
     wrap("services/index.html", "Services — SS ERP Solutions",
          "Twelve service lines: SAP and Oracle ERP consulting, implementation, rollouts, AMS, analytics and custom dashboards, AI integration, and training.",
@@ -1418,6 +1443,8 @@ FAQS = [
   "Yes. Our application management services (AMS) and production support offerings provide ongoing incident resolution, monitoring, small enhancements and periodic health checks under defined service levels — for systems we implemented and for systems we didn't."),
  ("Do you offer SAP training and internships?",
   "Yes — this is our Growing Together programme. We run practitioner-led SAP training, structured internships with real project exposure, mentoring, and certification guidance for graduates and working professionals."),
+ ("Do you take contract and subcontract work from other consulting firms?",
+  "Yes. Alongside direct client engagements, consulting firms and system integrators regularly subcontract SAP workstreams or complete deliveries to us, and we place consultants on contract into client and partner programmes. White-label arrangements and confidentiality are respected as a matter of course."),
  ("How do your engagements usually start?",
   "With a conversation. We start by understanding your processes, landscape and goals — typically a short discovery discussion followed by a written proposal with honest scope, team and timeline. We commit only to work we are confident we can deliver."),
  ("How can we contact SS ERP Solutions?",
