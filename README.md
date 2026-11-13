@@ -1,6 +1,6 @@
 # SS ERP Solutions — website + client portal
 
-Next.js 15 (App Router) · Tailwind v4 · Supabase (auth, Postgres, storage) · deploys to Vercel.
+Next.js 15 (App Router) · Tailwind v4 · Supabase (auth, Postgres, storage) · hosted on Netlify (free plan; commercial use allowed).
 
 - **Public site:** `/`, `/about`, `/services`, `/insights`, `/contact`. Contact form submissions are saved to Supabase and appear in Admin → Inquiries.
 - **Client portal:** `/portal`. Access is by invitation only. Every table and file is protected by Row Level Security, so a client only ever sees their own company's data.
@@ -12,7 +12,7 @@ Next.js 15 (App Router) · Tailwind v4 · Supabase (auth, Postgres, storage) · 
 1. Create a project at supabase.com (choose the Mumbai region).
 2. Open **SQL Editor → New query**, paste `supabase/schema.sql` and click **Run**. This creates the tables, the security policies and the private `documents` storage bucket.
 3. Go to **Authentication → Sign In / Providers → Email**. Turn **off** "Allow new users to sign up", because the portal is invite-only.
-4. Go to **Authentication → URL Configuration**. Set the Site URL to `https://sserpsolutions.net` and add `https://sserpsolutions.net/**` under Redirect URLs. While testing, add your `*.vercel.app` URL too.
+4. Go to **Authentication → URL Configuration**. Set the Site URL to `https://sserpsolutions.net` and add `https://sserpsolutions.net/**` under Redirect URLs. While testing, add your `*.netlify.app` URL too.
 5. Go to **Authentication → Email Templates** and replace the link in two templates:
    - **Invite user:**
      ```html
@@ -26,19 +26,22 @@ Next.js 15 (App Router) · Tailwind v4 · Supabase (auth, Postgres, storage) · 
      ```
 6. Optional but recommended: under **Authentication → SMTP**, send email from support@sserpsolutions.net. Supabase's built-in sender is heavily rate-limited.
 
-## 2. Deploy on Vercel
+## 2. Deploy on Netlify
 
-1. Push this folder to a GitHub repo, then in Vercel choose **Add New → Project** and import it.
-2. Add these environment variables (values are in Supabase → Project Settings → API):
+1. Netlify → **Add new site → Import an existing project → GitHub → `sserp-website`** (branch `main`). Netlify detects Next.js automatically.
+2. **Site configuration → Environment variables** — add:
 
    | Name | Value |
    |---|---|
-   | `NEXT_PUBLIC_SUPABASE_URL` | Project URL |
+   | `NEXT_PUBLIC_SUPABASE_URL` | Supabase Project URL |
    | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | anon / publishable key |
-   | `SUPABASE_SERVICE_ROLE_KEY` | service_role / secret key (keep this secret) |
+   | `SUPABASE_SERVICE_ROLE_KEY` | service_role / secret key (secret) |
    | `NEXT_PUBLIC_SITE_URL` | `https://sserpsolutions.net` |
 
-3. Deploy. Then go to **Settings → Domains**, add `sserpsolutions.net` and `www.sserpsolutions.net`, and update DNS at the registrar as Vercel instructs. Once the new site works, remove the domain from Framer.
+3. **Deploys → Trigger deploy**. Test on the `*.netlify.app` link.
+4. **Domain management → Add a domain → sserpsolutions.net**, then update DNS at the registrar as Netlify shows. Remove the domain from Framer and cancel the Framer plan.
+
+`netlify/functions/keepalive.mts` runs daily and pings Supabase so the free project is never paused for inactivity.
 
 ## 3. Create the first admin
 
