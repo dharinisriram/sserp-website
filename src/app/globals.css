@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0f1c2e;
+  --color-ink-2: #1c2e47;
+  --color-paper: #f7f5f0;
+  --color-line: #e3dfd6;
+  --color-muted: #5b6575;
+  --color-accent: #b4532a;
+  --color-accent-2: #d9783f;
+  --color-ok: #2f7d5b;
+  --color-warn: #b7791f;
+  --color-bad: #b42318;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Source Serif 4 Variable", Georgia, serif;
+}
+
+html { scroll-behavior: smooth; }
+body { background: var(--color-paper); color: var(--color-ink); }
+
+@utility container-x { @apply mx-auto w-full max-w-6xl px-5 sm:px-8; }
+@utility eyebrow { @apply text-xs font-semibold uppercase tracking-[0.18em] text-accent; }
+@utility h-display { @apply font-serif text-4xl leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl; }
+@utility h-section { @apply font-serif text-3xl leading-tight tracking-tight sm:text-4xl; }
+@utility btn { @apply inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition; }
+@utility btn-primary { @apply btn bg-accent text-white hover:bg-ink; }
+@utility btn-ghost { @apply btn border border-current hover:bg-ink hover:text-paper; }
+@utility card { @apply rounded-2xl border border-line bg-white; }
+@utility input { @apply w-full rounded-lg border border-line bg-white px-3.5 py-2.5 text-sm outline-none focus:border-ink focus:ring-2 focus:ring-ink/10; }
+@utility label { @apply mb-1.5 block text-sm font-medium; }
